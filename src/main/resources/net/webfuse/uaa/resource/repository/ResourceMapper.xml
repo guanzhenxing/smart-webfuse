@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.webfuse.uaa.resource.repository.ResourceMapper">
+  <resultMap id="BaseResultMap" type="net.webfuse.uaa.resource.domain.Resource">
+    <id column="ID" jdbcType="BIGINT" property="id" />
+    <result column="CLIENT_TYPE" jdbcType="VARCHAR" property="clientType" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="DISPLAY_NAME" jdbcType="VARCHAR" property="displayName" />
+    <result column="TAG" jdbcType="VARCHAR" property="tag" />
+    <result column="ENABLED" jdbcType="TINYINT" property="enabled" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, CLIENT_TYPE, `NAME`, DISPLAY_NAME, TAG, ENABLED
+  </sql>
+  <select id="selectByExample" parameterType="net.webfuse.uaa.resource.domain.ResourceCriteria" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from RESOURCE
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from RESOURCE
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from RESOURCE
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="net.webfuse.uaa.resource.domain.Resource">
+    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Long">
+      CALL IDENTITY()
+    </selectKey>
+    insert into RESOURCE (ID, CLIENT_TYPE, `NAME`, 
+      DISPLAY_NAME, TAG, ENABLED
+      )
+    values (#{id,jdbcType=BIGINT}, #{clientType,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{displayName,jdbcType=VARCHAR}, #{tag,jdbcType=VARCHAR}, #{enabled,jdbcType=TINYINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="net.webfuse.uaa.resource.domain.Resource">
+    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Long">
+      CALL IDENTITY()
+    </selectKey>
+    insert into RESOURCE
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      ID,
+      <if test="clientType != null">
+        CLIENT_TYPE,
+      </if>
+      <if test="name != null">
+        `NAME`,
+      </if>
+      <if test="displayName != null">
+        DISPLAY_NAME,
+      </if>
+      <if test="tag != null">
+        TAG,
+      </if>
+      <if test="enabled != null">
+        ENABLED,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      #{id,jdbcType=BIGINT},
+      <if test="clientType != null">
+        #{clientType,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="displayName != null">
+        #{displayName,jdbcType=VARCHAR},
+      </if>
+      <if test="tag != null">
+        #{tag,jdbcType=VARCHAR},
+      </if>
+      <if test="enabled != null">
+        #{enabled,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="net.webfuse.uaa.resource.domain.ResourceCriteria" resultType="java.lang.Long">
+    select count(*) from RESOURCE
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByPrimaryKeySelective" parameterType="net.webfuse.uaa.resource.domain.Resource">
+    update RESOURCE
+    <set>
+      <if test="clientType != null">
+        CLIENT_TYPE = #{clientType,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        `NAME` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="displayName != null">
+        DISPLAY_NAME = #{displayName,jdbcType=VARCHAR},
+      </if>
+      <if test="tag != null">
+        TAG = #{tag,jdbcType=VARCHAR},
+      </if>
+      <if test="enabled != null">
+        ENABLED = #{enabled,jdbcType=TINYINT},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.webfuse.uaa.resource.domain.Resource">
+    update RESOURCE
+    set CLIENT_TYPE = #{clientType,jdbcType=VARCHAR},
+      `NAME` = #{name,jdbcType=VARCHAR},
+      DISPLAY_NAME = #{displayName,jdbcType=VARCHAR},
+      TAG = #{tag,jdbcType=VARCHAR},
+      ENABLED = #{enabled,jdbcType=TINYINT}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
