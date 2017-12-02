@@ -1,5 +1,8 @@
 package net.webfuse.uaa.role.domain;
 
+/**
+ * 角色实体
+ */
 public class Role {
     private Long id;
 
@@ -9,7 +12,7 @@ public class Role {
 
     private String scope;
 
-    private Byte enabled;
+    private Boolean enabled;
 
     public Long getId() {
         return id;
@@ -43,11 +46,11 @@ public class Role {
         this.scope = scope == null ? null : scope.trim();
     }
 
-    public Byte getEnabled() {
+    public Boolean getEnabled() {
         return enabled;
     }
 
-    public void setEnabled(Byte enabled) {
+    public void setEnabled(Boolean enabled) {
         this.enabled = enabled;
     }
 }

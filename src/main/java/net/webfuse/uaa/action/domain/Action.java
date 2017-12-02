@@ -1,17 +1,16 @@
 package net.webfuse.uaa.action.domain;
 
+/**
+ * 操作实体对象
+ */
 public class Action {
+
     private Long id;
-
     private String name;
-
     private String displayName;
-
     private String bizType;
-
     private String apiUrl;
-
-    private Byte enabled;
+    private Boolean enabled;
 
     public Long getId() {
         return id;
@@ -53,11 +52,11 @@ public class Action {
         this.apiUrl = apiUrl == null ? null : apiUrl.trim();
     }
 
-    public Byte getEnabled() {
+    public Boolean getEnabled() {
         return enabled;
     }
 
-    public void setEnabled(Byte enabled) {
+    public void setEnabled(Boolean enabled) {
         this.enabled = enabled;
     }
 }

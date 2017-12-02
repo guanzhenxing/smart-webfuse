@@ -1,5 +1,8 @@
 package net.webfuse.uaa.permission.domain;
 
+/**
+ * 角色与权限的关联关系
+ */
 public class RolePermission {
     private Long id;
 

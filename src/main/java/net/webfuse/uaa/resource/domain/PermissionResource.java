@@ -1,5 +1,8 @@
 package net.webfuse.uaa.resource.domain;
 
+/**
+ * 权限与资源的关联关系
+ */
 public class PermissionResource {
     private Long id;
 

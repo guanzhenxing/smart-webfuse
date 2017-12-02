@@ -2,6 +2,9 @@ package net.webfuse.uaa.user.domain;
 
 import java.util.Date;
 
+/**
+ * 用户实体
+ */
 public class User {
     private Long id;
 
@@ -19,7 +22,7 @@ public class User {
 
     private Date updateTime;
 
-    private Byte enabled;
+    private Boolean enabled;
 
     public Long getId() {
         return id;
@@ -85,11 +88,11 @@ public class User {
         this.updateTime = updateTime;
     }
 
-    public Byte getEnabled() {
+    public Boolean getEnabled() {
         return enabled;
     }
 
-    public void setEnabled(Byte enabled) {
+    public void setEnabled(Boolean enabled) {
         this.enabled = enabled;
     }
 }

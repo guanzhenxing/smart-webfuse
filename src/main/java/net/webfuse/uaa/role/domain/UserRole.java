@@ -1,5 +1,8 @@
 package net.webfuse.uaa.role.domain;
 
+/**
+ * 用户角色关联
+ */
 public class UserRole {
     private Long id;
 

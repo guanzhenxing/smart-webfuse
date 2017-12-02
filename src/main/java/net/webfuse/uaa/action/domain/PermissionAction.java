@@ -1,10 +1,12 @@
 package net.webfuse.uaa.action.domain;
 
+/**
+ * 权限与操作的关联关系
+ */
 public class PermissionAction {
+
     private Long id;
-
     private Long permissionId;
-
     private Long actionId;
 
     public Long getId() {

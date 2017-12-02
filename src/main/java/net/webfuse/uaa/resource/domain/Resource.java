@@ -1,5 +1,8 @@
 package net.webfuse.uaa.resource.domain;
 
+/**
+ * 资源实体
+ */
 public class Resource {
     private Long id;
 
@@ -11,7 +14,7 @@ public class Resource {
 
     private String tag;
 
-    private Byte enabled;
+    private Boolean enabled;
 
     public Long getId() {
         return id;
@@ -53,11 +56,11 @@ public class Resource {
         this.tag = tag == null ? null : tag.trim();
     }
 
-    public Byte getEnabled() {
+    public Boolean getEnabled() {
         return enabled;
     }
 
-    public void setEnabled(Byte enabled) {
+    public void setEnabled(Boolean enabled) {
         this.enabled = enabled;
     }
 }
