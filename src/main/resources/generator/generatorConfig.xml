@@ -30,20 +30,34 @@
                         password="">
         </jdbcConnection>
 
-        <javaModelGenerator targetPackage="test.model" targetProject="./src/main/java">
-            <property name="trimStrings" value="true" />
-            <property name="rootClass" value="network.swan.frame.domain.BaseEntity" />
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+        <javaModelGenerator targetPackage="net.webfuse.uaa.role.domain" targetProject="./src/main/java">
+            <property name="trimStrings" value="true"/>
+            <property name="enableSubPackages" value="false"/>
         </javaModelGenerator>
 
-        <sqlMapGenerator targetPackage="test.xml"  targetProject="./src/main/resources"/>
+        <sqlMapGenerator targetPackage="net.webfuse.uaa.role.repository" targetProject="./src/main/resources">
+            <property name="enableSubPackages" value="false"/>
+        </sqlMapGenerator>
 
-        <javaClientGenerator type="XMLMAPPER" targetPackage="test.dao"  targetProject="./src/main/java"/>
+        <javaClientGenerator type="XMLMAPPER" targetPackage="net.webfuse.uaa.role.repository" targetProject="./src/main/java">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
 
-        <table tableName="user" domainObjectName="User" enableCountByExample="true"
+        <table tableName="user_role" domainObjectName="UserRole"
+               enableCountByExample="true"
                enableUpdateByExample="false"
-               enableDeleteByExample="false" enableSelectByExample="true"
+               enableDeleteByExample="false"
+               enableSelectByExample="true"
                selectByExampleQueryId="false">
+            <generatedKey column="id" sqlStatement="HSQLDB"/>
         </table>
 
     </context>
+
 </generatorConfiguration>
+
+<!--执行的命令 mvn mybatis-generator:generate  -e-->
