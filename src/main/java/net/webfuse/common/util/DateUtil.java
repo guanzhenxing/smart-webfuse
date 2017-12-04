@@ -3,6 +3,10 @@ package net.webfuse.common.util;
 import java.util.Calendar;
 import java.util.Date;
 
+/**
+ * 日期工具
+ * TODO 是否要参考jeesite中的DateUtil
+ */
 public class DateUtil {
 
     /**

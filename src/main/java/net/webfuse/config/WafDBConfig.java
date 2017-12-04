@@ -1,16 +1,22 @@
 package net.webfuse.config;
 
+import net.webfuse.common.db.config.AbstractDBConfig;
 import org.mybatis.spring.boot.autoconfigure.ConfigurationCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * 自定义的MyBatis配置
+ * DB相关配置
  * Created by guanzhenxing on 2017/11/12.
  */
 @Configuration
-public class MyBatisConfig {
+public class WafDBConfig extends AbstractDBConfig {
 
+    /**
+     * MyBatis相关配置
+     *
+     * @return
+     */
     @Bean
     ConfigurationCustomizer configurationCustomizer() {
         return configuration -> {

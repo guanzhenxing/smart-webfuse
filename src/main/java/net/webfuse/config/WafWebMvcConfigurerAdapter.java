@@ -8,12 +8,16 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.filter.HiddenHttpMethodFilter;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
+import org.springframework.web.multipart.MultipartResolver;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.*;
 
 import javax.servlet.Filter;
+import java.nio.charset.Charset;
 import java.util.List;
 
 /**
@@ -34,6 +38,7 @@ public class WafWebMvcConfigurerAdapter extends WebMvcConfigurerAdapter {
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
         super.configureMessageConverters(converters);
+        converters.add(stringHttpMessageConverter());
         converters.add(mappingJackson2HttpMessageConverter());
     }
 
@@ -59,23 +64,15 @@ public class WafWebMvcConfigurerAdapter extends WebMvcConfigurerAdapter {
      */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-//        registry.addInterceptor(wafInterceptor());
+
     }
 
+
     /**
-     * 定义Json的转换格式
+     * HTTP方法转换（当浏览器不支持某些方法的时候，转换）
      *
      * @return
      */
-    @Bean
-    public MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter() {
-        MappingJackson2HttpMessageConverter jsonConverter = new MappingJackson2HttpMessageConverter();
-        ObjectMapper objectMapper = WafJsonMapper.getMapper();
-        jsonConverter.setObjectMapper(objectMapper);
-        return jsonConverter;
-    }
-
-
     @Bean
     public Filter hiddenHttpMethodFilter() {
         HiddenHttpMethodFilter filter = new HiddenHttpMethodFilter();
@@ -96,6 +93,32 @@ public class WafWebMvcConfigurerAdapter extends WebMvcConfigurerAdapter {
     protected CustomServletModelAttributeMethodProcessor customModelAttributeMethodProcessor() {
         return new CustomServletModelAttributeMethodProcessor(true);
     }
+
+    /**
+     * 定义Json的转换格式
+     *
+     * @return
+     */
+    @Bean
+    public MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter() {
+        MappingJackson2HttpMessageConverter jsonConverter = new MappingJackson2HttpMessageConverter();
+        ObjectMapper objectMapper = WafJsonMapper.getMapper();
+        jsonConverter.setObjectMapper(objectMapper);
+        return jsonConverter;
+    }
+
+    /**
+     * 字符串类型编码
+     *
+     * @return
+     */
+    @Bean
+    public StringHttpMessageConverter stringHttpMessageConverter() {
+        return new StringHttpMessageConverter(Charset.forName("UTF-8"));
+    }
+    
+
+    //TODO 异常处理
 
 
 }
