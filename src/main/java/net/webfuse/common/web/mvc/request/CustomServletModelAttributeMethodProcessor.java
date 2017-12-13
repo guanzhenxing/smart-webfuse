@@ -1,4 +1,4 @@
-package net.webfuse.common.web.mvc;
+package net.webfuse.common.web.mvc.request;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;

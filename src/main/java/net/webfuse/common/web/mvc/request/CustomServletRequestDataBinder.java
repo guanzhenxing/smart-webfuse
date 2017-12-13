@@ -1,4 +1,4 @@
-package net.webfuse.common.web.mvc;
+package net.webfuse.common.web.mvc.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import net.webfuse.common.util.StringUtil;

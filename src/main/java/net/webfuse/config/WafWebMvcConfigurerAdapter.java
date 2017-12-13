@@ -3,7 +3,7 @@ package net.webfuse.config;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import net.webfuse.common.web.WafJsonMapper;
-import net.webfuse.common.web.mvc.CustomServletModelAttributeMethodProcessor;
+import net.webfuse.common.web.mvc.request.CustomServletModelAttributeMethodProcessor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
@@ -12,8 +12,6 @@ import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.filter.HiddenHttpMethodFilter;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
-import org.springframework.web.multipart.MultipartResolver;
-import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.*;
 
 import javax.servlet.Filter;
