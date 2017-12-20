@@ -5,7 +5,8 @@ package net.webfuse.common.exception;
  */
 public enum ExceptionMsg {
 
-    NOT_FOUND_RESOURCE(404, "NOT_FOUND_RESOURCE", "没有找到对应的资源");
+    NOT_FOUND(404, "NOT_FOUND", "没有找到对应的资源"),
+    INTERNAL_SERVER_ERROR(500, "INTERNAL_SERVER_ERROR", "服务器内部错误");
 
     ExceptionMsg(int status, String code, String message) {
         this.status = status;

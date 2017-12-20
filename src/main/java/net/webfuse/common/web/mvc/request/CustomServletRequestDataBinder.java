@@ -32,7 +32,7 @@ public class CustomServletRequestDataBinder extends ExtendedServletRequestDataBi
         List<PropertyValue> covertValues = new ArrayList<>();
         for (PropertyValue propertyValue : mpv.getPropertyValueList()) {
             if (propertyValue.getName().contains("_")) {
-                String camelName = StringUtil.toLowerCamel(propertyValue.getName());
+                String camelName = StringUtil.underScoreCase2CamelCase(propertyValue.getName());
                 if (!mpv.contains(camelName)) {
                     covertValues.add(new PropertyValue(camelName, propertyValue.getValue()));
                 }

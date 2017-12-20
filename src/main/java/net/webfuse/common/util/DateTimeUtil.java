@@ -1,13 +1,14 @@
 package net.webfuse.common.util;
 
+import org.apache.commons.lang3.time.DateUtils;
+
 import java.util.Calendar;
 import java.util.Date;
 
 /**
  * 日期工具
- * TODO 是否要参考jeesite中的DateUtil
  */
-public class DateUtil {
+public class DateTimeUtil {
 
     /**
      * 获得当天的开始时间
@@ -16,10 +17,7 @@ public class DateUtil {
      */
     public static Date getBeginTimeOfDay() {
         Calendar currentDate = Calendar.getInstance();
-        currentDate.set(Calendar.HOUR_OF_DAY, 0);
-        currentDate.set(Calendar.MINUTE, 0);
-        currentDate.set(Calendar.SECOND, 0);
-        Date time = currentDate.getTime();
+        Date time = DateUtils.ceiling(currentDate.getTime(), Calendar.DATE);
         return time;
     }
 
@@ -30,10 +28,7 @@ public class DateUtil {
      */
     public static Date getEndTimeOfDay() {
         Calendar currentDate = Calendar.getInstance();
-        currentDate.set(Calendar.HOUR_OF_DAY, 23);
-        currentDate.set(Calendar.MINUTE, 59);
-        currentDate.set(Calendar.SECOND, 59);
-        Date time = currentDate.getTime();
+        Date time = DateUtils.truncate(currentDate.getTime(), Calendar.DATE);
         return time;
     }
 
@@ -55,6 +50,7 @@ public class DateUtil {
 
     /**
      * 获得当周的结束时间
+     *
      * @return
      */
     public static Date getEndTimeOfWeek() {

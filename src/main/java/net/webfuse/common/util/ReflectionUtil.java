@@ -5,6 +5,7 @@ import org.apache.commons.lang3.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.lang.annotation.Annotation;
 import java.lang.invoke.MethodHandles;
 import java.lang.reflect.*;
 
@@ -23,6 +24,56 @@ public class ReflectionUtil {
     private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     private ReflectionUtil() {
+    }
+
+
+    /**
+     * 获取一个类的注解,如果未获取到则获取父类
+     *
+     * @param clazz      要获取的类
+     * @param annotation 注解类型
+     * @param <T>        注解类型泛型
+     * @return 注解
+     */
+    public static <T extends Annotation> T getAnnotation(Class<?> clazz, Class<T> annotation) {
+        T ann = clazz.getAnnotation(annotation);
+        if (ann != null) {
+            return ann;
+        } else {
+            if (clazz.getSuperclass() != Object.class) {
+                //尝试获取父类
+                return getAnnotation(clazz.getSuperclass(), annotation);
+            }
+        }
+        return ann;
+    }
+
+    /**
+     * 获取一个方法的注解,如果未获取则获取父类方法
+     *
+     * @param method     要获取的方法
+     * @param annotation 注解类型
+     * @param <T>        注解类型泛型
+     * @return
+     */
+    public static <T extends Annotation> T getAnnotation(Method method, Class<T> annotation) {
+        T ann = method.getAnnotation(annotation);
+        if (ann != null) {
+            return ann;
+        } else {
+            Class clazz = method.getDeclaringClass();
+            Class superClass = clazz.getSuperclass();
+            if (superClass != Object.class) {
+                try {
+                    //父类方法
+                    Method suMethod = superClass.getMethod(method.getName(), method.getParameterTypes());
+                    return getAnnotation(suMethod, annotation);
+                } catch (NoSuchMethodException e) {
+                    return null;
+                }
+            }
+        }
+        return ann;
     }
 
     /**
@@ -209,8 +260,8 @@ public class ReflectionUtil {
      * determined
      */
     @SuppressWarnings({"unchecked", "rawtypes"})
-    public static <T> Class<T> getClassGenricType(final Class clazz) {
-        return getClassGenricType(clazz, 0);
+    public static <T> Class<T> getClassGenericType(final Class clazz) {
+        return getClassGenericType(clazz, 0);
     }
 
     /**
@@ -224,7 +275,7 @@ public class ReflectionUtil {
      * determined
      */
     @SuppressWarnings("rawtypes")
-    public static Class getClassGenricType(final Class clazz, final int index) {
+    public static Class getClassGenericType(final Class clazz, final int index) {
 
         Type genType = clazz.getGenericSuperclass();
 
