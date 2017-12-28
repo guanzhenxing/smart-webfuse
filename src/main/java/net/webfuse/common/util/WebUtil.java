@@ -6,13 +6,15 @@ import org.apache.commons.lang3.Validate;
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 /**
- * Servlet工具类
+ * Web工具类
  */
-public class ServletUtil {
+public class WebUtil {
 
     // -- 常用数值定义 --//
     public static final long ONE_YEAR_SECONDS = 60 * 60 * 24 * 365;
@@ -176,5 +178,42 @@ public class ServletUtil {
         String encode = userName + ":" + password;
         return "Basic " + EncodeUtil.encodeBase64(encode.getBytes());
     }
+
+    public static Map<String, String> getParameters(HttpServletRequest request) {
+        Map<String, String> parameters = new HashMap<>();
+        Enumeration enumeration = request.getParameterNames();
+        while (enumeration.hasMoreElements()) {
+            String name = String.valueOf(enumeration.nextElement());
+            parameters.put(name, request.getParameter(name));
+        }
+        return parameters;
+    }
+
+    public static Map<String, String> getHeaders(HttpServletRequest request) {
+        Map<String, String> map = new LinkedHashMap<>();
+        Enumeration<String> enumeration = request.getHeaderNames();
+        while (enumeration.hasMoreElements()) {
+            String key = enumeration.nextElement();
+            String value = request.getHeader(key);
+            map.put(key, value);
+        }
+        return map;
+    }
+
+    public static Map<String, String> queryStringToMap(String queryString, String charset) {
+        try {
+            Map<String, String> map = new HashMap<>();
+
+            String[] decode = URLDecoder.decode(queryString, charset).split("&");
+            for (String keyValue : decode) {
+                String[] kv = keyValue.split("[=]", 2);
+                map.put(kv[0], kv.length > 1 ? kv[1] : "");
+            }
+            return map;
+        } catch (UnsupportedEncodingException e) {
+            throw new UnsupportedOperationException(e);
+        }
+    }
+
 
 }
