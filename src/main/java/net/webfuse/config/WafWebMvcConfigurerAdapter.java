@@ -2,6 +2,9 @@ package net.webfuse.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import net.webfuse.common.exception.exhandler.DefaultRestfulErrorResolver;
+import net.webfuse.common.exception.exhandler.HandlerRestfulExceptionResolver;
+import net.webfuse.common.exception.exhandler.RestfulErrorResolver;
 import net.webfuse.common.web.WafJsonMapper;
 import net.webfuse.common.web.mvc.request.CustomServletModelAttributeMethodProcessor;
 import org.springframework.context.annotation.Bean;
@@ -12,11 +15,15 @@ import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.filter.HiddenHttpMethodFilter;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
+import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.*;
+import org.springframework.web.servlet.i18n.AcceptHeaderLocaleResolver;
 
 import javax.servlet.Filter;
 import java.nio.charset.Charset;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 基于SpringMVC注解方式进行配置waf的spring配置。
@@ -62,7 +69,7 @@ public class WafWebMvcConfigurerAdapter extends WebMvcConfigurerAdapter {
      */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-
+        super.addInterceptors(registry);
     }
 
 
@@ -114,9 +121,42 @@ public class WafWebMvcConfigurerAdapter extends WebMvcConfigurerAdapter {
     public StringHttpMessageConverter stringHttpMessageConverter() {
         return new StringHttpMessageConverter(Charset.forName("UTF-8"));
     }
-    
 
-    //TODO 异常处理
+
+    /**
+     * 异常处理解析器
+     *
+     * @return
+     */
+    @Bean
+    public HandlerRestfulExceptionResolver handlerRestfulExceptionResolver() {
+        HandlerRestfulExceptionResolver handlerRestfulExceptionResolver = new HandlerRestfulExceptionResolver();
+        handlerRestfulExceptionResolver.setOrder(-1);
+        handlerRestfulExceptionResolver.setRestfulErrorResolver(defaultRestfulErrorResolver());
+        return handlerRestfulExceptionResolver;
+    }
+
+    @Bean
+    public DefaultRestfulErrorResolver defaultRestfulErrorResolver() {
+        DefaultRestfulErrorResolver defaultRestfulErrorResolver = new DefaultRestfulErrorResolver();
+        defaultRestfulErrorResolver.setLocaleResolver(localeResolver());
+        defaultRestfulErrorResolver.setDefaultDocument("");
+        defaultRestfulErrorResolver.setDefaultMessage("");
+        defaultRestfulErrorResolver.setExceptionDefinitionMessageMappings(getExceptionDefinitionMessageMappings());
+        return defaultRestfulErrorResolver;
+    }
+
+    private Map<String, String> getExceptionDefinitionMessageMappings() {
+        Map<String, String> exceptionMappingDefinitions = new HashMap<>();
+//        exceptionMappingDefinitions.put("net.webfuse.common.exception.BasicBizException",
+//                "{\"code\":\"INTERNAL_SERVER_ERROR\",\"status\":\"500\",\"message\":\"\",\"document\":\"\"}");
+        return exceptionMappingDefinitions;
+    }
+
+    @Bean
+    public LocaleResolver localeResolver() {
+        return new AcceptHeaderLocaleResolver();
+    }
 
 
 }
