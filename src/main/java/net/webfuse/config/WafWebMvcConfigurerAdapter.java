@@ -3,8 +3,7 @@ package net.webfuse.config;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import net.webfuse.common.exception.exhandler.DefaultRestfulErrorResolver;
-import net.webfuse.common.exception.exhandler.HandlerRestfulExceptionResolver;
-import net.webfuse.common.exception.exhandler.RestfulErrorResolver;
+import net.webfuse.common.exception.exhandler.RestfulHandlerExceptionResolver;
 import net.webfuse.common.web.WafJsonMapper;
 import net.webfuse.common.web.mvc.request.CustomServletModelAttributeMethodProcessor;
 import org.springframework.context.annotation.Bean;
@@ -15,6 +14,7 @@ import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.filter.HiddenHttpMethodFilter;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
+import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.i18n.AcceptHeaderLocaleResolver;
@@ -122,6 +122,10 @@ public class WafWebMvcConfigurerAdapter extends WebMvcConfigurerAdapter {
         return new StringHttpMessageConverter(Charset.forName("UTF-8"));
     }
 
+    @Override
+    public void configureHandlerExceptionResolvers(List<HandlerExceptionResolver> exceptionResolvers) {
+        exceptionResolvers.add(0, restfulHandlerExceptionResolver());
+    }
 
     /**
      * 异常处理解析器
@@ -129,8 +133,8 @@ public class WafWebMvcConfigurerAdapter extends WebMvcConfigurerAdapter {
      * @return
      */
     @Bean
-    public HandlerRestfulExceptionResolver handlerRestfulExceptionResolver() {
-        HandlerRestfulExceptionResolver handlerRestfulExceptionResolver = new HandlerRestfulExceptionResolver();
+    public RestfulHandlerExceptionResolver restfulHandlerExceptionResolver() {
+        RestfulHandlerExceptionResolver handlerRestfulExceptionResolver = new RestfulHandlerExceptionResolver();
         handlerRestfulExceptionResolver.setOrder(-1);
         handlerRestfulExceptionResolver.setRestfulErrorResolver(defaultRestfulErrorResolver());
         return handlerRestfulExceptionResolver;

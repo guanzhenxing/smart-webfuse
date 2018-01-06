@@ -1,8 +1,8 @@
 package net.webfuse.common.util.mapper;
 
 
+import net.webfuse.common.util.ClassUtil;
 import net.webfuse.common.util.ExceptionUtil;
-import net.webfuse.common.util.ReflectionUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 
@@ -30,7 +30,7 @@ public class JaxbMapper {
      * Java Object->Xml without encoding.
      */
     public static String toXml(Object root) {
-        Class clazz = ReflectionUtil.getClass(root);
+        Class clazz = ClassUtil.getClass(root);
         return toXml(root, clazz, null);
     }
 
@@ -38,7 +38,7 @@ public class JaxbMapper {
      * Java Object->Xml with encoding.
      */
     public static String toXml(Object root, String encoding) {
-        Class clazz = ReflectionUtil.getClass(root);
+        Class clazz = ClassUtil.getClass(root);
         return toXml(root, clazz, encoding);
     }
 

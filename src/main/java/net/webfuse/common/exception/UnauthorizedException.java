@@ -2,7 +2,7 @@ package net.webfuse.common.exception;
 
 /**
  * 未授权异常
- *  Created by guanzhenxing on 2018/1/5.
+ * Created by guanzhenxing on 2018/1/5.
  */
 public class UnauthorizedException extends BasicBizException {
 
@@ -18,6 +18,10 @@ public class UnauthorizedException extends BasicBizException {
 
     public UnauthorizedException(Throwable cause) {
         this(cause.getMessage(), cause);
+    }
+
+    public UnauthorizedException(String message) {
+        this(message, null);
     }
 
 }

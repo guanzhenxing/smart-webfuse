@@ -25,9 +25,9 @@ import java.util.List;
  * Restful异常处理分析器
  * Created by guanzhenxing on 2018/1/5.
  */
-public class HandlerRestfulExceptionResolver extends AbstractHandlerExceptionResolver implements InitializingBean {
+public class RestfulHandlerExceptionResolver extends AbstractHandlerExceptionResolver implements InitializingBean {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(HandlerRestfulExceptionResolver.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(RestfulHandlerExceptionResolver.class);
 
     private List<HttpMessageConverter<?>> allMessageConverters = null;
 
@@ -35,7 +35,7 @@ public class HandlerRestfulExceptionResolver extends AbstractHandlerExceptionRes
     private RestfulErrorConverter<?> restfulErrorConverter;
     private RestfulErrorResolver restfulErrorResolver;
 
-    public HandlerRestfulExceptionResolver() {
+    public RestfulHandlerExceptionResolver() {
         this.restfulErrorConverter = new DefaultRestfulErrorConverter();
         this.restfulErrorResolver = new DefaultRestfulErrorResolver();
     }

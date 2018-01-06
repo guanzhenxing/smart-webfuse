@@ -11,7 +11,7 @@ import java.util.concurrent.ConcurrentHashMap;
  *    "message":"",
  *    "document":"",
  *    "developer_message":{
- *        "throwable":"",
+ *        "throwable":{},
  *        "request_id":"",
  *        "host_id":"",
  *        "server_time":"",

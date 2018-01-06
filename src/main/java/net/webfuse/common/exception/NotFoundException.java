@@ -19,4 +19,8 @@ public class NotFoundException extends BasicBizException {
     public NotFoundException(Throwable cause) {
         this(cause.getMessage(), cause);
     }
+
+    public NotFoundException(String message) {
+        this(message, null);
+    }
 }

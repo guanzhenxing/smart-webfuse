@@ -17,8 +17,12 @@ public class BadRequestException extends BasicBizException {
     }
 
     public BadRequestException(Throwable cause) {
-        super(errorMsg.getStatus(), errorMsg.getCode(), cause.getMessage(), cause);
+        this(cause.getMessage(), cause);
     }
 
+
+    public BadRequestException(String message) {
+        this(message, null);
+    }
 
 }

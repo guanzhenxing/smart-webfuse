@@ -1,7 +1,9 @@
 package net.webfuse.common.exception.exhandler;
 
 import net.webfuse.common.exception.BasicBizException;
+import net.webfuse.common.util.mapper.BeanMapper;
 import net.webfuse.common.util.mapper.JsonMapper;
+import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang3.ClassUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -74,9 +76,17 @@ public class DefaultRestfulErrorResolver implements RestfulErrorResolver, Messag
         builder.setServerTime(template.getServerTime());
         builder.setThrowable(ex);
         builder.setHostId(request.getServerName());
-        builder.setRequestId(request.getHeader("X-Request-ID"));    //自定义的X-Request-ID
+        builder.setRequestId(getRequestId(request));    //自定义的X-Request-ID
 
         return builder.build();
+    }
+
+    private String getRequestId(HttpServletRequest request) {
+        String requestId = request.getHeader("X-Request-ID");
+        if (requestId == null) {
+            requestId = "";
+        }
+        return requestId;
     }
 
     private RestfulError buildRuntimeError(Object handler, Exception ex) {
@@ -121,22 +131,22 @@ public class DefaultRestfulErrorResolver implements RestfulErrorResolver, Messag
      * @return
      */
     private RestfulError buildBasicBizExceptionError(Exception ex, Object handler, RestfulError restfulError) {
-        Map<String, String> exMsg = JsonMapper.getInstance().fromJson(ex.getMessage(), Map.class);
+        Map<String, Object> exMsg = BeanMapper.convertBeanToMap(ex);
 
         HttpStatus httpStatus;
         try {
-            String status = exMsg.get("status");
+            String status = MapUtils.getString(exMsg, "status");
             httpStatus = HttpStatus.valueOf(Integer.valueOf(status));
         } catch (Exception e) {
             LOGGER.debug("Error to HttpStatus,the error value is " + exMsg.get("status"));
             httpStatus = restfulError.getStatus();  //默认使用 HttpStatus.INTERNAL_SERVER_ERROR
         }
 
-        String message = exMsg.get("message");
+        String message = MapUtils.getString(exMsg, "message");
         if (message.equalsIgnoreCase("null") || StringUtils.isEmpty(message)) {
             message = restfulError.getMessage();
         }
-        String code = Optional.ofNullable(exMsg.get("code")).orElse(restfulError.getCode());
+        String code = Optional.ofNullable(MapUtils.getString(exMsg, "code")).orElse(restfulError.getCode());
 
         RestfulError.Builder builder = new RestfulError.Builder();
         builder.setDocument(buildDocument(restfulError));
@@ -150,8 +160,9 @@ public class DefaultRestfulErrorResolver implements RestfulErrorResolver, Messag
 
 
     private String buildDeveloperMessage(RestfulError restfulError, Object handler, Exception ex) {
+
         String developerMessage = restfulError.getDeveloperMessage();
-        if (StringUtils.isEmpty(developerMessage)) {
+        if (StringUtils.isEmpty(developerMessage) && ex != null) {
             String exMessage = ex.getMessage();
             developerMessage = exMessage;
         }
@@ -162,13 +173,16 @@ public class DefaultRestfulErrorResolver implements RestfulErrorResolver, Messag
         String document = template.getDocument();
         //如果该RestfulError的文档定义和默认的一样，就在其父类中查看，如果找到，就其父类的文档，这样做可以用来做文档归类
         if (defaultDocument.equalsIgnoreCase(document)) {
-            List<Class<?>> superClasses = ClassUtils.getAllSuperclasses(template.getThrowable().getClass());
-            for (Class superClass : superClasses) {
-                LOGGER.debug("In buildDocument, the super class name is " + superClass.getName());
-                RestfulError restfulError = this.exceptionMappings.get(superClass.getName());
-                if (restfulError != null) {
-                    document = restfulError.getDocument();
-                    break;
+            Throwable throwable = template.getThrowable();
+            if (throwable != null) {
+                List<Class<?>> superClasses = ClassUtils.getAllSuperclasses(throwable.getClass());
+                for (Class superClass : superClasses) {
+                    LOGGER.debug("In buildDocument, the super class name is " + superClass.getName());
+                    RestfulError restfulError = this.exceptionMappings.get(superClass.getName());
+                    if (restfulError != null) {
+                        document = restfulError.getDocument();
+                        break;
+                    }
                 }
             }
         }

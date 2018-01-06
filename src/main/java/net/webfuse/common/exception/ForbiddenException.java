@@ -19,4 +19,8 @@ public class ForbiddenException extends BasicBizException {
     public ForbiddenException(Throwable cause) {
         this(cause.getMessage(), cause);
     }
+
+    public ForbiddenException(String message) {
+        this(message, null);
+    }
 }
