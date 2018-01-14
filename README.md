@@ -3,6 +3,8 @@
 WebFuse是一个轻量级的Java Web开发框架。
 
 ## 功能
+异常处理器：RestfulHandlerExceptionResolver和GlobalRestfulExceptionHandler
+
 
 ## 技术栈
 

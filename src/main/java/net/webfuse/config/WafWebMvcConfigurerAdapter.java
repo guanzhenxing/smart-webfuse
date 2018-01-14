@@ -122,6 +122,11 @@ public class WafWebMvcConfigurerAdapter extends WebMvcConfigurerAdapter {
         return new StringHttpMessageConverter(Charset.forName("UTF-8"));
     }
 
+    /**
+     * 配置异常处理器
+     *
+     * @param exceptionResolvers
+     */
     @Override
     public void configureHandlerExceptionResolvers(List<HandlerExceptionResolver> exceptionResolvers) {
         exceptionResolvers.add(0, restfulHandlerExceptionResolver());
