@@ -3,9 +3,11 @@
 <mapper namespace="net.webfuse.uaa.role.repository.RoleMapper">
   <resultMap id="BaseResultMap" type="net.webfuse.uaa.role.domain.Role">
     <id column="ID" jdbcType="BIGINT" property="id" />
+    <result column="CODE" jdbcType="VARCHAR" property="code" />
     <result column="NAME" jdbcType="VARCHAR" property="name" />
-    <result column="DISPLAY_NAME" jdbcType="VARCHAR" property="displayName" />
     <result column="SCOPE" jdbcType="VARCHAR" property="scope" />
+    <result column="DESCRIPTION" jdbcType="VARCHAR" property="description" />
+    <result column="STATUS" jdbcType="VARCHAR" property="status" />
     <result column="ENABLED" jdbcType="TINYINT" property="enabled" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -38,7 +40,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    ID, `NAME`, DISPLAY_NAME, `SCOPE`, ENABLED
+    ID, CODE, `NAME`, `SCOPE`, DESCRIPTION, `STATUS`, ENABLED
   </sql>
   <select id="selectByExample" parameterType="net.webfuse.uaa.role.domain.RoleCriteria" resultMap="BaseResultMap">
     select
@@ -69,10 +71,12 @@
     <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Long">
       CALL IDENTITY()
     </selectKey>
-    insert into ROLE (ID, `NAME`, DISPLAY_NAME, 
-      `SCOPE`, ENABLED)
-    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{displayName,jdbcType=VARCHAR}, 
-      #{scope,jdbcType=VARCHAR}, #{enabled,jdbcType=TINYINT})
+    insert into ROLE (ID, CODE, `NAME`, 
+      `SCOPE`, DESCRIPTION, `STATUS`, 
+      ENABLED)
+    values (#{id,jdbcType=BIGINT}, #{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{scope,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
+      #{enabled,jdbcType=TINYINT})
   </insert>
   <insert id="insertSelective" parameterType="net.webfuse.uaa.role.domain.Role">
     <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Long">
@@ -81,14 +85,20 @@
     insert into ROLE
     <trim prefix="(" suffix=")" suffixOverrides=",">
       ID,
+      <if test="code != null">
+        CODE,
+      </if>
       <if test="name != null">
         `NAME`,
       </if>
-      <if test="displayName != null">
-        DISPLAY_NAME,
-      </if>
       <if test="scope != null">
         `SCOPE`,
+      </if>
+      <if test="description != null">
+        DESCRIPTION,
+      </if>
+      <if test="status != null">
+        `STATUS`,
       </if>
       <if test="enabled != null">
         ENABLED,
@@ -96,14 +106,20 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       #{id,jdbcType=BIGINT},
+      <if test="code != null">
+        #{code,jdbcType=VARCHAR},
+      </if>
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
       </if>
-      <if test="displayName != null">
-        #{displayName,jdbcType=VARCHAR},
-      </if>
       <if test="scope != null">
         #{scope,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
       </if>
       <if test="enabled != null">
         #{enabled,jdbcType=TINYINT},
@@ -119,14 +135,20 @@
   <update id="updateByPrimaryKeySelective" parameterType="net.webfuse.uaa.role.domain.Role">
     update ROLE
     <set>
+      <if test="code != null">
+        CODE = #{code,jdbcType=VARCHAR},
+      </if>
       <if test="name != null">
         `NAME` = #{name,jdbcType=VARCHAR},
       </if>
-      <if test="displayName != null">
-        DISPLAY_NAME = #{displayName,jdbcType=VARCHAR},
-      </if>
       <if test="scope != null">
         `SCOPE` = #{scope,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        DESCRIPTION = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        `STATUS` = #{status,jdbcType=VARCHAR},
       </if>
       <if test="enabled != null">
         ENABLED = #{enabled,jdbcType=TINYINT},
@@ -136,9 +158,11 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="net.webfuse.uaa.role.domain.Role">
     update ROLE
-    set `NAME` = #{name,jdbcType=VARCHAR},
-      DISPLAY_NAME = #{displayName,jdbcType=VARCHAR},
+    set CODE = #{code,jdbcType=VARCHAR},
+      `NAME` = #{name,jdbcType=VARCHAR},
       `SCOPE` = #{scope,jdbcType=VARCHAR},
+      DESCRIPTION = #{description,jdbcType=VARCHAR},
+      `STATUS` = #{status,jdbcType=VARCHAR},
       ENABLED = #{enabled,jdbcType=TINYINT}
     where ID = #{id,jdbcType=BIGINT}
   </update>

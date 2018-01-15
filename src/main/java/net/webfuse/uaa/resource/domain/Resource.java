@@ -1,20 +1,21 @@
 package net.webfuse.uaa.resource.domain;
 
-/**
- * 资源实体
- */
 public class Resource {
     private Long id;
 
     private String clientType;
 
-    private String name;
+    private String code;
 
-    private String displayName;
+    private String name;
 
     private String tag;
 
-    private Boolean enabled;
+    private String description;
+
+    private String status;
+
+    private Byte enabled;
 
     public Long getId() {
         return id;
@@ -32,20 +33,20 @@ public class Resource {
         this.clientType = clientType == null ? null : clientType.trim();
     }
 
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code == null ? null : code.trim();
+    }
+
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name == null ? null : name.trim();
-    }
-
-    public String getDisplayName() {
-        return displayName;
-    }
-
-    public void setDisplayName(String displayName) {
-        this.displayName = displayName == null ? null : displayName.trim();
     }
 
     public String getTag() {
@@ -56,11 +57,27 @@ public class Resource {
         this.tag = tag == null ? null : tag.trim();
     }
 
-    public Boolean getEnabled() {
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description == null ? null : description.trim();
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status == null ? null : status.trim();
+    }
+
+    public Byte getEnabled() {
         return enabled;
     }
 
-    public void setEnabled(Boolean enabled) {
+    public void setEnabled(Byte enabled) {
         this.enabled = enabled;
     }
 }

@@ -1,16 +1,16 @@
-package net.webfuse.uaa.action.domain;
+package net.webfuse.uaa.user.domain;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class PermissionActionCriteria {
+public class UserExtraCriteria {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
 
-    public PermissionActionCriteria() {
+    public UserExtraCriteria() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
@@ -104,6 +104,76 @@ public class PermissionActionCriteria {
             criteria.add(new Criterion(condition, value1, value2));
         }
 
+        public Criteria andUserIdIsNull() {
+            addCriterion("USER_ID is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserIdIsNotNull() {
+            addCriterion("USER_ID is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserIdEqualTo(String value) {
+            addCriterion("USER_ID =", value, "userId");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserIdNotEqualTo(String value) {
+            addCriterion("USER_ID <>", value, "userId");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserIdGreaterThan(String value) {
+            addCriterion("USER_ID >", value, "userId");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserIdGreaterThanOrEqualTo(String value) {
+            addCriterion("USER_ID >=", value, "userId");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserIdLessThan(String value) {
+            addCriterion("USER_ID <", value, "userId");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserIdLessThanOrEqualTo(String value) {
+            addCriterion("USER_ID <=", value, "userId");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserIdLike(String value) {
+            addCriterion("USER_ID like", value, "userId");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserIdNotLike(String value) {
+            addCriterion("USER_ID not like", value, "userId");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserIdIn(List<String> values) {
+            addCriterion("USER_ID in", values, "userId");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserIdNotIn(List<String> values) {
+            addCriterion("USER_ID not in", values, "userId");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserIdBetween(String value1, String value2) {
+            addCriterion("USER_ID between", value1, value2, "userId");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserIdNotBetween(String value1, String value2) {
+            addCriterion("USER_ID not between", value1, value2, "userId");
+            return (Criteria) this;
+        }
+
         public Criteria andIdIsNull() {
             addCriterion("ID is null");
             return (Criteria) this;
@@ -161,126 +231,6 @@ public class PermissionActionCriteria {
 
         public Criteria andIdNotBetween(Long value1, Long value2) {
             addCriterion("ID not between", value1, value2, "id");
-            return (Criteria) this;
-        }
-
-        public Criteria andPermissionIdIsNull() {
-            addCriterion("PERMISSION_ID is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andPermissionIdIsNotNull() {
-            addCriterion("PERMISSION_ID is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andPermissionIdEqualTo(Long value) {
-            addCriterion("PERMISSION_ID =", value, "permissionId");
-            return (Criteria) this;
-        }
-
-        public Criteria andPermissionIdNotEqualTo(Long value) {
-            addCriterion("PERMISSION_ID <>", value, "permissionId");
-            return (Criteria) this;
-        }
-
-        public Criteria andPermissionIdGreaterThan(Long value) {
-            addCriterion("PERMISSION_ID >", value, "permissionId");
-            return (Criteria) this;
-        }
-
-        public Criteria andPermissionIdGreaterThanOrEqualTo(Long value) {
-            addCriterion("PERMISSION_ID >=", value, "permissionId");
-            return (Criteria) this;
-        }
-
-        public Criteria andPermissionIdLessThan(Long value) {
-            addCriterion("PERMISSION_ID <", value, "permissionId");
-            return (Criteria) this;
-        }
-
-        public Criteria andPermissionIdLessThanOrEqualTo(Long value) {
-            addCriterion("PERMISSION_ID <=", value, "permissionId");
-            return (Criteria) this;
-        }
-
-        public Criteria andPermissionIdIn(List<Long> values) {
-            addCriterion("PERMISSION_ID in", values, "permissionId");
-            return (Criteria) this;
-        }
-
-        public Criteria andPermissionIdNotIn(List<Long> values) {
-            addCriterion("PERMISSION_ID not in", values, "permissionId");
-            return (Criteria) this;
-        }
-
-        public Criteria andPermissionIdBetween(Long value1, Long value2) {
-            addCriterion("PERMISSION_ID between", value1, value2, "permissionId");
-            return (Criteria) this;
-        }
-
-        public Criteria andPermissionIdNotBetween(Long value1, Long value2) {
-            addCriterion("PERMISSION_ID not between", value1, value2, "permissionId");
-            return (Criteria) this;
-        }
-
-        public Criteria andActionIdIsNull() {
-            addCriterion("ACTION_ID is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andActionIdIsNotNull() {
-            addCriterion("ACTION_ID is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andActionIdEqualTo(Long value) {
-            addCriterion("ACTION_ID =", value, "actionId");
-            return (Criteria) this;
-        }
-
-        public Criteria andActionIdNotEqualTo(Long value) {
-            addCriterion("ACTION_ID <>", value, "actionId");
-            return (Criteria) this;
-        }
-
-        public Criteria andActionIdGreaterThan(Long value) {
-            addCriterion("ACTION_ID >", value, "actionId");
-            return (Criteria) this;
-        }
-
-        public Criteria andActionIdGreaterThanOrEqualTo(Long value) {
-            addCriterion("ACTION_ID >=", value, "actionId");
-            return (Criteria) this;
-        }
-
-        public Criteria andActionIdLessThan(Long value) {
-            addCriterion("ACTION_ID <", value, "actionId");
-            return (Criteria) this;
-        }
-
-        public Criteria andActionIdLessThanOrEqualTo(Long value) {
-            addCriterion("ACTION_ID <=", value, "actionId");
-            return (Criteria) this;
-        }
-
-        public Criteria andActionIdIn(List<Long> values) {
-            addCriterion("ACTION_ID in", values, "actionId");
-            return (Criteria) this;
-        }
-
-        public Criteria andActionIdNotIn(List<Long> values) {
-            addCriterion("ACTION_ID not in", values, "actionId");
-            return (Criteria) this;
-        }
-
-        public Criteria andActionIdBetween(Long value1, Long value2) {
-            addCriterion("ACTION_ID between", value1, value2, "actionId");
-            return (Criteria) this;
-        }
-
-        public Criteria andActionIdNotBetween(Long value1, Long value2) {
-            addCriterion("ACTION_ID not between", value1, value2, "actionId");
             return (Criteria) this;
         }
     }

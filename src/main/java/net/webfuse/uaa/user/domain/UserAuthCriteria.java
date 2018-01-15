@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class UserCriteria {
+public class UserAuthCriteria {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
 
-    public UserCriteria() {
+    public UserAuthCriteria() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
@@ -165,323 +165,283 @@ public class UserCriteria {
             return (Criteria) this;
         }
 
-        public Criteria andUsernameIsNull() {
-            addCriterion("USERNAME is null");
+        public Criteria andUserIdIsNull() {
+            addCriterion("USER_ID is null");
             return (Criteria) this;
         }
 
-        public Criteria andUsernameIsNotNull() {
-            addCriterion("USERNAME is not null");
+        public Criteria andUserIdIsNotNull() {
+            addCriterion("USER_ID is not null");
             return (Criteria) this;
         }
 
-        public Criteria andUsernameEqualTo(String value) {
-            addCriterion("USERNAME =", value, "username");
+        public Criteria andUserIdEqualTo(String value) {
+            addCriterion("USER_ID =", value, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andUsernameNotEqualTo(String value) {
-            addCriterion("USERNAME <>", value, "username");
+        public Criteria andUserIdNotEqualTo(String value) {
+            addCriterion("USER_ID <>", value, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andUsernameGreaterThan(String value) {
-            addCriterion("USERNAME >", value, "username");
+        public Criteria andUserIdGreaterThan(String value) {
+            addCriterion("USER_ID >", value, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andUsernameGreaterThanOrEqualTo(String value) {
-            addCriterion("USERNAME >=", value, "username");
+        public Criteria andUserIdGreaterThanOrEqualTo(String value) {
+            addCriterion("USER_ID >=", value, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andUsernameLessThan(String value) {
-            addCriterion("USERNAME <", value, "username");
+        public Criteria andUserIdLessThan(String value) {
+            addCriterion("USER_ID <", value, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andUsernameLessThanOrEqualTo(String value) {
-            addCriterion("USERNAME <=", value, "username");
+        public Criteria andUserIdLessThanOrEqualTo(String value) {
+            addCriterion("USER_ID <=", value, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andUsernameLike(String value) {
-            addCriterion("USERNAME like", value, "username");
+        public Criteria andUserIdLike(String value) {
+            addCriterion("USER_ID like", value, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andUsernameNotLike(String value) {
-            addCriterion("USERNAME not like", value, "username");
+        public Criteria andUserIdNotLike(String value) {
+            addCriterion("USER_ID not like", value, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andUsernameIn(List<String> values) {
-            addCriterion("USERNAME in", values, "username");
+        public Criteria andUserIdIn(List<String> values) {
+            addCriterion("USER_ID in", values, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andUsernameNotIn(List<String> values) {
-            addCriterion("USERNAME not in", values, "username");
+        public Criteria andUserIdNotIn(List<String> values) {
+            addCriterion("USER_ID not in", values, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andUsernameBetween(String value1, String value2) {
-            addCriterion("USERNAME between", value1, value2, "username");
+        public Criteria andUserIdBetween(String value1, String value2) {
+            addCriterion("USER_ID between", value1, value2, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andUsernameNotBetween(String value1, String value2) {
-            addCriterion("USERNAME not between", value1, value2, "username");
+        public Criteria andUserIdNotBetween(String value1, String value2) {
+            addCriterion("USER_ID not between", value1, value2, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andPasswordIsNull() {
-            addCriterion("`PASSWORD` is null");
+        public Criteria andIdentityTypeIsNull() {
+            addCriterion("IDENTITY_TYPE is null");
             return (Criteria) this;
         }
 
-        public Criteria andPasswordIsNotNull() {
-            addCriterion("`PASSWORD` is not null");
+        public Criteria andIdentityTypeIsNotNull() {
+            addCriterion("IDENTITY_TYPE is not null");
             return (Criteria) this;
         }
 
-        public Criteria andPasswordEqualTo(String value) {
-            addCriterion("`PASSWORD` =", value, "password");
+        public Criteria andIdentityTypeEqualTo(String value) {
+            addCriterion("IDENTITY_TYPE =", value, "identityType");
             return (Criteria) this;
         }
 
-        public Criteria andPasswordNotEqualTo(String value) {
-            addCriterion("`PASSWORD` <>", value, "password");
+        public Criteria andIdentityTypeNotEqualTo(String value) {
+            addCriterion("IDENTITY_TYPE <>", value, "identityType");
             return (Criteria) this;
         }
 
-        public Criteria andPasswordGreaterThan(String value) {
-            addCriterion("`PASSWORD` >", value, "password");
+        public Criteria andIdentityTypeGreaterThan(String value) {
+            addCriterion("IDENTITY_TYPE >", value, "identityType");
             return (Criteria) this;
         }
 
-        public Criteria andPasswordGreaterThanOrEqualTo(String value) {
-            addCriterion("`PASSWORD` >=", value, "password");
+        public Criteria andIdentityTypeGreaterThanOrEqualTo(String value) {
+            addCriterion("IDENTITY_TYPE >=", value, "identityType");
             return (Criteria) this;
         }
 
-        public Criteria andPasswordLessThan(String value) {
-            addCriterion("`PASSWORD` <", value, "password");
+        public Criteria andIdentityTypeLessThan(String value) {
+            addCriterion("IDENTITY_TYPE <", value, "identityType");
             return (Criteria) this;
         }
 
-        public Criteria andPasswordLessThanOrEqualTo(String value) {
-            addCriterion("`PASSWORD` <=", value, "password");
+        public Criteria andIdentityTypeLessThanOrEqualTo(String value) {
+            addCriterion("IDENTITY_TYPE <=", value, "identityType");
             return (Criteria) this;
         }
 
-        public Criteria andPasswordLike(String value) {
-            addCriterion("`PASSWORD` like", value, "password");
+        public Criteria andIdentityTypeLike(String value) {
+            addCriterion("IDENTITY_TYPE like", value, "identityType");
             return (Criteria) this;
         }
 
-        public Criteria andPasswordNotLike(String value) {
-            addCriterion("`PASSWORD` not like", value, "password");
+        public Criteria andIdentityTypeNotLike(String value) {
+            addCriterion("IDENTITY_TYPE not like", value, "identityType");
             return (Criteria) this;
         }
 
-        public Criteria andPasswordIn(List<String> values) {
-            addCriterion("`PASSWORD` in", values, "password");
+        public Criteria andIdentityTypeIn(List<String> values) {
+            addCriterion("IDENTITY_TYPE in", values, "identityType");
             return (Criteria) this;
         }
 
-        public Criteria andPasswordNotIn(List<String> values) {
-            addCriterion("`PASSWORD` not in", values, "password");
+        public Criteria andIdentityTypeNotIn(List<String> values) {
+            addCriterion("IDENTITY_TYPE not in", values, "identityType");
             return (Criteria) this;
         }
 
-        public Criteria andPasswordBetween(String value1, String value2) {
-            addCriterion("`PASSWORD` between", value1, value2, "password");
+        public Criteria andIdentityTypeBetween(String value1, String value2) {
+            addCriterion("IDENTITY_TYPE between", value1, value2, "identityType");
             return (Criteria) this;
         }
 
-        public Criteria andPasswordNotBetween(String value1, String value2) {
-            addCriterion("`PASSWORD` not between", value1, value2, "password");
+        public Criteria andIdentityTypeNotBetween(String value1, String value2) {
+            addCriterion("IDENTITY_TYPE not between", value1, value2, "identityType");
             return (Criteria) this;
         }
 
-        public Criteria andAccountNonExpiredIsNull() {
-            addCriterion("ACCOUNT_NON_EXPIRED is null");
+        public Criteria andIdentifierIsNull() {
+            addCriterion("IDENTIFIER is null");
             return (Criteria) this;
         }
 
-        public Criteria andAccountNonExpiredIsNotNull() {
-            addCriterion("ACCOUNT_NON_EXPIRED is not null");
+        public Criteria andIdentifierIsNotNull() {
+            addCriterion("IDENTIFIER is not null");
             return (Criteria) this;
         }
 
-        public Criteria andAccountNonExpiredEqualTo(Byte value) {
-            addCriterion("ACCOUNT_NON_EXPIRED =", value, "accountNonExpired");
+        public Criteria andIdentifierEqualTo(String value) {
+            addCriterion("IDENTIFIER =", value, "identifier");
             return (Criteria) this;
         }
 
-        public Criteria andAccountNonExpiredNotEqualTo(Byte value) {
-            addCriterion("ACCOUNT_NON_EXPIRED <>", value, "accountNonExpired");
+        public Criteria andIdentifierNotEqualTo(String value) {
+            addCriterion("IDENTIFIER <>", value, "identifier");
             return (Criteria) this;
         }
 
-        public Criteria andAccountNonExpiredGreaterThan(Byte value) {
-            addCriterion("ACCOUNT_NON_EXPIRED >", value, "accountNonExpired");
+        public Criteria andIdentifierGreaterThan(String value) {
+            addCriterion("IDENTIFIER >", value, "identifier");
             return (Criteria) this;
         }
 
-        public Criteria andAccountNonExpiredGreaterThanOrEqualTo(Byte value) {
-            addCriterion("ACCOUNT_NON_EXPIRED >=", value, "accountNonExpired");
+        public Criteria andIdentifierGreaterThanOrEqualTo(String value) {
+            addCriterion("IDENTIFIER >=", value, "identifier");
             return (Criteria) this;
         }
 
-        public Criteria andAccountNonExpiredLessThan(Byte value) {
-            addCriterion("ACCOUNT_NON_EXPIRED <", value, "accountNonExpired");
+        public Criteria andIdentifierLessThan(String value) {
+            addCriterion("IDENTIFIER <", value, "identifier");
             return (Criteria) this;
         }
 
-        public Criteria andAccountNonExpiredLessThanOrEqualTo(Byte value) {
-            addCriterion("ACCOUNT_NON_EXPIRED <=", value, "accountNonExpired");
+        public Criteria andIdentifierLessThanOrEqualTo(String value) {
+            addCriterion("IDENTIFIER <=", value, "identifier");
             return (Criteria) this;
         }
 
-        public Criteria andAccountNonExpiredIn(List<Byte> values) {
-            addCriterion("ACCOUNT_NON_EXPIRED in", values, "accountNonExpired");
+        public Criteria andIdentifierLike(String value) {
+            addCriterion("IDENTIFIER like", value, "identifier");
             return (Criteria) this;
         }
 
-        public Criteria andAccountNonExpiredNotIn(List<Byte> values) {
-            addCriterion("ACCOUNT_NON_EXPIRED not in", values, "accountNonExpired");
+        public Criteria andIdentifierNotLike(String value) {
+            addCriterion("IDENTIFIER not like", value, "identifier");
             return (Criteria) this;
         }
 
-        public Criteria andAccountNonExpiredBetween(Byte value1, Byte value2) {
-            addCriterion("ACCOUNT_NON_EXPIRED between", value1, value2, "accountNonExpired");
+        public Criteria andIdentifierIn(List<String> values) {
+            addCriterion("IDENTIFIER in", values, "identifier");
             return (Criteria) this;
         }
 
-        public Criteria andAccountNonExpiredNotBetween(Byte value1, Byte value2) {
-            addCriterion("ACCOUNT_NON_EXPIRED not between", value1, value2, "accountNonExpired");
+        public Criteria andIdentifierNotIn(List<String> values) {
+            addCriterion("IDENTIFIER not in", values, "identifier");
             return (Criteria) this;
         }
 
-        public Criteria andAccountNonLockedIsNull() {
-            addCriterion("ACCOUNT_NON_LOCKED is null");
+        public Criteria andIdentifierBetween(String value1, String value2) {
+            addCriterion("IDENTIFIER between", value1, value2, "identifier");
             return (Criteria) this;
         }
 
-        public Criteria andAccountNonLockedIsNotNull() {
-            addCriterion("ACCOUNT_NON_LOCKED is not null");
+        public Criteria andIdentifierNotBetween(String value1, String value2) {
+            addCriterion("IDENTIFIER not between", value1, value2, "identifier");
             return (Criteria) this;
         }
 
-        public Criteria andAccountNonLockedEqualTo(Byte value) {
-            addCriterion("ACCOUNT_NON_LOCKED =", value, "accountNonLocked");
+        public Criteria andCertificateIsNull() {
+            addCriterion("CERTIFICATE is null");
             return (Criteria) this;
         }
 
-        public Criteria andAccountNonLockedNotEqualTo(Byte value) {
-            addCriterion("ACCOUNT_NON_LOCKED <>", value, "accountNonLocked");
+        public Criteria andCertificateIsNotNull() {
+            addCriterion("CERTIFICATE is not null");
             return (Criteria) this;
         }
 
-        public Criteria andAccountNonLockedGreaterThan(Byte value) {
-            addCriterion("ACCOUNT_NON_LOCKED >", value, "accountNonLocked");
+        public Criteria andCertificateEqualTo(String value) {
+            addCriterion("CERTIFICATE =", value, "certificate");
             return (Criteria) this;
         }
 
-        public Criteria andAccountNonLockedGreaterThanOrEqualTo(Byte value) {
-            addCriterion("ACCOUNT_NON_LOCKED >=", value, "accountNonLocked");
+        public Criteria andCertificateNotEqualTo(String value) {
+            addCriterion("CERTIFICATE <>", value, "certificate");
             return (Criteria) this;
         }
 
-        public Criteria andAccountNonLockedLessThan(Byte value) {
-            addCriterion("ACCOUNT_NON_LOCKED <", value, "accountNonLocked");
+        public Criteria andCertificateGreaterThan(String value) {
+            addCriterion("CERTIFICATE >", value, "certificate");
             return (Criteria) this;
         }
 
-        public Criteria andAccountNonLockedLessThanOrEqualTo(Byte value) {
-            addCriterion("ACCOUNT_NON_LOCKED <=", value, "accountNonLocked");
+        public Criteria andCertificateGreaterThanOrEqualTo(String value) {
+            addCriterion("CERTIFICATE >=", value, "certificate");
             return (Criteria) this;
         }
 
-        public Criteria andAccountNonLockedIn(List<Byte> values) {
-            addCriterion("ACCOUNT_NON_LOCKED in", values, "accountNonLocked");
+        public Criteria andCertificateLessThan(String value) {
+            addCriterion("CERTIFICATE <", value, "certificate");
             return (Criteria) this;
         }
 
-        public Criteria andAccountNonLockedNotIn(List<Byte> values) {
-            addCriterion("ACCOUNT_NON_LOCKED not in", values, "accountNonLocked");
+        public Criteria andCertificateLessThanOrEqualTo(String value) {
+            addCriterion("CERTIFICATE <=", value, "certificate");
             return (Criteria) this;
         }
 
-        public Criteria andAccountNonLockedBetween(Byte value1, Byte value2) {
-            addCriterion("ACCOUNT_NON_LOCKED between", value1, value2, "accountNonLocked");
+        public Criteria andCertificateLike(String value) {
+            addCriterion("CERTIFICATE like", value, "certificate");
             return (Criteria) this;
         }
 
-        public Criteria andAccountNonLockedNotBetween(Byte value1, Byte value2) {
-            addCriterion("ACCOUNT_NON_LOCKED not between", value1, value2, "accountNonLocked");
+        public Criteria andCertificateNotLike(String value) {
+            addCriterion("CERTIFICATE not like", value, "certificate");
             return (Criteria) this;
         }
 
-        public Criteria andCredentialsNonExpiredIsNull() {
-            addCriterion("CREDENTIALS_NON_EXPIRED is null");
+        public Criteria andCertificateIn(List<String> values) {
+            addCriterion("CERTIFICATE in", values, "certificate");
             return (Criteria) this;
         }
 
-        public Criteria andCredentialsNonExpiredIsNotNull() {
-            addCriterion("CREDENTIALS_NON_EXPIRED is not null");
+        public Criteria andCertificateNotIn(List<String> values) {
+            addCriterion("CERTIFICATE not in", values, "certificate");
             return (Criteria) this;
         }
 
-        public Criteria andCredentialsNonExpiredEqualTo(Byte value) {
-            addCriterion("CREDENTIALS_NON_EXPIRED =", value, "credentialsNonExpired");
+        public Criteria andCertificateBetween(String value1, String value2) {
+            addCriterion("CERTIFICATE between", value1, value2, "certificate");
             return (Criteria) this;
         }
 
-        public Criteria andCredentialsNonExpiredNotEqualTo(Byte value) {
-            addCriterion("CREDENTIALS_NON_EXPIRED <>", value, "credentialsNonExpired");
-            return (Criteria) this;
-        }
-
-        public Criteria andCredentialsNonExpiredGreaterThan(Byte value) {
-            addCriterion("CREDENTIALS_NON_EXPIRED >", value, "credentialsNonExpired");
-            return (Criteria) this;
-        }
-
-        public Criteria andCredentialsNonExpiredGreaterThanOrEqualTo(Byte value) {
-            addCriterion("CREDENTIALS_NON_EXPIRED >=", value, "credentialsNonExpired");
-            return (Criteria) this;
-        }
-
-        public Criteria andCredentialsNonExpiredLessThan(Byte value) {
-            addCriterion("CREDENTIALS_NON_EXPIRED <", value, "credentialsNonExpired");
-            return (Criteria) this;
-        }
-
-        public Criteria andCredentialsNonExpiredLessThanOrEqualTo(Byte value) {
-            addCriterion("CREDENTIALS_NON_EXPIRED <=", value, "credentialsNonExpired");
-            return (Criteria) this;
-        }
-
-        public Criteria andCredentialsNonExpiredIn(List<Byte> values) {
-            addCriterion("CREDENTIALS_NON_EXPIRED in", values, "credentialsNonExpired");
-            return (Criteria) this;
-        }
-
-        public Criteria andCredentialsNonExpiredNotIn(List<Byte> values) {
-            addCriterion("CREDENTIALS_NON_EXPIRED not in", values, "credentialsNonExpired");
-            return (Criteria) this;
-        }
-
-        public Criteria andCredentialsNonExpiredBetween(Byte value1, Byte value2) {
-            addCriterion("CREDENTIALS_NON_EXPIRED between", value1, value2, "credentialsNonExpired");
-            return (Criteria) this;
-        }
-
-        public Criteria andCredentialsNonExpiredNotBetween(Byte value1, Byte value2) {
-            addCriterion("CREDENTIALS_NON_EXPIRED not between", value1, value2, "credentialsNonExpired");
+        public Criteria andCertificateNotBetween(String value1, String value2) {
+            addCriterion("CERTIFICATE not between", value1, value2, "certificate");
             return (Criteria) this;
         }
 
@@ -605,63 +565,73 @@ public class UserCriteria {
             return (Criteria) this;
         }
 
-        public Criteria andEnabledIsNull() {
-            addCriterion("ENABLED is null");
+        public Criteria andStatusIsNull() {
+            addCriterion("`STATUS` is null");
             return (Criteria) this;
         }
 
-        public Criteria andEnabledIsNotNull() {
-            addCriterion("ENABLED is not null");
+        public Criteria andStatusIsNotNull() {
+            addCriterion("`STATUS` is not null");
             return (Criteria) this;
         }
 
-        public Criteria andEnabledEqualTo(Byte value) {
-            addCriterion("ENABLED =", value, "enabled");
+        public Criteria andStatusEqualTo(String value) {
+            addCriterion("`STATUS` =", value, "status");
             return (Criteria) this;
         }
 
-        public Criteria andEnabledNotEqualTo(Byte value) {
-            addCriterion("ENABLED <>", value, "enabled");
+        public Criteria andStatusNotEqualTo(String value) {
+            addCriterion("`STATUS` <>", value, "status");
             return (Criteria) this;
         }
 
-        public Criteria andEnabledGreaterThan(Byte value) {
-            addCriterion("ENABLED >", value, "enabled");
+        public Criteria andStatusGreaterThan(String value) {
+            addCriterion("`STATUS` >", value, "status");
             return (Criteria) this;
         }
 
-        public Criteria andEnabledGreaterThanOrEqualTo(Byte value) {
-            addCriterion("ENABLED >=", value, "enabled");
+        public Criteria andStatusGreaterThanOrEqualTo(String value) {
+            addCriterion("`STATUS` >=", value, "status");
             return (Criteria) this;
         }
 
-        public Criteria andEnabledLessThan(Byte value) {
-            addCriterion("ENABLED <", value, "enabled");
+        public Criteria andStatusLessThan(String value) {
+            addCriterion("`STATUS` <", value, "status");
             return (Criteria) this;
         }
 
-        public Criteria andEnabledLessThanOrEqualTo(Byte value) {
-            addCriterion("ENABLED <=", value, "enabled");
+        public Criteria andStatusLessThanOrEqualTo(String value) {
+            addCriterion("`STATUS` <=", value, "status");
             return (Criteria) this;
         }
 
-        public Criteria andEnabledIn(List<Byte> values) {
-            addCriterion("ENABLED in", values, "enabled");
+        public Criteria andStatusLike(String value) {
+            addCriterion("`STATUS` like", value, "status");
             return (Criteria) this;
         }
 
-        public Criteria andEnabledNotIn(List<Byte> values) {
-            addCriterion("ENABLED not in", values, "enabled");
+        public Criteria andStatusNotLike(String value) {
+            addCriterion("`STATUS` not like", value, "status");
             return (Criteria) this;
         }
 
-        public Criteria andEnabledBetween(Byte value1, Byte value2) {
-            addCriterion("ENABLED between", value1, value2, "enabled");
+        public Criteria andStatusIn(List<String> values) {
+            addCriterion("`STATUS` in", values, "status");
             return (Criteria) this;
         }
 
-        public Criteria andEnabledNotBetween(Byte value1, Byte value2) {
-            addCriterion("ENABLED not between", value1, value2, "enabled");
+        public Criteria andStatusNotIn(List<String> values) {
+            addCriterion("`STATUS` not in", values, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusBetween(String value1, String value2) {
+            addCriterion("`STATUS` between", value1, value2, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusNotBetween(String value1, String value2) {
+            addCriterion("`STATUS` not between", value1, value2, "status");
             return (Criteria) this;
         }
     }

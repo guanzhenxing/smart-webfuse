@@ -164,6 +164,76 @@ public class PermissionCriteria {
             return (Criteria) this;
         }
 
+        public Criteria andCodeIsNull() {
+            addCriterion("CODE is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCodeIsNotNull() {
+            addCriterion("CODE is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCodeEqualTo(String value) {
+            addCriterion("CODE =", value, "code");
+            return (Criteria) this;
+        }
+
+        public Criteria andCodeNotEqualTo(String value) {
+            addCriterion("CODE <>", value, "code");
+            return (Criteria) this;
+        }
+
+        public Criteria andCodeGreaterThan(String value) {
+            addCriterion("CODE >", value, "code");
+            return (Criteria) this;
+        }
+
+        public Criteria andCodeGreaterThanOrEqualTo(String value) {
+            addCriterion("CODE >=", value, "code");
+            return (Criteria) this;
+        }
+
+        public Criteria andCodeLessThan(String value) {
+            addCriterion("CODE <", value, "code");
+            return (Criteria) this;
+        }
+
+        public Criteria andCodeLessThanOrEqualTo(String value) {
+            addCriterion("CODE <=", value, "code");
+            return (Criteria) this;
+        }
+
+        public Criteria andCodeLike(String value) {
+            addCriterion("CODE like", value, "code");
+            return (Criteria) this;
+        }
+
+        public Criteria andCodeNotLike(String value) {
+            addCriterion("CODE not like", value, "code");
+            return (Criteria) this;
+        }
+
+        public Criteria andCodeIn(List<String> values) {
+            addCriterion("CODE in", values, "code");
+            return (Criteria) this;
+        }
+
+        public Criteria andCodeNotIn(List<String> values) {
+            addCriterion("CODE not in", values, "code");
+            return (Criteria) this;
+        }
+
+        public Criteria andCodeBetween(String value1, String value2) {
+            addCriterion("CODE between", value1, value2, "code");
+            return (Criteria) this;
+        }
+
+        public Criteria andCodeNotBetween(String value1, String value2) {
+            addCriterion("CODE not between", value1, value2, "code");
+            return (Criteria) this;
+        }
+
         public Criteria andNameIsNull() {
             addCriterion("`NAME` is null");
             return (Criteria) this;
@@ -234,73 +304,73 @@ public class PermissionCriteria {
             return (Criteria) this;
         }
 
-        public Criteria andDisplayNameIsNull() {
-            addCriterion("DISPLAY_NAME is null");
+        public Criteria andDescriptionIsNull() {
+            addCriterion("DESCRIPTION is null");
             return (Criteria) this;
         }
 
-        public Criteria andDisplayNameIsNotNull() {
-            addCriterion("DISPLAY_NAME is not null");
+        public Criteria andDescriptionIsNotNull() {
+            addCriterion("DESCRIPTION is not null");
             return (Criteria) this;
         }
 
-        public Criteria andDisplayNameEqualTo(String value) {
-            addCriterion("DISPLAY_NAME =", value, "displayName");
+        public Criteria andDescriptionEqualTo(String value) {
+            addCriterion("DESCRIPTION =", value, "description");
             return (Criteria) this;
         }
 
-        public Criteria andDisplayNameNotEqualTo(String value) {
-            addCriterion("DISPLAY_NAME <>", value, "displayName");
+        public Criteria andDescriptionNotEqualTo(String value) {
+            addCriterion("DESCRIPTION <>", value, "description");
             return (Criteria) this;
         }
 
-        public Criteria andDisplayNameGreaterThan(String value) {
-            addCriterion("DISPLAY_NAME >", value, "displayName");
+        public Criteria andDescriptionGreaterThan(String value) {
+            addCriterion("DESCRIPTION >", value, "description");
             return (Criteria) this;
         }
 
-        public Criteria andDisplayNameGreaterThanOrEqualTo(String value) {
-            addCriterion("DISPLAY_NAME >=", value, "displayName");
+        public Criteria andDescriptionGreaterThanOrEqualTo(String value) {
+            addCriterion("DESCRIPTION >=", value, "description");
             return (Criteria) this;
         }
 
-        public Criteria andDisplayNameLessThan(String value) {
-            addCriterion("DISPLAY_NAME <", value, "displayName");
+        public Criteria andDescriptionLessThan(String value) {
+            addCriterion("DESCRIPTION <", value, "description");
             return (Criteria) this;
         }
 
-        public Criteria andDisplayNameLessThanOrEqualTo(String value) {
-            addCriterion("DISPLAY_NAME <=", value, "displayName");
+        public Criteria andDescriptionLessThanOrEqualTo(String value) {
+            addCriterion("DESCRIPTION <=", value, "description");
             return (Criteria) this;
         }
 
-        public Criteria andDisplayNameLike(String value) {
-            addCriterion("DISPLAY_NAME like", value, "displayName");
+        public Criteria andDescriptionLike(String value) {
+            addCriterion("DESCRIPTION like", value, "description");
             return (Criteria) this;
         }
 
-        public Criteria andDisplayNameNotLike(String value) {
-            addCriterion("DISPLAY_NAME not like", value, "displayName");
+        public Criteria andDescriptionNotLike(String value) {
+            addCriterion("DESCRIPTION not like", value, "description");
             return (Criteria) this;
         }
 
-        public Criteria andDisplayNameIn(List<String> values) {
-            addCriterion("DISPLAY_NAME in", values, "displayName");
+        public Criteria andDescriptionIn(List<String> values) {
+            addCriterion("DESCRIPTION in", values, "description");
             return (Criteria) this;
         }
 
-        public Criteria andDisplayNameNotIn(List<String> values) {
-            addCriterion("DISPLAY_NAME not in", values, "displayName");
+        public Criteria andDescriptionNotIn(List<String> values) {
+            addCriterion("DESCRIPTION not in", values, "description");
             return (Criteria) this;
         }
 
-        public Criteria andDisplayNameBetween(String value1, String value2) {
-            addCriterion("DISPLAY_NAME between", value1, value2, "displayName");
+        public Criteria andDescriptionBetween(String value1, String value2) {
+            addCriterion("DESCRIPTION between", value1, value2, "description");
             return (Criteria) this;
         }
 
-        public Criteria andDisplayNameNotBetween(String value1, String value2) {
-            addCriterion("DISPLAY_NAME not between", value1, value2, "displayName");
+        public Criteria andDescriptionNotBetween(String value1, String value2) {
+            addCriterion("DESCRIPTION not between", value1, value2, "description");
             return (Criteria) this;
         }
 

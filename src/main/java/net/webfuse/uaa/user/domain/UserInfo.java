@@ -2,15 +2,18 @@ package net.webfuse.uaa.user.domain;
 
 import java.util.Date;
 
-/**
- * 用户实体
- */
-public class User {
-    private Long id;
+public class UserInfo {
+    private String id;
 
     private String username;
 
-    private String password;
+    private String nickname;
+
+    private Integer type;
+
+    private String avatar;
+
+    private String registerSource;
 
     private Byte accountNonExpired;
 
@@ -22,14 +25,16 @@ public class User {
 
     private Date updateTime;
 
-    private Boolean enabled;
+    private String status;
 
-    public Long getId() {
+    private Byte enabled;
+
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setId(String id) {
+        this.id = id == null ? null : id.trim();
     }
 
     public String getUsername() {
@@ -40,12 +45,36 @@ public class User {
         this.username = username == null ? null : username.trim();
     }
 
-    public String getPassword() {
-        return password;
+    public String getNickname() {
+        return nickname;
     }
 
-    public void setPassword(String password) {
-        this.password = password == null ? null : password.trim();
+    public void setNickname(String nickname) {
+        this.nickname = nickname == null ? null : nickname.trim();
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar == null ? null : avatar.trim();
+    }
+
+    public String getRegisterSource() {
+        return registerSource;
+    }
+
+    public void setRegisterSource(String registerSource) {
+        this.registerSource = registerSource == null ? null : registerSource.trim();
     }
 
     public Byte getAccountNonExpired() {
@@ -88,11 +117,19 @@ public class User {
         this.updateTime = updateTime;
     }
 
-    public Boolean getEnabled() {
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status == null ? null : status.trim();
+    }
+
+    public Byte getEnabled() {
         return enabled;
     }
 
-    public void setEnabled(Boolean enabled) {
+    public void setEnabled(Byte enabled) {
         this.enabled = enabled;
     }
 }

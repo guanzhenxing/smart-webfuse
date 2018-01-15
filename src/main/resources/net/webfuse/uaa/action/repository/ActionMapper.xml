@@ -3,10 +3,13 @@
 <mapper namespace="net.webfuse.uaa.action.repository.ActionMapper">
   <resultMap id="BaseResultMap" type="net.webfuse.uaa.action.domain.Action">
     <id column="ID" jdbcType="BIGINT" property="id" />
+    <result column="CODE" jdbcType="VARCHAR" property="code" />
     <result column="NAME" jdbcType="VARCHAR" property="name" />
-    <result column="DISPLAY_NAME" jdbcType="VARCHAR" property="displayName" />
     <result column="BIZ_TYPE" jdbcType="VARCHAR" property="bizType" />
     <result column="API_URL" jdbcType="VARCHAR" property="apiUrl" />
+    <result column="DESCRIPTION" jdbcType="VARCHAR" property="description" />
+    <result column="TAG" jdbcType="VARCHAR" property="tag" />
+    <result column="STATUS" jdbcType="VARCHAR" property="status" />
     <result column="ENABLED" jdbcType="TINYINT" property="enabled" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -39,7 +42,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    ID, `NAME`, DISPLAY_NAME, BIZ_TYPE, API_URL, ENABLED
+    ID, CODE, `NAME`, BIZ_TYPE, API_URL, DESCRIPTION, TAG, `STATUS`, ENABLED
   </sql>
   <select id="selectByExample" parameterType="net.webfuse.uaa.action.domain.ActionCriteria" resultMap="BaseResultMap">
     select
@@ -70,11 +73,13 @@
     <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Long">
       CALL IDENTITY()
     </selectKey>
-    insert into ACTION (ID, `NAME`, DISPLAY_NAME, 
-      BIZ_TYPE, API_URL, ENABLED
+    insert into ACTION (ID, CODE, `NAME`, 
+      BIZ_TYPE, API_URL, DESCRIPTION, 
+      TAG, `STATUS`, ENABLED
       )
-    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{displayName,jdbcType=VARCHAR}, 
-      #{bizType,jdbcType=VARCHAR}, #{apiUrl,jdbcType=VARCHAR}, #{enabled,jdbcType=TINYINT}
+    values (#{id,jdbcType=BIGINT}, #{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{bizType,jdbcType=VARCHAR}, #{apiUrl,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{tag,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{enabled,jdbcType=TINYINT}
       )
   </insert>
   <insert id="insertSelective" parameterType="net.webfuse.uaa.action.domain.Action">
@@ -84,11 +89,11 @@
     insert into ACTION
     <trim prefix="(" suffix=")" suffixOverrides=",">
       ID,
+      <if test="code != null">
+        CODE,
+      </if>
       <if test="name != null">
         `NAME`,
-      </if>
-      <if test="displayName != null">
-        DISPLAY_NAME,
       </if>
       <if test="bizType != null">
         BIZ_TYPE,
@@ -96,23 +101,41 @@
       <if test="apiUrl != null">
         API_URL,
       </if>
+      <if test="description != null">
+        DESCRIPTION,
+      </if>
+      <if test="tag != null">
+        TAG,
+      </if>
+      <if test="status != null">
+        `STATUS`,
+      </if>
       <if test="enabled != null">
         ENABLED,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       #{id,jdbcType=BIGINT},
+      <if test="code != null">
+        #{code,jdbcType=VARCHAR},
+      </if>
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="displayName != null">
-        #{displayName,jdbcType=VARCHAR},
       </if>
       <if test="bizType != null">
         #{bizType,jdbcType=VARCHAR},
       </if>
       <if test="apiUrl != null">
         #{apiUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="tag != null">
+        #{tag,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
       </if>
       <if test="enabled != null">
         #{enabled,jdbcType=TINYINT},
@@ -128,17 +151,26 @@
   <update id="updateByPrimaryKeySelective" parameterType="net.webfuse.uaa.action.domain.Action">
     update ACTION
     <set>
+      <if test="code != null">
+        CODE = #{code,jdbcType=VARCHAR},
+      </if>
       <if test="name != null">
         `NAME` = #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="displayName != null">
-        DISPLAY_NAME = #{displayName,jdbcType=VARCHAR},
       </if>
       <if test="bizType != null">
         BIZ_TYPE = #{bizType,jdbcType=VARCHAR},
       </if>
       <if test="apiUrl != null">
         API_URL = #{apiUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        DESCRIPTION = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="tag != null">
+        TAG = #{tag,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        `STATUS` = #{status,jdbcType=VARCHAR},
       </if>
       <if test="enabled != null">
         ENABLED = #{enabled,jdbcType=TINYINT},
@@ -148,10 +180,13 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="net.webfuse.uaa.action.domain.Action">
     update ACTION
-    set `NAME` = #{name,jdbcType=VARCHAR},
-      DISPLAY_NAME = #{displayName,jdbcType=VARCHAR},
+    set CODE = #{code,jdbcType=VARCHAR},
+      `NAME` = #{name,jdbcType=VARCHAR},
       BIZ_TYPE = #{bizType,jdbcType=VARCHAR},
       API_URL = #{apiUrl,jdbcType=VARCHAR},
+      DESCRIPTION = #{description,jdbcType=VARCHAR},
+      TAG = #{tag,jdbcType=VARCHAR},
+      `STATUS` = #{status,jdbcType=VARCHAR},
       ENABLED = #{enabled,jdbcType=TINYINT}
     where ID = #{id,jdbcType=BIGINT}
   </update>

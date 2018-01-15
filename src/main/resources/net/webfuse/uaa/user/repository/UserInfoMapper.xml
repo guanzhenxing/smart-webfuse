@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="net.webfuse.uaa.user.repository.UserMapper">
-  <resultMap id="BaseResultMap" type="net.webfuse.uaa.user.domain.User">
-    <id column="ID" jdbcType="BIGINT" property="id" />
+<mapper namespace="net.webfuse.uaa.user.repository.UserInfoMapper">
+  <resultMap id="BaseResultMap" type="net.webfuse.uaa.user.domain.UserInfo">
+    <id column="ID" jdbcType="VARCHAR" property="id" />
     <result column="USERNAME" jdbcType="VARCHAR" property="username" />
-    <result column="PASSWORD" jdbcType="VARCHAR" property="password" />
+    <result column="NICKNAME" jdbcType="VARCHAR" property="nickname" />
+    <result column="TYPE" jdbcType="INTEGER" property="type" />
+    <result column="AVATAR" jdbcType="VARCHAR" property="avatar" />
+    <result column="REGISTER_SOURCE" jdbcType="VARCHAR" property="registerSource" />
     <result column="ACCOUNT_NON_EXPIRED" jdbcType="TINYINT" property="accountNonExpired" />
     <result column="ACCOUNT_NON_LOCKED" jdbcType="TINYINT" property="accountNonLocked" />
     <result column="CREDENTIALS_NON_EXPIRED" jdbcType="TINYINT" property="credentialsNonExpired" />
     <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
     <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="STATUS" jdbcType="VARCHAR" property="status" />
     <result column="ENABLED" jdbcType="TINYINT" property="enabled" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -42,17 +46,17 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    ID, USERNAME, `PASSWORD`, ACCOUNT_NON_EXPIRED, ACCOUNT_NON_LOCKED, CREDENTIALS_NON_EXPIRED, 
-    CREATE_TIME, UPDATE_TIME, ENABLED
+    ID, USERNAME, NICKNAME, `TYPE`, AVATAR, REGISTER_SOURCE, ACCOUNT_NON_EXPIRED, ACCOUNT_NON_LOCKED, 
+    CREDENTIALS_NON_EXPIRED, CREATE_TIME, UPDATE_TIME, `STATUS`, ENABLED
   </sql>
-  <select id="selectByExample" parameterType="net.webfuse.uaa.user.domain.UserCriteria" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="net.webfuse.uaa.user.domain.UserInfoCriteria" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     'false' as QUERYID,
     <include refid="Base_Column_List" />
-    from USER
+    from USER_INFO
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -60,41 +64,52 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from USER
-    where ID = #{id,jdbcType=BIGINT}
+    from USER_INFO
+    where ID = #{id,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from USER
-    where ID = #{id,jdbcType=BIGINT}
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from USER_INFO
+    where ID = #{id,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="net.webfuse.uaa.user.domain.User">
-    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Long">
+  <insert id="insert" parameterType="net.webfuse.uaa.user.domain.UserInfo">
+    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.String">
       CALL IDENTITY()
     </selectKey>
-    insert into USER (ID, USERNAME, `PASSWORD`, 
+    insert into USER_INFO (ID, USERNAME, NICKNAME, 
+      `TYPE`, AVATAR, REGISTER_SOURCE, 
       ACCOUNT_NON_EXPIRED, ACCOUNT_NON_LOCKED, CREDENTIALS_NON_EXPIRED, 
-      CREATE_TIME, UPDATE_TIME, ENABLED
-      )
-    values (#{id,jdbcType=BIGINT}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      CREATE_TIME, UPDATE_TIME, `STATUS`, 
+      ENABLED)
+    values (#{id,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, 
+      #{type,jdbcType=INTEGER}, #{avatar,jdbcType=VARCHAR}, #{registerSource,jdbcType=VARCHAR}, 
       #{accountNonExpired,jdbcType=TINYINT}, #{accountNonLocked,jdbcType=TINYINT}, #{credentialsNonExpired,jdbcType=TINYINT}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{enabled,jdbcType=TINYINT}
-      )
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{status,jdbcType=VARCHAR}, 
+      #{enabled,jdbcType=TINYINT})
   </insert>
-  <insert id="insertSelective" parameterType="net.webfuse.uaa.user.domain.User">
-    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Long">
+  <insert id="insertSelective" parameterType="net.webfuse.uaa.user.domain.UserInfo">
+    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.String">
       CALL IDENTITY()
     </selectKey>
-    insert into USER
+    insert into USER_INFO
     <trim prefix="(" suffix=")" suffixOverrides=",">
       ID,
       <if test="username != null">
         USERNAME,
       </if>
-      <if test="password != null">
-        `PASSWORD`,
+      <if test="nickname != null">
+        NICKNAME,
+      </if>
+      <if test="type != null">
+        `TYPE`,
+      </if>
+      <if test="avatar != null">
+        AVATAR,
+      </if>
+      <if test="registerSource != null">
+        REGISTER_SOURCE,
       </if>
       <if test="accountNonExpired != null">
         ACCOUNT_NON_EXPIRED,
@@ -111,17 +126,29 @@
       <if test="updateTime != null">
         UPDATE_TIME,
       </if>
+      <if test="status != null">
+        `STATUS`,
+      </if>
       <if test="enabled != null">
         ENABLED,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      #{id,jdbcType=BIGINT},
+      #{id,jdbcType=VARCHAR},
       <if test="username != null">
         #{username,jdbcType=VARCHAR},
       </if>
-      <if test="password != null">
-        #{password,jdbcType=VARCHAR},
+      <if test="nickname != null">
+        #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="avatar != null">
+        #{avatar,jdbcType=VARCHAR},
+      </if>
+      <if test="registerSource != null">
+        #{registerSource,jdbcType=VARCHAR},
       </if>
       <if test="accountNonExpired != null">
         #{accountNonExpired,jdbcType=TINYINT},
@@ -138,25 +165,37 @@
       <if test="updateTime != null">
         #{updateTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
       <if test="enabled != null">
         #{enabled,jdbcType=TINYINT},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="net.webfuse.uaa.user.domain.UserCriteria" resultType="java.lang.Long">
-    select count(*) from USER
+  <select id="countByExample" parameterType="net.webfuse.uaa.user.domain.UserInfoCriteria" resultType="java.lang.Long">
+    select count(*) from USER_INFO
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
-  <update id="updateByPrimaryKeySelective" parameterType="net.webfuse.uaa.user.domain.User">
-    update USER
+  <update id="updateByPrimaryKeySelective" parameterType="net.webfuse.uaa.user.domain.UserInfo">
+    update USER_INFO
     <set>
       <if test="username != null">
         USERNAME = #{username,jdbcType=VARCHAR},
       </if>
-      <if test="password != null">
-        `PASSWORD` = #{password,jdbcType=VARCHAR},
+      <if test="nickname != null">
+        NICKNAME = #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        `TYPE` = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="avatar != null">
+        AVATAR = #{avatar,jdbcType=VARCHAR},
+      </if>
+      <if test="registerSource != null">
+        REGISTER_SOURCE = #{registerSource,jdbcType=VARCHAR},
       </if>
       <if test="accountNonExpired != null">
         ACCOUNT_NON_EXPIRED = #{accountNonExpired,jdbcType=TINYINT},
@@ -173,22 +212,29 @@
       <if test="updateTime != null">
         UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="status != null">
+        `STATUS` = #{status,jdbcType=VARCHAR},
+      </if>
       <if test="enabled != null">
         ENABLED = #{enabled,jdbcType=TINYINT},
       </if>
     </set>
-    where ID = #{id,jdbcType=BIGINT}
+    where ID = #{id,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="net.webfuse.uaa.user.domain.User">
-    update USER
+  <update id="updateByPrimaryKey" parameterType="net.webfuse.uaa.user.domain.UserInfo">
+    update USER_INFO
     set USERNAME = #{username,jdbcType=VARCHAR},
-      `PASSWORD` = #{password,jdbcType=VARCHAR},
+      NICKNAME = #{nickname,jdbcType=VARCHAR},
+      `TYPE` = #{type,jdbcType=INTEGER},
+      AVATAR = #{avatar,jdbcType=VARCHAR},
+      REGISTER_SOURCE = #{registerSource,jdbcType=VARCHAR},
       ACCOUNT_NON_EXPIRED = #{accountNonExpired,jdbcType=TINYINT},
       ACCOUNT_NON_LOCKED = #{accountNonLocked,jdbcType=TINYINT},
       CREDENTIALS_NON_EXPIRED = #{credentialsNonExpired,jdbcType=TINYINT},
       CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
       UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      `STATUS` = #{status,jdbcType=VARCHAR},
       ENABLED = #{enabled,jdbcType=TINYINT}
-    where ID = #{id,jdbcType=BIGINT}
+    where ID = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>

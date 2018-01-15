@@ -1,18 +1,19 @@
 package net.webfuse.uaa.role.domain;
 
-/**
- * 角色实体
- */
 public class Role {
     private Long id;
 
-    private String name;
+    private String code;
 
-    private String displayName;
+    private String name;
 
     private String scope;
 
-    private Boolean enabled;
+    private String description;
+
+    private String status;
+
+    private Byte enabled;
 
     public Long getId() {
         return id;
@@ -20,6 +21,14 @@ public class Role {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code == null ? null : code.trim();
     }
 
     public String getName() {
@@ -30,14 +39,6 @@ public class Role {
         this.name = name == null ? null : name.trim();
     }
 
-    public String getDisplayName() {
-        return displayName;
-    }
-
-    public void setDisplayName(String displayName) {
-        this.displayName = displayName == null ? null : displayName.trim();
-    }
-
     public String getScope() {
         return scope;
     }
@@ -46,11 +47,27 @@ public class Role {
         this.scope = scope == null ? null : scope.trim();
     }
 
-    public Boolean getEnabled() {
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description == null ? null : description.trim();
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status == null ? null : status.trim();
+    }
+
+    public Byte getEnabled() {
         return enabled;
     }
 
-    public void setEnabled(Boolean enabled) {
+    public void setEnabled(Byte enabled) {
         this.enabled = enabled;
     }
 }

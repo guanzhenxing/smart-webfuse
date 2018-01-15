@@ -1,16 +1,23 @@
 package net.webfuse.uaa.action.domain;
 
-/**
- * 操作实体对象
- */
 public class Action {
-
     private Long id;
+
+    private String code;
+
     private String name;
-    private String displayName;
+
     private String bizType;
+
     private String apiUrl;
-    private Boolean enabled;
+
+    private String description;
+
+    private String tag;
+
+    private String status;
+
+    private Byte enabled;
 
     public Long getId() {
         return id;
@@ -20,20 +27,20 @@ public class Action {
         this.id = id;
     }
 
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code == null ? null : code.trim();
+    }
+
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name == null ? null : name.trim();
-    }
-
-    public String getDisplayName() {
-        return displayName;
-    }
-
-    public void setDisplayName(String displayName) {
-        this.displayName = displayName == null ? null : displayName.trim();
     }
 
     public String getBizType() {
@@ -52,11 +59,35 @@ public class Action {
         this.apiUrl = apiUrl == null ? null : apiUrl.trim();
     }
 
-    public Boolean getEnabled() {
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description == null ? null : description.trim();
+    }
+
+    public String getTag() {
+        return tag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag == null ? null : tag.trim();
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status == null ? null : status.trim();
+    }
+
+    public Byte getEnabled() {
         return enabled;
     }
 
-    public void setEnabled(Boolean enabled) {
+    public void setEnabled(Byte enabled) {
         this.enabled = enabled;
     }
 }

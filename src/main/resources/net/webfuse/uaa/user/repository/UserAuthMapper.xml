@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.webfuse.uaa.user.repository.UserAuthMapper">
+  <resultMap id="BaseResultMap" type="net.webfuse.uaa.user.domain.UserAuth">
+    <result column="ID" jdbcType="BIGINT" property="id" />
+    <result column="USER_ID" jdbcType="VARCHAR" property="userId" />
+    <result column="IDENTITY_TYPE" jdbcType="VARCHAR" property="identityType" />
+    <result column="IDENTIFIER" jdbcType="VARCHAR" property="identifier" />
+    <result column="CERTIFICATE" jdbcType="VARCHAR" property="certificate" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="STATUS" jdbcType="VARCHAR" property="status" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, USER_ID, IDENTITY_TYPE, IDENTIFIER, CERTIFICATE, CREATE_TIME, UPDATE_TIME, `STATUS`
+  </sql>
+  <select id="selectByExample" parameterType="net.webfuse.uaa.user.domain.UserAuthCriteria" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from USER_AUTH
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <insert id="insert" parameterType="net.webfuse.uaa.user.domain.UserAuth">
+    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Long">
+      CALL IDENTITY()
+    </selectKey>
+    insert into USER_AUTH (ID, USER_ID, IDENTITY_TYPE, 
+      IDENTIFIER, CERTIFICATE, CREATE_TIME, 
+      UPDATE_TIME, `STATUS`)
+    values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=VARCHAR}, #{identityType,jdbcType=VARCHAR}, 
+      #{identifier,jdbcType=VARCHAR}, #{certificate,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{status,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="net.webfuse.uaa.user.domain.UserAuth">
+    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Long">
+      CALL IDENTITY()
+    </selectKey>
+    insert into USER_AUTH
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      ID,
+      <if test="userId != null">
+        USER_ID,
+      </if>
+      <if test="identityType != null">
+        IDENTITY_TYPE,
+      </if>
+      <if test="identifier != null">
+        IDENTIFIER,
+      </if>
+      <if test="certificate != null">
+        CERTIFICATE,
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME,
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME,
+      </if>
+      <if test="status != null">
+        `STATUS`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      #{id,jdbcType=BIGINT},
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="identityType != null">
+        #{identityType,jdbcType=VARCHAR},
+      </if>
+      <if test="identifier != null">
+        #{identifier,jdbcType=VARCHAR},
+      </if>
+      <if test="certificate != null">
+        #{certificate,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="net.webfuse.uaa.user.domain.UserAuthCriteria" resultType="java.lang.Long">
+    select count(*) from USER_AUTH
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+</mapper>

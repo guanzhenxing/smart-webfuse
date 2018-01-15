@@ -4,9 +4,11 @@
   <resultMap id="BaseResultMap" type="net.webfuse.uaa.resource.domain.Resource">
     <id column="ID" jdbcType="BIGINT" property="id" />
     <result column="CLIENT_TYPE" jdbcType="VARCHAR" property="clientType" />
+    <result column="CODE" jdbcType="VARCHAR" property="code" />
     <result column="NAME" jdbcType="VARCHAR" property="name" />
-    <result column="DISPLAY_NAME" jdbcType="VARCHAR" property="displayName" />
     <result column="TAG" jdbcType="VARCHAR" property="tag" />
+    <result column="DESCRIPTION" jdbcType="VARCHAR" property="description" />
+    <result column="STATUS" jdbcType="VARCHAR" property="status" />
     <result column="ENABLED" jdbcType="TINYINT" property="enabled" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -39,7 +41,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    ID, CLIENT_TYPE, `NAME`, DISPLAY_NAME, TAG, ENABLED
+    ID, CLIENT_TYPE, CODE, `NAME`, TAG, DESCRIPTION, `STATUS`, ENABLED
   </sql>
   <select id="selectByExample" parameterType="net.webfuse.uaa.resource.domain.ResourceCriteria" resultMap="BaseResultMap">
     select
@@ -70,12 +72,12 @@
     <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Long">
       CALL IDENTITY()
     </selectKey>
-    insert into RESOURCE (ID, CLIENT_TYPE, `NAME`, 
-      DISPLAY_NAME, TAG, ENABLED
-      )
-    values (#{id,jdbcType=BIGINT}, #{clientType,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
-      #{displayName,jdbcType=VARCHAR}, #{tag,jdbcType=VARCHAR}, #{enabled,jdbcType=TINYINT}
-      )
+    insert into RESOURCE (ID, CLIENT_TYPE, CODE, 
+      `NAME`, TAG, DESCRIPTION, 
+      `STATUS`, ENABLED)
+    values (#{id,jdbcType=BIGINT}, #{clientType,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{tag,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{status,jdbcType=VARCHAR}, #{enabled,jdbcType=TINYINT})
   </insert>
   <insert id="insertSelective" parameterType="net.webfuse.uaa.resource.domain.Resource">
     <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Long">
@@ -87,14 +89,20 @@
       <if test="clientType != null">
         CLIENT_TYPE,
       </if>
+      <if test="code != null">
+        CODE,
+      </if>
       <if test="name != null">
         `NAME`,
       </if>
-      <if test="displayName != null">
-        DISPLAY_NAME,
-      </if>
       <if test="tag != null">
         TAG,
+      </if>
+      <if test="description != null">
+        DESCRIPTION,
+      </if>
+      <if test="status != null">
+        `STATUS`,
       </if>
       <if test="enabled != null">
         ENABLED,
@@ -105,14 +113,20 @@
       <if test="clientType != null">
         #{clientType,jdbcType=VARCHAR},
       </if>
+      <if test="code != null">
+        #{code,jdbcType=VARCHAR},
+      </if>
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
       </if>
-      <if test="displayName != null">
-        #{displayName,jdbcType=VARCHAR},
-      </if>
       <if test="tag != null">
         #{tag,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
       </if>
       <if test="enabled != null">
         #{enabled,jdbcType=TINYINT},
@@ -131,14 +145,20 @@
       <if test="clientType != null">
         CLIENT_TYPE = #{clientType,jdbcType=VARCHAR},
       </if>
+      <if test="code != null">
+        CODE = #{code,jdbcType=VARCHAR},
+      </if>
       <if test="name != null">
         `NAME` = #{name,jdbcType=VARCHAR},
       </if>
-      <if test="displayName != null">
-        DISPLAY_NAME = #{displayName,jdbcType=VARCHAR},
-      </if>
       <if test="tag != null">
         TAG = #{tag,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        DESCRIPTION = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        `STATUS` = #{status,jdbcType=VARCHAR},
       </if>
       <if test="enabled != null">
         ENABLED = #{enabled,jdbcType=TINYINT},
@@ -149,9 +169,11 @@
   <update id="updateByPrimaryKey" parameterType="net.webfuse.uaa.resource.domain.Resource">
     update RESOURCE
     set CLIENT_TYPE = #{clientType,jdbcType=VARCHAR},
+      CODE = #{code,jdbcType=VARCHAR},
       `NAME` = #{name,jdbcType=VARCHAR},
-      DISPLAY_NAME = #{displayName,jdbcType=VARCHAR},
       TAG = #{tag,jdbcType=VARCHAR},
+      DESCRIPTION = #{description,jdbcType=VARCHAR},
+      `STATUS` = #{status,jdbcType=VARCHAR},
       ENABLED = #{enabled,jdbcType=TINYINT}
     where ID = #{id,jdbcType=BIGINT}
   </update>

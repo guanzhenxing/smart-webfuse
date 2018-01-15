@@ -34,20 +34,20 @@
             <property name="forceBigDecimals" value="false"/>
         </javaTypeResolver>
 
-        <javaModelGenerator targetPackage="net.webfuse.uaa.role.domain" targetProject="./src/main/java">
+        <javaModelGenerator targetPackage="net.webfuse.uaa.user.domain" targetProject="./src/main/java">
             <property name="trimStrings" value="true"/>
             <property name="enableSubPackages" value="false"/>
         </javaModelGenerator>
 
-        <sqlMapGenerator targetPackage="net.webfuse.uaa.role.repository" targetProject="./src/main/resources">
+        <sqlMapGenerator targetPackage="net.webfuse.uaa.user.repository" targetProject="./src/main/resources">
             <property name="enableSubPackages" value="false"/>
         </sqlMapGenerator>
 
-        <javaClientGenerator type="XMLMAPPER" targetPackage="net.webfuse.uaa.role.repository" targetProject="./src/main/java">
+        <javaClientGenerator type="XMLMAPPER" targetPackage="net.webfuse.uaa.user.repository" targetProject="./src/main/java">
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 
-        <table tableName="user_role" domainObjectName="UserRole"
+        <table tableName="user_auth" domainObjectName="UserAuth"
                enableCountByExample="true"
                enableUpdateByExample="false"
                enableDeleteByExample="false"

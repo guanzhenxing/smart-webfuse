@@ -1,14 +1,17 @@
 package net.webfuse.uaa.permission.domain;
 
-/**
- * 权限实体
- */
 public class Permission {
     private Long id;
+
+    private String code;
+
     private String name;
-    private String displayName;
+
+    private String description;
+
     private String status;
-    private Boolean enabled;
+
+    private Byte enabled;
 
     public Long getId() {
         return id;
@@ -16,6 +19,14 @@ public class Permission {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code == null ? null : code.trim();
     }
 
     public String getName() {
@@ -26,12 +37,12 @@ public class Permission {
         this.name = name == null ? null : name.trim();
     }
 
-    public String getDisplayName() {
-        return displayName;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDisplayName(String displayName) {
-        this.displayName = displayName == null ? null : displayName.trim();
+    public void setDescription(String description) {
+        this.description = description == null ? null : description.trim();
     }
 
     public String getStatus() {
@@ -42,11 +53,11 @@ public class Permission {
         this.status = status == null ? null : status.trim();
     }
 
-    public Boolean getEnabled() {
+    public Byte getEnabled() {
         return enabled;
     }
 
-    public void setEnabled(Boolean enabled) {
+    public void setEnabled(Byte enabled) {
         this.enabled = enabled;
     }
 }
