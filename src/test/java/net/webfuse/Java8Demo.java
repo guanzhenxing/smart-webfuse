@@ -100,6 +100,11 @@ public class Java8Demo {
                 (existingValue, newValue) -> existingValue
         ));
 
+
+        //groupingBy方法，对具有相同特性的值进行分组
+        //当分类函数式一个predicate函数（即返回一个布尔值的函数）时，流元素会被分为两组列表：一组是函数会返回true的元素，另一组返回false的元素。
+        //在这种情况下，使用partitioningBy会比groupingBy更有效率。
+
     }
 
 
