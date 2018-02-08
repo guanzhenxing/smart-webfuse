@@ -1,7 +1,17 @@
 package net.webfuse;
 
+import java.io.IOException;
 import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.time.*;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAdjuster;
+import java.time.temporal.TemporalAdjusters;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.LongAdder;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -28,6 +38,8 @@ public class Java8Demo {
         Arrays.asList(1, 2).stream().map(Math::abs).collect(Collectors.toList());//情况2：类::静态方法
         Arrays.sort(new String[]{"", ""}, Comparator.comparingInt(String::length)); //情况3：类::实例方法。第一个参数会成为执行方法的对象.String::length 等于 (x)->x.length()
         String[] arr = Arrays.asList("", "").stream().toArray(String[]::new);   //情况4：类::new
+
+        //所有的lambda表达式都是延迟执行的
     }
 
 
@@ -107,5 +119,100 @@ public class Java8Demo {
 
     }
 
+    public void aboutTime() {
+
+        Instant start = Instant.now();
+        Instant end = Instant.now();
+        Duration timeElapsed = Duration.between(start, end);
+        timeElapsed.toMillis();
+        timeElapsed.toDays();
+        timeElapsed.plusDays(1).getSeconds();
+        start.plusMillis(1);
+
+        // 以下是来自廖雪峰的博客
+        // Java 8新增了LocalDate和LocalTime接口，为什么要搞一套全新的处理日期和时间的API？因为旧的java.util.Date实在是太难用了。
+        // java.util.Date月份从0开始，一月是0，十二月是11，变态吧！java.time.LocalDate月份和星期都改成了enum，就不可能再用错了。
+        // java.util.Date和SimpleDateFormatter都不是线程安全的，而LocalDate和LocalTime和最基本的String一样，是不变类型，不但线程安全，而且不能修改。
+        // java.util.Date是一个“万能接口”，它包含日期、时间，还有毫秒数，如果你只想用java.util.Date存储日期，或者只存储时间，那么，只有你知道哪些部分的数据是有用的，哪些部分的数据是不能用的。在新的Java 8中，日期和时间被明确划分为LocalDate和LocalTime，LocalDate无法包含时间，LocalTime无法包含日期。当然，LocalDateTime才能同时包含日期和时间。
+        // 新接口更好用的原因是考虑到了日期时间的操作，经常发生往前推或往后推几天的情况。用java.util.Date配合Calendar要写好多代码，而且一般的开发人员还不一定能写对。
+
+        // 取当前日期：
+        LocalDate today = LocalDate.now(); // -> 2014-12-24
+        // 根据年月日取日期，12月就是12：
+        LocalDate crischristmas = LocalDate.of(2014, 12, 25); // -> 2014-12-25
+        // 根据字符串取：
+        LocalDate endOfFeb = LocalDate.parse("2014-02-28"); // 严格按照ISO yyyy-MM-dd验证，02写成2都不行，当然也有一个重载方法允许自己定义格式
+        LocalDate.parse("2014-02-29"); // 无效日期无法通过：DateTimeParseException: Invalid date
+
+        // LocalTime只包含时间，以前用java.util.Date怎么才能只表示时间呢？答案是，假装忽略日期。
+        // LocalTime包含毫秒：
+        LocalTime now = LocalTime.now(); // 11:09:09.240
+
+        //你可能想清除毫秒数：
+        LocalTime now1 = LocalTime.now().withNano(0); // 11:09:09
+
+        //构造时间也很简单：
+        LocalTime zero = LocalTime.of(0, 0, 0); // 00:00:00
+        LocalTime mid = LocalTime.parse("12:00:00"); // 12:00:00
+
+        //日期校正器
+        //TemporalAdjusters类提供了很多静态方法来进行常用的校正。你可以将一个校正放的结果传递给with方法。
+        LocalDate firstTuesday = LocalDate.of(2018, 2, 1).with(TemporalAdjusters.nextOrSame(DayOfWeek.THURSDAY)); //计算2月的第一个星期二
+
+        //实现自己的校验器
+        TemporalAdjuster NEXT_WORKDAY = TemporalAdjusters.ofDateAdjuster(w -> {
+            LocalDate result = w;
+            do {
+                result = result.plusDays(1);
+            } while (result.getDayOfWeek().getValue() >= 6);
+            return result;
+        });
+        LocalDate backToWork = LocalDate.now().with(NEXT_WORKDAY);
+
+        //格式化与解析
+        // String formatted =  DateTimeFormatter.ISO_DATE_TIME.format();
+    }
+
+
+    public void aboutConcurrency() {
+        //原子性 lambda
+        // ConcurrentHashMap
+        ConcurrentHashMap<String, LongAdder> map = new ConcurrentHashMap();
+        map.putIfAbsent("", new LongAdder());
+        map.get("").increment();
+
+        //批量数据操作有三类：
+        //1)search会对每个键和（或）值应用一个函数，直到函数返回一个非null的结果。然后search会终止并返回该函数的结果。
+        //2)reduce会通过提供的累积函数，将所有的键和（或）值组合起来。
+        //3)forEach会对所有的键和（或）值应用一个函数。
+
+        //在使用这几种操作时，你需要指定一个并行阈值。如果映射包含的元素数量超过了这个阈值，批量操作就以并行方式执行。
+        //如果你希望批量数据操作在一个线程中运行，请使用Long.MAX_VALUE作为阈值。
+        //如果你希望批量数据操作尽可能使用更多的线程，则应该使用1作为阈值。
+
+        Set<String> words = map.keySet();
+
+        //并行数组操作
+        //静态方法Arrays.parallelSort可以对原始类型数组或者对象数组进行排序。
+        try {
+            String contents = new String(Files.readAllBytes(Paths.get("")), StandardCharsets.UTF_8);
+            String[] words1 = contents.split("");
+            Arrays.parallelSort(words1);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        //可完成的Future
+        //Future<T>接口用来表示一个在将来某个时间点可用的、类型为T的值。
+    }
+
+    public void aboutOthers() {
+
+        String joined = String.join("/", "usr", "local", "bin");
+        String ids = String.join(", ", ZoneId.getAvailableZoneIds());
+
+        Objects.isNull("");
+        Objects.nonNull("");
+    }
 
 }
