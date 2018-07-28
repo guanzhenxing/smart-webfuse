@@ -1,6 +1,8 @@
 
-### Maven ###
-target/
+/target/
+!.mvn/wrapper/maven-wrapper.jar
+
+### maven ###
 .mvn
 mvnw
 mvnw.cmd
@@ -12,6 +14,7 @@ mvnw.cmd
 .project
 .settings
 .springBeans
+.sts4-cache
 
 ### IntelliJ IDEA ###
 .idea
@@ -26,9 +29,4 @@ nbbuild/
 dist/
 nbdist/
 .nb-gradle/
-将删除 src/main/java/net/webfuse/common/exception/
-将删除 src/main/java/net/webfuse/uaa/permission/
-将删除 src/main/java/net/webfuse/uaa/role/
-将删除 src/main/java/net/webfuse/uaa/user/
-将删除 src/main/resources/static/
-将删除 src/main/resources/templates/
+
