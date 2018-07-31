@@ -9,6 +9,10 @@ import org.springframework.beans.factory.support.GenericBeanDefinition;
 import org.springframework.boot.context.properties.bind.BindResult;
 import org.springframework.boot.context.properties.bind.Bindable;
 import org.springframework.boot.context.properties.bind.Binder;
+import org.springframework.boot.context.properties.source.ConfigurationProperty;
+import org.springframework.boot.context.properties.source.ConfigurationPropertySource;
+import org.springframework.boot.context.properties.source.ConfigurationPropertySources;
+import org.springframework.boot.context.properties.source.MapConfigurationPropertySource;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;
@@ -131,31 +135,38 @@ public class DynamicDataSourceRegister implements ImportBeanDefinitionRegistrar,
         dsMap.put("username", env.getProperty("spring.datasource.username"));
         dsMap.put("password", env.getProperty("spring.datasource.password"));
 
-        defaultDataSource = dataBinder(buildDataSource(dsMap), env);
+        DataSource dataSource = buildDataSource(dsMap);
+        //为DataSource绑定更多数据
+        Bindable<DataSource> bindAble = Bindable.ofInstance(dataSource);
+        defaultDataSource = Binder.get(env).bind("spring.datasource", bindAble).get();
     }
 
-    /**
-     * 为DataSource绑定更多数据
-     */
-    private DataSource dataBinder(DataSource dataSource, Environment env) {
-        Bindable<DataSource> bindAble = Bindable.ofInstance(dataSource);
-        return Binder.get(env).bind("spring.datasource", bindAble).get();
-    }
 
     /**
      * 初始化更多数据源
      */
     private void initCustomDataSources(Environment env) {
+        String customPrefix = "spring.custom.datasource";
         // 读取配置文件获取更多数据源，也可以通过defaultDataSource读取数据库获取更多数据源
-        String dsPrefixes = env.getProperty("custom.datasource.names");
+        String dsPrefixes = env.getProperty(customPrefix + ".names");
         if (dsPrefixes == null) {
             return;
         }
         for (String dsPrefix : dsPrefixes.split(",")) {// 多个数据源
-            BindResult<Map> dsMap = Binder.get(env).bind(dsPrefix + ".", Map.class);
-            DataSource ds = buildDataSource(dsMap.get());
-            customDataSources.put(dsPrefix, ds);
-            dataBinder(ds, env);
+
+            // 读取主数据源
+            Map<String, Object> dsMap = new HashMap<>();
+            dsMap.put("type", env.getProperty(customPrefix + "." + dsPrefix + ".type"));
+            dsMap.put("driver-class-name", env.getProperty(customPrefix + "." + dsPrefix + ".driver-class-name"));
+            dsMap.put("url", env.getProperty(customPrefix + "." + dsPrefix + ".url"));
+            dsMap.put("username", env.getProperty(customPrefix + "." + dsPrefix + ".username"));
+            dsMap.put("password", env.getProperty(customPrefix + "." + dsPrefix + ".password"));
+
+            DataSource dataSource = buildDataSource(dsMap);
+            //为DataSource绑定更多数据
+            Bindable<DataSource> bindAble = Bindable.ofInstance(dataSource);
+            DataSource customDataSource = Binder.get(env).bind("spring.datasource", bindAble).get();
+            customDataSources.put(dsPrefix, customDataSource);
         }
     }
 
