@@ -6,29 +6,29 @@ package cn.webfuse.framework.exception;
 public abstract class AbstractBizException extends RuntimeException {
 
     private int status; //状态码
-    private String errorCode;   //错误代码
+    private String code;   //错误代码
     private String message; //错误消息（针对用户）
     private Throwable throwable;    //异常堆栈
     private String developerMessage;    //给开发者的错误消息
 
-    public AbstractBizException(int status, String errorCode, String message, Throwable throwable, String developerMessage) {
+    public AbstractBizException(int status, String code, String message, Throwable throwable, String developerMessage) {
         this.status = status;
-        this.errorCode = errorCode;
+        this.code = code;
         this.message = message;
         this.throwable = throwable;
         this.developerMessage = developerMessage;
     }
 
-    public AbstractBizException(int status, String errorCode, String message, Throwable throwable) {
+    public AbstractBizException(int status, String code, String message, Throwable throwable) {
         this.status = status;
-        this.errorCode = errorCode;
+        this.code = code;
         this.message = message;
         this.throwable = throwable;
     }
 
-    public AbstractBizException(int status, String errorCode, String message) {
+    public AbstractBizException(int status, String code, String message) {
         this.status = status;
-        this.errorCode = errorCode;
+        this.code = code;
         this.message = message;
     }
 
@@ -40,12 +40,12 @@ public abstract class AbstractBizException extends RuntimeException {
         this.status = status;
     }
 
-    public String getErrorCode() {
-        return errorCode;
+    public String getCode() {
+        return code;
     }
 
-    public void setErrorCode(String errorCode) {
-        this.errorCode = errorCode;
+    public void setCode(String code) {
+        this.code = code;
     }
 
     @Override

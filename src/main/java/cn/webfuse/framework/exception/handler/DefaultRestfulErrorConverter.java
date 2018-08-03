@@ -8,7 +8,7 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * 默认的RestfulError转换器，默认转换为Map。也就是在这里输出异常的格式。<br/>
  * 默认显示：<br/>
- * error_code: 错误的代码<br/>
+ * code: 错误的代码<br/>
  * message: 错误的信息<br/>
  * server_time: 发生错误的服务器时间<br/>
  * developer_message：开发者信息<br/>
@@ -18,7 +18,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class DefaultRestfulErrorConverter implements RestfulErrorConverter<Map> {
 
-    private String codeKey = "error_code";
+    private String codeKey = "code";
     private String messageKey = "message";
     private String serverTimeKey = "server_time";
     private String developerMessageKey = "developer_message";

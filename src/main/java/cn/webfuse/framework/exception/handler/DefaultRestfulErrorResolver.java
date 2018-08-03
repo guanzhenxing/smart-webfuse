@@ -177,7 +177,7 @@ public class DefaultRestfulErrorResolver implements RestfulErrorResolver, Messag
     private RestfulError definitionRestError(String value) {
 
         Map<String, String> error = JsonUtil.getInstance().fromJson(value, Map.class);
-        String code = error.get("errorCode");
+        String code = error.get("code");
         if (StringUtil.isEmpty(code)) {    //如果没有定义code，那么默认就是INTERNAL_SERVER_ERROR
             code = "INTERNAL_SERVER_ERROR";
         }
