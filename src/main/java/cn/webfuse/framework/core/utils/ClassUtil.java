@@ -12,15 +12,11 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * 类工具类ß
+ * 类工具类
  */
 public class ClassUtil {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
-
-    private static final String SETTER_PREFIX = "set";
-
-    private static final String GETTER_PREFIX = "get";
 
     private static final String CGLIB_CLASS_SEPARATOR = "$$";
 
@@ -34,20 +30,6 @@ public class ClassUtil {
      */
     public static ClassLoader getClassLoader() {
         return Thread.currentThread().getContextClassLoader();
-    }
-
-    /**
-     * 获取类路径
-     *
-     * @return
-     */
-    public static String getClassPath() {
-        String classpath = "";
-        URL resource = getClassLoader().getResource("");
-        if (resource != null) {
-            classpath = resource.getPath();
-        }
-        return classpath;
     }
 
     /**
@@ -78,67 +60,7 @@ public class ClassUtil {
         return cls;
     }
 
-    /**
-     * 获得原始的类名
-     * @param targetClass
-     * @return
-     */
-    public static String getOriginalClassName(Class<?> targetClass) {
-        return getOriginalClass(targetClass).getName();
-    }
 
-    /**
-     * 获得原始的类
-     * @param targetClass
-     * @return
-     */
-    public static Class<?> getOriginalClass(Class<?> targetClass) {
-        String className = targetClass.getName();
-        if (className.indexOf("$$EnhancerBy") > 0) {
-            return targetClass.getSuperclass();
-        }
-        return targetClass;
-    }
-
-    /**
-     * 获得原始的类名
-     * @param object
-     * @return
-     */
-    public static String getOriginalClassName(Object object) {
-        return getOriginalClassName(object.getClass());
-    }
-
-    /**
-     * 获得简单的类名
-     * @param object
-     * @return
-     */
-    public static String getSimpleOriginalClassName(Object object) {
-        String fullClassName = getOriginalClassName(object);
-        int lastNamespace = fullClassName.lastIndexOf('.');
-        if (lastNamespace > -1) {
-            return fullClassName.substring(lastNamespace + 1);
-        }
-        return fullClassName;
-    }
-
-
-    /**
-     * 调用Getter方法.
-     */
-    public static Object invokeGetter(Object obj, String propertyName) {
-        String getterMethodName = GETTER_PREFIX + StringUtil.capitalize(propertyName);
-        return invokeMethod(obj, getterMethodName, new Class[]{}, new Object[]{});
-    }
-
-    /**
-     * 调用Setter方法, 仅匹配方法名。
-     */
-    public static void invokeSetter(Object obj, String propertyName, Object value) {
-        String setterMethodName = SETTER_PREFIX + StringUtil.capitalize(propertyName);
-        invokeMethodByName(obj, setterMethodName, new Object[]{value});
-    }
 
     /**
      * 直接读取对象属性值, 无视private/protected修饰符, 不经过getter函数.
