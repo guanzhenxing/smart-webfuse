@@ -1,15 +1,17 @@
 package cn.webfuse.framework.exception;
 
+/**
+ * 抽象的业务异常类
+ */
+public abstract class AbstractBizException extends RuntimeException {
 
-public class BizException extends BaseException {
+    private int status; //状态码
+    private String errorCode;   //错误代码
+    private String message; //错误消息（针对用户）
+    private Throwable throwable;    //异常堆栈
+    private String developerMessage;    //给开发者的错误消息
 
-    private int status;
-    private String errorCode;
-    private String message;
-    private Throwable throwable;
-    private String developerMessage;
-
-    public BizException(int status, String errorCode, String message, Throwable throwable, String developerMessage) {
+    public AbstractBizException(int status, String errorCode, String message, Throwable throwable, String developerMessage) {
         this.status = status;
         this.errorCode = errorCode;
         this.message = message;
@@ -17,14 +19,14 @@ public class BizException extends BaseException {
         this.developerMessage = developerMessage;
     }
 
-    public BizException(int status, String errorCode, String message, Throwable throwable) {
+    public AbstractBizException(int status, String errorCode, String message, Throwable throwable) {
         this.status = status;
         this.errorCode = errorCode;
         this.message = message;
         this.throwable = throwable;
     }
 
-    public BizException(int status, String errorCode, String message) {
+    public AbstractBizException(int status, String errorCode, String message) {
         this.status = status;
         this.errorCode = errorCode;
         this.message = message;
@@ -70,4 +72,5 @@ public class BizException extends BaseException {
     public void setDeveloperMessage(String developerMessage) {
         this.developerMessage = developerMessage;
     }
+
 }
