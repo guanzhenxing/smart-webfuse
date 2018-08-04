@@ -4,6 +4,7 @@ package cn.webfuse.framework.web.config;
 import cn.webfuse.framework.exception.handler.DefaultRestfulErrorResolver;
 import cn.webfuse.framework.exception.handler.HandlerRestfulExceptionResolver;
 import cn.webfuse.framework.web.support.WebFuseJsonMapper;
+import cn.webfuse.framework.web.support.mvc.CustomServletModelAttributeMethodProcessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,6 +12,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.filter.HiddenHttpMethodFilter;
+import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.i18n.AcceptHeaderLocaleResolver;
@@ -76,21 +78,26 @@ public class WebMvcConfigurerAdapter implements WebMvcConfigurer {
         return jsonConverter;
     }
 
-//    @Override
-//    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
-//        argumentResolvers.add(customModelAttributeMethodProcessor());
-//    }
-//
-//    /**
-//     * 自定义请求参数模型处理
-//     *
-//     * @return
-//     */
-//    @Bean
-//    protected CustomServletModelAttributeMethodProcessor customModelAttributeMethodProcessor() {
-//        return new CustomServletModelAttributeMethodProcessor(true);
-//    }
-//
+    /**
+     * 添加参数解析
+     *
+     * @param argumentResolvers
+     */
+    @Override
+    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
+        argumentResolvers.add(customModelAttributeMethodProcessor());
+    }
+
+    /**
+     * 自定义请求参数模型处理
+     *
+     * @return
+     */
+    @Bean
+    protected CustomServletModelAttributeMethodProcessor customModelAttributeMethodProcessor() {
+        return new CustomServletModelAttributeMethodProcessor(true);
+    }
+
 
     /**
      * 异常处理解析器
@@ -107,17 +114,24 @@ public class WebMvcConfigurerAdapter implements WebMvcConfigurer {
         return handlerRestfulExceptionResolver;
     }
 
+    /**
+     * 默认的错误解析
+     *
+     * @return
+     */
     @Bean
     public DefaultRestfulErrorResolver defaultRestfulErrorResolver() {
-
         DefaultRestfulErrorResolver defaultRestfulErrorResolver = new DefaultRestfulErrorResolver();
         defaultRestfulErrorResolver.setLocaleResolver(localeResolver());
-
         defaultRestfulErrorResolver.setExceptionMappingDefinitions(getExceptionMappingDefinitions());
-
         return defaultRestfulErrorResolver;
     }
 
+    /**
+     * 异常处理方式的定义
+     *
+     * @return
+     */
     public Map<String, String> getExceptionMappingDefinitions() {
         Map<String, String> exceptionMappingDefinitions = new HashMap<>();
         exceptionMappingDefinitions.put("Throwable", "{\"status\":500}");
@@ -127,6 +141,11 @@ public class WebMvcConfigurerAdapter implements WebMvcConfigurer {
         return exceptionMappingDefinitions;
     }
 
+    /**
+     * 定义本地化
+     *
+     * @return
+     */
     @Bean
     public LocaleResolver localeResolver() {
         return new AcceptHeaderLocaleResolver();
