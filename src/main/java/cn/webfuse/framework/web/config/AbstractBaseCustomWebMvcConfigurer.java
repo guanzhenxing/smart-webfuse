@@ -7,7 +7,6 @@ import cn.webfuse.framework.web.support.WebFuseJsonMapper;
 import cn.webfuse.framework.web.support.mvc.CustomServletModelAttributeMethodProcessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -25,9 +24,7 @@ import java.util.Map;
 /**
  * 基于SpringMVC注解方式进行配置waf的spring配置。
  */
-@Configuration
-@EnableWebMvc
-public class WebMvcConfigurerAdapter implements WebMvcConfigurer {
+public abstract class AbstractBaseCustomWebMvcConfigurer implements WebMvcConfigurer {
 
     @Override
     public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
@@ -60,8 +57,7 @@ public class WebMvcConfigurerAdapter implements WebMvcConfigurer {
      */
     @Bean
     public Filter hiddenHttpMethodFilter() {
-        HiddenHttpMethodFilter filter = new HiddenHttpMethodFilter();
-        return filter;
+        return new HiddenHttpMethodFilter();
     }
 
 
@@ -138,8 +134,14 @@ public class WebMvcConfigurerAdapter implements WebMvcConfigurer {
         exceptionMappingDefinitions.put("RuntimeException", "{\"status\":500}");
         exceptionMappingDefinitions.put("cn.webfuse.framework.exception.AbstractBizException", "{\"status\":500,\"code\":\"INTERNAL SERVER ERROR\",\"message\":\"\",\"developerMessage\":\"\"}");
 
+        Map<String,String> customExceptionMappingDefinitions = getCustomExceptionMappingDefinitions();
+        if(customExceptionMappingDefinitions != null){
+            exceptionMappingDefinitions.putAll(customExceptionMappingDefinitions);
+        }
         return exceptionMappingDefinitions;
     }
+
+    public abstract Map<String, String> getCustomExceptionMappingDefinitions();
 
     /**
      * 定义本地化
@@ -159,6 +161,10 @@ public class WebMvcConfigurerAdapter implements WebMvcConfigurer {
      */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
+
+        addCustomInterceptors(registry);
     }
+
+    public abstract void addCustomInterceptors(InterceptorRegistry registry);
 
 }
