@@ -1,4 +1,4 @@
-package cn.webfuse.framework.security;
+package cn.webfuse.security;
 
 import java.lang.annotation.*;
 
