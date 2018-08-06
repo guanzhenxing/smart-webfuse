@@ -95,4 +95,16 @@ public class AuthToken {
     public void setAlgorithm(String algorithm) {
         this.algorithm = algorithm;
     }
+
+    /**
+     * 判断是否过期
+     */
+    public boolean isExpire() {
+        Date start = new Date();
+        Date end = getExpiresAt();
+        if (end == null) {
+            end = new Date();
+        }
+        return (end.getTime() - start.getTime()) < 0L;
+    }
 }

@@ -10,7 +10,7 @@ public class GlobalContext {
     @Value("${spring.profiles.active}")
     private static String env;
 
-    @Value("${webfuse.debug-mode}")
+    @Value("${webfuse.debug-mode:false}")
     private static boolean debugMode;
 
     /**
