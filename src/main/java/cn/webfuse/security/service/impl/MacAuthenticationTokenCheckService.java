@@ -7,7 +7,7 @@ import cn.webfuse.security.AuthenticationTokenException;
 import cn.webfuse.security.authentication.mac.MacAuthenticationToken;
 import cn.webfuse.security.entity.uaa.AuthToken;
 import cn.webfuse.security.service.AuthenticationTokenCheckService;
-import cn.webfuse.security.service.UaaService;
+import cn.webfuse.security.service.UserService;
 import cn.webfuse.security.service.cache.NonceCache;
 import cn.webfuse.security.util.AuthTokenUtil;
 import org.slf4j.Logger;
@@ -29,7 +29,7 @@ public class MacAuthenticationTokenCheckService implements AuthenticationTokenCh
 
 
     @Autowired
-    private UaaService uaaService;
+    private UserService userService;
 
     private NonceCache nonceCache;
 
@@ -136,6 +136,6 @@ public class MacAuthenticationTokenCheckService implements AuthenticationTokenCh
 
 
     private AuthToken getAuthToken(String token) {
-        return uaaService.loadUaaAccessToken(token);
+        return userService.loadUaaAccessToken(token);
     }
 }

@@ -3,7 +3,7 @@ package cn.webfuse.security.authentication.debug;
 import cn.webfuse.security.entity.UserAuthenticationToken;
 import cn.webfuse.security.entity.uaa.AuthToken;
 import cn.webfuse.security.entity.uaa.User;
-import cn.webfuse.security.service.UaaService;
+import cn.webfuse.security.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ public class DebugTokenAuthenticationProvider implements AuthenticationProvider 
     private static final Logger LOGGER = LoggerFactory.getLogger(DebugTokenAuthenticationProvider.class);
 
     @Autowired
-    private UaaService uaaService;
+    private UserService userService;
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
@@ -48,7 +48,7 @@ public class DebugTokenAuthenticationProvider implements AuthenticationProvider 
      * @return
      */
     private User buildUaaUserDetails(DebugAuthenticationToken debugAuthenticationToken) {
-        return uaaService.loadUserDetailsByAccount(debugAuthenticationToken.getAccount());
+        return userService.loadUserDetailsByAccount(debugAuthenticationToken.getAccount());
     }
 
     /**

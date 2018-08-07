@@ -6,7 +6,7 @@ import cn.webfuse.security.AuthenticationTokenException;
 import cn.webfuse.security.authentication.bearer.BearerAuthenticationToken;
 import cn.webfuse.security.entity.uaa.AuthToken;
 import cn.webfuse.security.service.AuthenticationTokenCheckService;
-import cn.webfuse.security.service.UaaService;
+import cn.webfuse.security.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +19,7 @@ public class BearerAuthenticationTokenCheckService implements AuthenticationToke
     private static final Logger LOGGER = LoggerFactory.getLogger(BearerAuthenticationTokenCheckService.class);
 
     @Autowired
-    private UaaService uaaService;
+    private UserService userService;
 
     @Override
     public AuthToken verifyToken(Authentication wafAuthenticationToken) {
@@ -46,6 +46,6 @@ public class BearerAuthenticationTokenCheckService implements AuthenticationToke
     }
 
     private AuthToken getAuthToken(String token) {
-        return uaaService.loadUaaAccessToken(token);
+        return userService.loadUaaAccessToken(token);
     }
 }

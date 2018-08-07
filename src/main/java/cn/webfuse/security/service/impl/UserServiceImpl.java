@@ -2,11 +2,11 @@ package cn.webfuse.security.service.impl;
 
 import cn.webfuse.security.entity.uaa.AuthToken;
 import cn.webfuse.security.entity.uaa.User;
-import cn.webfuse.security.service.UaaService;
+import cn.webfuse.security.service.UserService;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UaaServiceImpl implements UaaService {
+public class UserServiceImpl implements UserService {
     @Override
     public User loadUserDetailsByAccount(String account) {
         return null;

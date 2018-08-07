@@ -5,7 +5,7 @@ import cn.webfuse.security.authentication.AuthenticationInterceptorImpl;
 import cn.webfuse.security.entity.UserAuthenticationToken;
 import cn.webfuse.security.entity.uaa.AuthToken;
 import cn.webfuse.security.entity.uaa.User;
-import cn.webfuse.security.service.UaaService;
+import cn.webfuse.security.service.UserService;
 import cn.webfuse.security.service.impl.MacAuthenticationTokenCheckService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,7 +29,7 @@ public class MacTokenAuthenticationProvider implements AuthenticationProvider {
     private MacAuthenticationTokenCheckService macAuthenticationTokenCheckService;
 
     @Autowired
-    private UaaService uaaService;
+    private UserService userService;
 
     /**
      * 引入定制的AuthenticationInterceptor，且名字为macAuthenticationInterceptor
@@ -52,7 +52,7 @@ public class MacTokenAuthenticationProvider implements AuthenticationProvider {
 
         MacAuthenticationToken macAuthenticationToken = (MacAuthenticationToken) authentication;
         AuthToken authToken = macAuthenticationTokenCheckService.verifyToken(macAuthenticationToken); //校验token
-        User user = uaaService.loadUserDetailsByAccessToken(authToken);    //获得相关的用户信息
+        User user = userService.loadUserDetailsByAccessToken(authToken);    //获得相关的用户信息
         user.setAuthToken(authToken);
         UserAuthenticationToken userAuthenticationToken = new UserAuthenticationToken(user, "MAC");
 

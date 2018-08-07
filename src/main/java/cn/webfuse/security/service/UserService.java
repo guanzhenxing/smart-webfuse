@@ -6,7 +6,7 @@ import cn.webfuse.security.entity.uaa.User;
 /**
  * 从Uaa中获得数据的服务接口
  */
-public interface UaaService {
+public interface UserService {
 
 
     /**

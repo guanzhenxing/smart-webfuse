@@ -6,7 +6,7 @@ import cn.webfuse.security.entity.UserAuthenticationToken;
 import cn.webfuse.security.entity.uaa.AuthToken;
 import cn.webfuse.security.entity.uaa.User;
 import cn.webfuse.security.service.impl.BearerAuthenticationTokenCheckService;
-import cn.webfuse.security.service.UaaService;
+import cn.webfuse.security.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,7 @@ public class BearerTokenAuthenticationProvider implements AuthenticationProvider
     private AuthenticationInterceptor authenticationInterceptor = new AuthenticationInterceptorImpl();
 
     @Autowired
-    private UaaService uaaService;
+    private UserService userService;
 
 
     /**
@@ -59,7 +59,7 @@ public class BearerTokenAuthenticationProvider implements AuthenticationProvider
 
         BearerAuthenticationToken bearerPreAuthenticationToken = (BearerAuthenticationToken) authentication;
         AuthToken authToken = bearerAuthenticationTokenCheckService.verifyToken(bearerPreAuthenticationToken);
-        User user = uaaService.loadUserDetailsByAccessToken(authToken);    //获得相关的用户信息
+        User user = userService.loadUserDetailsByAccessToken(authToken);    //获得相关的用户信息
         user.setAuthToken(authToken);
         UserAuthenticationToken userAuthenticationToken = new UserAuthenticationToken(user, "BEARER");
 
