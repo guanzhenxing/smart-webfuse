@@ -1,4 +1,4 @@
-package cn.webfuse.framework.core.utils;
+package cn.webfuse.framework.core.tool;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,7 +9,7 @@ import java.lang.invoke.MethodHandles;
 /**
  * IP工具类
  */
-public class IpUtil {
+public class IpTools {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 

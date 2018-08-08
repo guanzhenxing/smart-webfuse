@@ -1,8 +1,8 @@
 package cn.webfuse.security.service.impl;
 
-import cn.webfuse.framework.core.utils.AssertUtil;
-import cn.webfuse.framework.core.utils.JsonUtil;
-import cn.webfuse.framework.core.utils.StringUtil;
+import cn.webfuse.framework.core.tool.AssertTools;
+import cn.webfuse.framework.core.tool.JsonTools;
+import cn.webfuse.framework.core.tool.StringTools;
 import cn.webfuse.security.AuthenticationTokenException;
 import cn.webfuse.security.authentication.mac.MacAuthenticationToken;
 import cn.webfuse.security.entity.uaa.AuthToken;
@@ -43,7 +43,7 @@ public class MacAuthenticationTokenCheckService implements AuthenticationTokenCh
     @Override
     public AuthToken verifyToken(Authentication wafAuthenticationToken) {
         LOGGER.debug("verify mac token begin.");
-        AssertUtil.assertNotNull(wafAuthenticationToken, "authenticationToken must not be null");
+        AssertTools.assertNotNull(wafAuthenticationToken, "authenticationToken must not be null");
         MacAuthenticationToken macAuthenticationToken = (MacAuthenticationToken) wafAuthenticationToken;
         AuthToken authToken = this.checkAuthToken(macAuthenticationToken.getId());   //获得UaaAccessToken
         this.checkMac(macAuthenticationToken, authToken.getSecret());
@@ -63,7 +63,7 @@ public class MacAuthenticationTokenCheckService implements AuthenticationTokenCh
             throw new AuthenticationTokenException(403, "AUTH_TOKEN_EXPIRED", "The token does not exist or has expired");
         }
 
-        LOGGER.debug(JsonUtil.toJsonString(authToken));
+        LOGGER.debug(JsonTools.toJsonString(authToken));
 
         return authToken;
     }
@@ -90,12 +90,12 @@ public class MacAuthenticationTokenCheckService implements AuthenticationTokenCh
      */
     private void checkNonce(String nonce) {
 
-        if (StringUtil.isEmpty(nonce)) {
+        if (StringTools.isEmpty(nonce)) {
             throw new AuthenticationTokenException(403,"NONCE_INVALID", "Nonce must not be null or empty.");
         }
 
         String[] strs = nonce.split(":");
-        if (strs.length != 2 || StringUtil.isEmpty(strs[0]) || !Pattern.compile("[0-9]*").matcher(strs[0]).matches()) {
+        if (strs.length != 2 || StringTools.isEmpty(strs[0]) || !Pattern.compile("[0-9]*").matcher(strs[0]).matches()) {
             throw new AuthenticationTokenException(403,"NONCE_INVALID", "The Nonce format is not correct.");
         }
 

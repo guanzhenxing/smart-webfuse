@@ -1,4 +1,4 @@
-package cn.webfuse.framework.core.utils;
+package cn.webfuse.framework.core.tool;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.digest.HmacUtils;
@@ -15,9 +15,9 @@ import java.security.MessageDigest;
  * 加解密工具类。实现：<br/>
  * <li>DES加密解密</li> <li>MD5加密</li> <li>SHA-1加密</li>
  */
-public class CryptoUtil {
+public class CryptoTools {
 
-    private CryptoUtil() {
+    private CryptoTools() {
     }
 
     /**
@@ -69,7 +69,7 @@ public class CryptoUtil {
             retData = new sun.misc.BASE64Encoder().encode(bt);
 
         } catch (Exception e) {
-            ExceptionUtil.unchecked(e);
+            ExceptionTools.unchecked(e);
         }
 
         return retData;
@@ -102,7 +102,7 @@ public class CryptoUtil {
             retResult = cipher.doFinal(data.getBytes());
 
         } catch (Exception e) {
-            ExceptionUtil.unchecked(e);
+            ExceptionTools.unchecked(e);
         }
         return retResult;
     }
@@ -140,7 +140,7 @@ public class CryptoUtil {
             retData = new String(bt);
 
         } catch (Exception e) {
-            ExceptionUtil.unchecked(e);
+            ExceptionTools.unchecked(e);
         }
         return retData;
     }
@@ -175,7 +175,7 @@ public class CryptoUtil {
             retResult = cipher.doFinal(buf);
 
         } catch (Exception e) {
-            ExceptionUtil.unchecked(e);
+            ExceptionTools.unchecked(e);
         }
 
         return retResult;

@@ -1,4 +1,4 @@
-package cn.webfuse.framework.core.utils;
+package cn.webfuse.framework.core.tool;
 
 import org.apache.commons.io.Charsets;
 import org.apache.commons.lang3.StringUtils;
@@ -10,7 +10,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class StringUtil extends StringUtils {
+public class StringTools extends StringUtils {
 
     public static final String EMPTY = "";
 
@@ -172,13 +172,13 @@ public class StringUtil extends StringUtils {
      * spilt by comma
      * <p/>
      * <pre>
-     * StringUtil.split(null)        = []
-     * StringUtil.split("")          = []
-     * StringUtil.split("abc")       = ["abc"]
-     * StringUtil.split("abc,def")   = ["abc", "def"]
-     * StringUtil.split("abc,,def")  = ["abc", "def"]
-     * StringUtil.split("abc,def,")  = ["abc", "def"]
-     * StringUtil.split("abc,def,ghi")  = ["abc", "def", "ghi"]
+     * StringTools.split(null)        = []
+     * StringTools.split("")          = []
+     * StringTools.split("abc")       = ["abc"]
+     * StringTools.split("abc,def")   = ["abc", "def"]
+     * StringTools.split("abc,,def")  = ["abc", "def"]
+     * StringTools.split("abc,def,")  = ["abc", "def"]
+     * StringTools.split("abc,def,ghi")  = ["abc", "def", "ghi"]
      * </pre>
      */
     public static List<String> spilt(String toSplit) {
@@ -187,14 +187,14 @@ public class StringUtil extends StringUtils {
 
     /**
      * <pre>
-     * StringUtil.split(null, *)         = []
-     * StringUtil.split("", *)           = []
-     * StringUtil.split("abc,def", null) = ["abc,def"]
-     * StringUtil.split("abc,def", "")   = ["abc,def"]
-     * StringUtil.split("abc,def", ",")  = ["abc", "def"]
-     * StringUtil.split("abc,,def", ",") = ["abc", "def"]
-     * StringUtil.split("abc,def,", ",") = ["abc", "def"]
-     * StringUtil.split("abc,def,ghi", ",") = ["abc", "def", "ghi"]
+     * StringTools.split(null, *)         = []
+     * StringTools.split("", *)           = []
+     * StringTools.split("abc,def", null) = ["abc,def"]
+     * StringTools.split("abc,def", "")   = ["abc,def"]
+     * StringTools.split("abc,def", ",")  = ["abc", "def"]
+     * StringTools.split("abc,,def", ",") = ["abc", "def"]
+     * StringTools.split("abc,def,", ",") = ["abc", "def"]
+     * StringTools.split("abc,def,ghi", ",") = ["abc", "def", "ghi"]
      * </pre>
      */
     public static List<String> spilt(String str, String separatorChars) {
@@ -395,7 +395,7 @@ public class StringUtil extends StringUtils {
      */
     public static boolean isJson(String str) {
         try {
-            JsonUtil.getInstance().getMapper().readValue(str, Map.class);
+            JsonTools.getInstance().getMapper().readValue(str, Map.class);
             return true;
         } catch (IOException e) {
             return false;

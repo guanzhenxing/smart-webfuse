@@ -1,6 +1,6 @@
 package cn.webfuse.framework.exception.handler;
 
-import cn.webfuse.framework.core.utils.StringUtil;
+import cn.webfuse.framework.core.tool.StringTools;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -30,10 +30,10 @@ public class DefaultRestfulErrorConverter implements RestfulErrorConverter<Map> 
         map.put(getCodeKey(), restfulError.getCode());
         map.put(getServerTimeKey(), restfulError.getServerTime());
 
-        if (!StringUtil.isEmpty(restfulError.getMessage())) {
+        if (!StringTools.isEmpty(restfulError.getMessage())) {
             map.put(getMessageKey(), restfulError.getMessage());
         }
-        if (!StringUtil.isEmpty(developerMessageKey)) {
+        if (!StringTools.isEmpty(developerMessageKey)) {
             map.put(getDeveloperMessageKey(), restfulError.getDeveloperMessage());
         }
         return map;

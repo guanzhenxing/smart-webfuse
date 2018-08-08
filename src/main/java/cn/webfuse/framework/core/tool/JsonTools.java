@@ -1,4 +1,4 @@
-package cn.webfuse.framework.core.utils;
+package cn.webfuse.framework.core.tool;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -19,17 +19,17 @@ import java.util.Map;
 /**
  * Json的工具类
  */
-public class JsonUtil {
+public class JsonTools {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     private ObjectMapper mapper;
 
-    public JsonUtil() {
+    public JsonTools() {
         this(null);
     }
 
-    public JsonUtil(JsonInclude.Include include) {
+    public JsonTools(JsonInclude.Include include) {
         mapper = new ObjectMapper();
         // 设置输出时包含属性的风格
         if (include != null) {
@@ -42,22 +42,22 @@ public class JsonUtil {
     /**
      * 创建只输出非Null且非Empty(如List.isEmpty)的属性到Json字符串的Mapper,建议在外部接口中使用.
      */
-    public static JsonUtil getInstance() {
-        return JsonUtil.nonEmptyMapper();
+    public static JsonTools getInstance() {
+        return JsonTools.nonEmptyMapper();
     }
 
     /**
      * 创建只输出非Null且非Empty(如List.isEmpty)的属性到Json字符串的Mapper,建议在外部接口中使用.
      */
-    public static JsonUtil nonEmptyMapper() {
-        return new JsonUtil(JsonInclude.Include.NON_EMPTY);
+    public static JsonTools nonEmptyMapper() {
+        return new JsonTools(JsonInclude.Include.NON_EMPTY);
     }
 
     /**
      * 创建只输出初始值被改变的属性到Json字符串的Mapper, 最节约的存储方式，建议在内部接口中使用。
      */
-    public static JsonUtil nonDefaultMapper() {
-        return new JsonUtil(JsonInclude.Include.NON_DEFAULT);
+    public static JsonTools nonDefaultMapper() {
+        return new JsonTools(JsonInclude.Include.NON_DEFAULT);
     }
 
     /**
@@ -81,7 +81,7 @@ public class JsonUtil {
      * @see #fromJson(String, JavaType)
      */
     public <T> T fromJson(String jsonString, Class<T> clazz) {
-        if (StringUtil.isEmpty(jsonString)) {
+        if (StringTools.isEmpty(jsonString)) {
             return null;
         }
 
@@ -99,7 +99,7 @@ public class JsonUtil {
      */
     @SuppressWarnings("unchecked")
     public <T> T fromJson(String jsonString, JavaType javaType) {
-        if (StringUtil.isEmpty(jsonString)) {
+        if (StringTools.isEmpty(jsonString)) {
             return null;
         }
 
@@ -179,7 +179,7 @@ public class JsonUtil {
      * @return
      */
     public static String toJsonString(Object object) {
-        return JsonUtil.nonEmptyMapper().toJson(object);
+        return JsonTools.nonEmptyMapper().toJson(object);
     }
 
     /**
@@ -190,7 +190,7 @@ public class JsonUtil {
      * @return
      */
     public static Object fromJsonString(String jsonString, Class<?> clazz) {
-        return JsonUtil.nonEmptyMapper().fromJson(jsonString, clazz);
+        return JsonTools.nonEmptyMapper().fromJson(jsonString, clazz);
     }
 
 

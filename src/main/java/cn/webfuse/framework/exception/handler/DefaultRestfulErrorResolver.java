@@ -1,8 +1,8 @@
 package cn.webfuse.framework.exception.handler;
 
-import cn.webfuse.framework.core.utils.BeanMapUtil;
-import cn.webfuse.framework.core.utils.JsonUtil;
-import cn.webfuse.framework.core.utils.StringUtil;
+import cn.webfuse.framework.core.tool.BeanMapTools;
+import cn.webfuse.framework.core.tool.JsonTools;
+import cn.webfuse.framework.core.tool.StringTools;
 import cn.webfuse.framework.exception.AbstractBizException;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang3.ClassUtils;
@@ -141,7 +141,7 @@ public class DefaultRestfulErrorResolver implements RestfulErrorResolver, Messag
         res.put("status", status.toString());
         res.put("message", DEFAULT_MESSAGE_VALUE);
 
-        map.put(name, JsonUtil.getInstance().toJson(res));
+        map.put(name, JsonTools.getInstance().toJson(res));
     }
 
 
@@ -176,14 +176,14 @@ public class DefaultRestfulErrorResolver implements RestfulErrorResolver, Messag
      */
     private RestfulError definitionRestError(String value) {
 
-        Map<String, String> error = JsonUtil.getInstance().fromJson(value, Map.class);
+        Map<String, String> error = JsonTools.getInstance().fromJson(value, Map.class);
         String code = error.get("code");
-        if (StringUtil.isEmpty(code)) {    //如果没有定义code，那么默认就是INTERNAL_SERVER_ERROR
+        if (StringTools.isEmpty(code)) {    //如果没有定义code，那么默认就是INTERNAL_SERVER_ERROR
             code = "INTERNAL_SERVER_ERROR";
         }
 
         String message = error.get("message");
-        if (StringUtil.isEmpty(message)) {
+        if (StringTools.isEmpty(message)) {
             message = DEFAULT_MESSAGE_VALUE;    //如果没有定义message,默认为 ""
         }
 
@@ -196,7 +196,7 @@ public class DefaultRestfulErrorResolver implements RestfulErrorResolver, Messag
         }
 
         String developerMessage = error.get("developerMessage");
-        if (StringUtil.isEmpty(message)) {
+        if (StringTools.isEmpty(message)) {
             developerMessage = DEFAULT_EXCEPTION_MESSAGE_VALUE;    //如果没有定义developerMessage,默认为 ""
         }
 
@@ -243,7 +243,7 @@ public class DefaultRestfulErrorResolver implements RestfulErrorResolver, Messag
         String developerMessage = restfulError.getDeveloperMessage();
 
         if (ex instanceof AbstractBizException) {   //如果异常继承于AbstractBizException时的处理
-            Map<String, Object> map = BeanMapUtil.convertBeanToMap(ex);
+            Map<String, Object> map = BeanMapTools.convertBeanToMap(ex);
             // 获得对应的code和HttpStatus
             code = MapUtils.getString(map, "errorCode");
             if (MapUtils.getInteger(map, "status") != 0) {
@@ -253,13 +253,13 @@ public class DefaultRestfulErrorResolver implements RestfulErrorResolver, Messag
             }
             message = MapUtils.getString(map, "message");
             developerMessage = MapUtils.getString(map, "developerMessage");
-            if (StringUtil.isEmpty(developerMessage)) {
-                developerMessage = StringUtil.join(ex.getStackTrace(), "\n");
+            if (StringTools.isEmpty(developerMessage)) {
+                developerMessage = StringTools.join(ex.getStackTrace(), "\n");
             }
         }
 
-        if (StringUtil.isEmpty(message)) message = ex.getMessage();
-        if (StringUtil.isEmpty(developerMessage)) developerMessage = ex.toString();
+        if (StringTools.isEmpty(message)) message = ex.getMessage();
+        if (StringTools.isEmpty(developerMessage)) developerMessage = ex.toString();
 
         RestfulError.Builder builder = new RestfulError.Builder();
         builder.setStatus(httpStatus);

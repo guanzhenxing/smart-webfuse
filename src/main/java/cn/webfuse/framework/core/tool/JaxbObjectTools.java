@@ -1,4 +1,4 @@
-package cn.webfuse.framework.core.utils;
+package cn.webfuse.framework.core.tool;
 
 
 import org.apache.commons.lang3.Validate;
@@ -15,9 +15,9 @@ import java.util.concurrent.ConcurrentMap;
 /**
  * XML<->Java Object
  */
-public class JaxbObjectUtil {
+public class JaxbObjectTools {
 
-    private JaxbObjectUtil() {
+    private JaxbObjectTools() {
     }
 
 
@@ -27,7 +27,7 @@ public class JaxbObjectUtil {
      * Java Object->Xml without encoding.
      */
     public static String toXml(Object root) {
-        Class clazz = ClassUtil.getClass(root);
+        Class clazz = ClassTools.getClass(root);
         return toXml(root, clazz, null);
     }
 
@@ -35,7 +35,7 @@ public class JaxbObjectUtil {
      * Java Object->Xml with encoding.
      */
     public static String toXml(Object root, String encoding) {
-        Class clazz = ClassUtil.getClass(root);
+        Class clazz = ClassTools.getClass(root);
         return toXml(root, clazz, encoding);
     }
 
@@ -48,7 +48,7 @@ public class JaxbObjectUtil {
             createMarshaller(clazz, encoding).marshal(root, writer);
             return writer.toString();
         } catch (JAXBException e) {
-            throw ExceptionUtil.unchecked(e);
+            throw ExceptionTools.unchecked(e);
         }
     }
 
@@ -74,7 +74,7 @@ public class JaxbObjectUtil {
 
             return writer.toString();
         } catch (JAXBException e) {
-            throw ExceptionUtil.unchecked(e);
+            throw ExceptionTools.unchecked(e);
         }
     }
 
@@ -87,7 +87,7 @@ public class JaxbObjectUtil {
             StringReader reader = new StringReader(xml);
             return (T) createUnmarshaller(clazz).unmarshal(reader);
         } catch (JAXBException e) {
-            throw ExceptionUtil.unchecked(e);
+            throw ExceptionTools.unchecked(e);
         }
     }
 
@@ -102,13 +102,13 @@ public class JaxbObjectUtil {
 
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
 
-            if (StringUtil.isNotBlank(encoding)) {
+            if (StringTools.isNotBlank(encoding)) {
                 marshaller.setProperty(Marshaller.JAXB_ENCODING, encoding);
             }
 
             return marshaller;
         } catch (JAXBException e) {
-            throw ExceptionUtil.unchecked(e);
+            throw ExceptionTools.unchecked(e);
         }
     }
 
@@ -120,7 +120,7 @@ public class JaxbObjectUtil {
             JAXBContext jaxbContext = getJaxbContext(clazz);
             return jaxbContext.createUnmarshaller();
         } catch (JAXBException e) {
-            throw ExceptionUtil.unchecked(e);
+            throw ExceptionTools.unchecked(e);
         }
     }
 

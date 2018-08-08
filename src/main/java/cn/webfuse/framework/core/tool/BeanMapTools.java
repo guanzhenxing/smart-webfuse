@@ -1,4 +1,4 @@
-package cn.webfuse.framework.core.utils;
+package cn.webfuse.framework.core.tool;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -20,11 +20,11 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * 实现Bean与Map之间的转换工具类
  */
-public class BeanMapUtil {
+public class BeanMapTools {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
-    private BeanMapUtil() {
+    private BeanMapTools() {
     }
 
     /**
@@ -73,7 +73,7 @@ public class BeanMapUtil {
 
         } catch (Exception e) {
             LOGGER.error("convertBeanToMap Error " + e);
-            ExceptionUtil.throwException(e);
+            ExceptionTools.throwException(e);
         }
         return returnMap;
 

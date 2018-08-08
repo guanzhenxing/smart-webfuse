@@ -1,7 +1,7 @@
 package cn.webfuse.security.authentication.bearer;
 
-import cn.webfuse.framework.core.utils.AssertUtil;
-import cn.webfuse.framework.core.utils.StringUtil;
+import cn.webfuse.framework.core.tool.AssertTools;
+import cn.webfuse.framework.core.tool.StringTools;
 import cn.webfuse.security.authentication.AbstractAuthenticationExtractor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,8 +29,8 @@ public class BearerTokenAuthenticationExtractor extends AbstractAuthenticationEx
     @Override
     public Authentication extractAuthentication(String authenticationValue, HttpServletRequest request) throws AuthenticationException {
 
-        String bearerToken = StringUtil.strip(authenticationValue, "\"");
-        AssertUtil.assertHasText(bearerToken, "bearer token is missing.");
+        String bearerToken = StringTools.strip(authenticationValue, "\"");
+        AssertTools.assertHasText(bearerToken, "bearer token is missing.");
 
         LOGGER.debug("bearerToken:{}", bearerToken);
 

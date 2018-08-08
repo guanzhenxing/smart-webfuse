@@ -1,7 +1,7 @@
 package cn.webfuse.security.util;
 
-import cn.webfuse.framework.core.utils.CryptoUtil;
-import cn.webfuse.framework.core.utils.JsonUtil;
+import cn.webfuse.framework.core.tool.CryptoTools;
+import cn.webfuse.framework.core.tool.JsonTools;
 import org.apache.commons.collections.MapUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,7 +25,7 @@ public class AuthTokenUtil {
     public static boolean checkMacToken(String secret, Map<String, Object> macRequestParam) {
         String newMac = createMacToken(secret, macRequestParam);
         if (!MapUtils.getString(macRequestParam, "mac").equalsIgnoreCase(newMac)) {
-            LOGGER.warn("request authRequest:" + JsonUtil.toJsonString(macRequestParam));
+            LOGGER.warn("request authRequest:" + JsonTools.toJsonString(macRequestParam));
             LOGGER.warn("Mac key:" + secret);
             LOGGER.warn("right Mac:" + newMac);
             return false;
@@ -50,7 +50,7 @@ public class AuthTokenUtil {
         sbRawMac.append("\n");
         sbRawMac.append(MapUtils.getString(macRequestParam, "host"));
         sbRawMac.append("\n");
-        String newMac = CryptoUtil.encryptHMac256(sbRawMac.toString(), secret);
+        String newMac = CryptoTools.encryptHMac256(sbRawMac.toString(), secret);
         return newMac;
     }
 

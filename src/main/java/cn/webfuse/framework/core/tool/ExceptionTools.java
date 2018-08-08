@@ -1,4 +1,4 @@
-package cn.webfuse.framework.core.utils;
+package cn.webfuse.framework.core.tool;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -6,9 +6,9 @@ import java.io.StringWriter;
 /**
  * 异常处理工具类
  */
-public class ExceptionUtil {
+public class ExceptionTools {
 
-    private ExceptionUtil() {
+    private ExceptionTools() {
     }
 
     /**

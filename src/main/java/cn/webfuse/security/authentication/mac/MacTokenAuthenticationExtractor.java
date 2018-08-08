@@ -1,7 +1,7 @@
 package cn.webfuse.security.authentication.mac;
 
-import cn.webfuse.framework.core.utils.AssertUtil;
-import cn.webfuse.framework.core.utils.StringUtil;
+import cn.webfuse.framework.core.tool.AssertTools;
+import cn.webfuse.framework.core.tool.StringTools;
 import cn.webfuse.security.authentication.AbstractAuthenticationExtractor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,11 +28,11 @@ public class MacTokenAuthenticationExtractor extends AbstractAuthenticationExtra
     @Override
     public Authentication extractAuthentication(String authenticationValue, HttpServletRequest request) throws AuthenticationException {
 
-        AssertUtil.assertHasText(authenticationValue, "Mac token should contains text.");
+        AssertTools.assertHasText(authenticationValue, "Mac token should contains text.");
 
         String host = request.getHeader(HttpHeaders.HOST);
 
-        AssertUtil.assertHasText(host, "'host' must not be null or empty");
+        AssertTools.assertHasText(host, "'host' must not be null or empty");
 
         String requestURI = this.getRequestURI(request, host);
         LOGGER.debug("requestURI:{}, host:{}", requestURI, host);
@@ -43,9 +43,9 @@ public class MacTokenAuthenticationExtractor extends AbstractAuthenticationExtra
         String nonce = getValue(authMap, "nonce");
         String mac = getValue(authMap, "mac");
 
-        AssertUtil.assertHasText(id, "'id' must not be null or empty. Token is " + authenticationValue);
-        AssertUtil.assertHasText(nonce, "'nonce' must not be null or empty. Token is " + authenticationValue);
-        AssertUtil.assertHasText(mac, "'mac' must not be null or empty. Token is " + authenticationValue);
+        AssertTools.assertHasText(id, "'id' must not be null or empty. Token is " + authenticationValue);
+        AssertTools.assertHasText(nonce, "'nonce' must not be null or empty. Token is " + authenticationValue);
+        AssertTools.assertHasText(mac, "'mac' must not be null or empty. Token is " + authenticationValue);
 
         LOGGER.debug("mac:{}, id:{}, nonce:{}", mac, id, nonce);
 
@@ -62,7 +62,7 @@ public class MacTokenAuthenticationExtractor extends AbstractAuthenticationExtra
         String reqString = request.getRequestURL().toString();
         String queryStr = request.getQueryString();
         // 判断请求参数是否为空
-        if (!StringUtil.isEmpty(queryStr)) {
+        if (!StringTools.isEmpty(queryStr)) {
             reqString = reqString + "?" + queryStr;
         }
 

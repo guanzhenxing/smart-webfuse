@@ -1,4 +1,4 @@
-package cn.webfuse.framework.core.utils;
+package cn.webfuse.framework.core.tool;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.slf4j.Logger;
@@ -9,11 +9,11 @@ import java.lang.invoke.MethodHandles;
 /**
  * 类型转换工具类
  */
-public class CastUtil {
+public class CastTools {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
-    private CastUtil() {
+    private CastTools() {
     }
 
     /**
@@ -81,7 +81,7 @@ public class CastUtil {
         double doubleValue = defaultValue;
         if (object != null) {
             String strValue = object2String(object);
-            if (StringUtil.isNotEmpty(strValue)) {
+            if (StringTools.isNotEmpty(strValue)) {
                 try {
                     doubleValue = Double.parseDouble(strValue);
                 } catch (NumberFormatException e) {
@@ -133,7 +133,7 @@ public class CastUtil {
         int intValue = defaultValue;
         if (object != null) {
             String strValue = object2String(object);
-            if (StringUtil.isNotEmpty(strValue)) {
+            if (StringTools.isNotEmpty(strValue)) {
                 try {
                     intValue = Integer.parseInt(strValue);
                 } catch (NumberFormatException e) {
@@ -185,7 +185,7 @@ public class CastUtil {
         float floatValue = defaultValue;
         if (object != null) {
             String strValue = object2String(object);
-            if (StringUtil.isNotEmpty(strValue)) {
+            if (StringTools.isNotEmpty(strValue)) {
                 try {
                     floatValue = Float.parseFloat(strValue);
                 } catch (NumberFormatException e) {
@@ -237,7 +237,7 @@ public class CastUtil {
         long longValue = defaultValue;
         if (object != null) {
             String strValue = object2String(object);
-            if (StringUtil.isNotEmpty(strValue)) {
+            if (StringTools.isNotEmpty(strValue)) {
                 try {
                     longValue = Long.parseLong(strValue);
                 } catch (NumberFormatException e) {

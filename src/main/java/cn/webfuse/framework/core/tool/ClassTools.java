@@ -1,4 +1,4 @@
-package cn.webfuse.framework.core.utils;
+package cn.webfuse.framework.core.tool;
 
 import org.apache.commons.lang3.Validate;
 import org.slf4j.Logger;
@@ -7,20 +7,19 @@ import org.slf4j.LoggerFactory;
 import java.lang.annotation.Annotation;
 import java.lang.invoke.MethodHandles;
 import java.lang.reflect.*;
-import java.net.URL;
 import java.util.*;
 import java.util.stream.Collectors;
 
 /**
  * 类工具类
  */
-public class ClassUtil {
+public class ClassTools {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     private static final String CGLIB_CLASS_SEPARATOR = "$$";
 
-    private ClassUtil() {
+    private ClassTools() {
     }
 
     /**

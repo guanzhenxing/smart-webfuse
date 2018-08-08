@@ -1,6 +1,6 @@
 package cn.webfuse.security;
 
-import cn.webfuse.framework.core.utils.JsonUtil;
+import cn.webfuse.framework.core.tool.JsonTools;
 import cn.webfuse.security.authentication.AuthenticationExtractorManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,7 +45,7 @@ public class AuthenticationTokenVerifier {
             LOGGER.debug("Authorization: {}", authorization);
             if (null != authentication) {
                 successAuthentication = authenticationManager.authenticate(authentication);  //认证
-                LOGGER.info("Success Authorization: {}", JsonUtil.toJsonString(successAuthentication));
+                LOGGER.info("Success Authorization: {}", JsonTools.toJsonString(successAuthentication));
             }
         } else {
             throw new AuthenticationTokenException(403, "AUTHENTICATION_TOKEN_ERROR_TEXT", "没有发现Authorization请求头");

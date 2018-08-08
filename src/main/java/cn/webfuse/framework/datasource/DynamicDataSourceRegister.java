@@ -1,6 +1,6 @@
 package cn.webfuse.framework.datasource;
 
-import cn.webfuse.framework.core.utils.ExceptionUtil;
+import cn.webfuse.framework.core.tool.ExceptionTools;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.MutablePropertyValues;
@@ -104,7 +104,7 @@ public class DynamicDataSourceRegister implements ImportBeanDefinitionRegistrar,
                     .username(username).password(password).type(dataSourceType);
             return factory.build();
         } catch (ClassNotFoundException e) {
-            ExceptionUtil.throwException(e);
+            ExceptionTools.throwException(e);
         }
         return null;
     }

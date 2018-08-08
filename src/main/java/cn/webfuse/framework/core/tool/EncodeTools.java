@@ -1,4 +1,4 @@
-package cn.webfuse.framework.core.utils;
+package cn.webfuse.framework.core.tool;
 
 import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.binary.Base64;
@@ -9,9 +9,9 @@ import org.apache.commons.lang3.StringEscapeUtils;
 /**
  * 各种编码工具类。实现： 1、HEX编码 2、BASE64编码 3、URL 编码 4、HTML转码 5、XML转码
  */
-public class EncodeUtil {
+public class EncodeTools {
 
-    private EncodeUtil() {
+    private EncodeTools() {
     }
 
     /**
@@ -34,7 +34,7 @@ public class EncodeUtil {
         try {
             return Hex.decodeHex(data.toCharArray());
         } catch (DecoderException e) {
-            throw ExceptionUtil.unchecked(e);
+            throw ExceptionTools.unchecked(e);
         }
     }
 
@@ -108,7 +108,7 @@ public class EncodeUtil {
         try {
             return new String(URLCodec.decodeUrl(data.getBytes()));
         } catch (DecoderException e) {
-            throw ExceptionUtil.unchecked(e);
+            throw ExceptionTools.unchecked(e);
         }
     }
 

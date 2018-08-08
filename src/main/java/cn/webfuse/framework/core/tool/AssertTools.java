@@ -1,4 +1,4 @@
-package cn.webfuse.framework.core.utils;
+package cn.webfuse.framework.core.tool;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.helpers.MessageFormatter;
@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 /**
  * 断言工具
  */
-public class AssertUtil {
+public class AssertTools {
     public static final String DEFAULT_ASSERT_NULL_MESSAGE = "The validated object is not null";
     public static final String DEFAULT_ASSERT_NOT_NULL_MESSAGE = "The validated object is null";
     public static final String DEFAULT_ASSERT_TRUE_MESSAGE = "The validated expression is false";
@@ -17,7 +17,7 @@ public class AssertUtil {
     public static final String DEFAULT_ASSERT_HAS_TEXT_MESSAGE = "The validated string is empty";
     public static final String DEFAULT_ASSERT_MATCHES_MESSAGE = "The validated string '{}' does not match the pattern '{}'";
 
-    private AssertUtil(){
+    private AssertTools(){
 
     }
 
@@ -76,7 +76,7 @@ public class AssertUtil {
     }
 
     public static void assertHasText(String target, String message, Object... params) {
-        if (!StringUtil.hasText(target)) {
+        if (!StringTools.hasText(target)) {
             throwAssertionException(message, params);
         }
     }

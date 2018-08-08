@@ -1,4 +1,4 @@
-package cn.webfuse.framework.core.utils;
+package cn.webfuse.framework.core.tool;
 
 import java.beans.BeanInfo;
 import java.beans.Introspector;
@@ -7,9 +7,9 @@ import java.beans.PropertyDescriptor;
 /**
  * Bean的工具类
  */
-public class BeanUtil {
+public class BeanTools {
 
-    private BeanUtil() {
+    private BeanTools() {
 
     }
 

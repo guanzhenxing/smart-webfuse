@@ -1,4 +1,4 @@
-package cn.webfuse.framework.core.utils;
+package cn.webfuse.framework.core.tool;
 
 import org.apache.commons.lang3.Validate;
 
@@ -11,7 +11,7 @@ import java.util.*;
 /**
  * Servlet工具类
  */
-public class ServletUtil {
+public class ServletTools {
 
 
     /**
@@ -171,7 +171,7 @@ public class ServletUtil {
      */
     public static String encodeHttpBasic(String userName, String password) {
         String encode = userName + ":" + password;
-        return "Basic " + EncodeUtil.encodeBase64(encode.getBytes());
+        return "Basic " + EncodeTools.encodeBase64(encode.getBytes());
     }
 
 

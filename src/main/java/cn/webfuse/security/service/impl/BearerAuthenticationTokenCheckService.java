@@ -1,7 +1,7 @@
 package cn.webfuse.security.service.impl;
 
-import cn.webfuse.framework.core.utils.AssertUtil;
-import cn.webfuse.framework.core.utils.JsonUtil;
+import cn.webfuse.framework.core.tool.AssertTools;
+import cn.webfuse.framework.core.tool.JsonTools;
 import cn.webfuse.security.AuthenticationTokenException;
 import cn.webfuse.security.authentication.bearer.BearerAuthenticationToken;
 import cn.webfuse.security.entity.uaa.AuthToken;
@@ -24,7 +24,7 @@ public class BearerAuthenticationTokenCheckService implements AuthenticationToke
     @Override
     public AuthToken verifyToken(Authentication wafAuthenticationToken) {
         LOGGER.debug("verify bearer token begin.");
-        AssertUtil.assertNotNull(wafAuthenticationToken, "authenticationToken must not be null");
+        AssertTools.assertNotNull(wafAuthenticationToken, "authenticationToken must not be null");
         BearerAuthenticationToken bearerPreAuthenticationToken = (BearerAuthenticationToken) wafAuthenticationToken;
         AuthToken authToken = checkAuthToken(bearerPreAuthenticationToken.getToken());
         LOGGER.debug("verify bearer token end.");
@@ -40,7 +40,7 @@ public class BearerAuthenticationTokenCheckService implements AuthenticationToke
             throw new AuthenticationTokenException(403, "AUTH_TOKEN_EXPIRED", "The token has expired");
         }
 
-        LOGGER.debug(JsonUtil.toJsonString(authToken));
+        LOGGER.debug(JsonTools.toJsonString(authToken));
 
         return authToken;
     }
