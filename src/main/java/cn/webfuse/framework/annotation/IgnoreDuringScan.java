@@ -6,7 +6,7 @@ package cn.webfuse.framework.annotation;
  * <p>
  * 使用：
  * <pre>
- *  {@literal @}SpringBootApplication
+ * {@literal @}SpringBootApplication
  * {@literal @}ComponentScan(excludeFilters = @ComponentScan.Filter(IgnoreDuringScan.class))
  * public class Application {
  *    public static void main(String[] args) {

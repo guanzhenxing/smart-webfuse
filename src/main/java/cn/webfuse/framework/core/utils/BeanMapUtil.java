@@ -2,7 +2,6 @@ package cn.webfuse.framework.core.utils;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.util.ISO8601DateFormat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,8 +11,10 @@ import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.lang.invoke.MethodHandles;
 import java.lang.reflect.Method;
-import java.sql.Date;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -24,42 +25,6 @@ public class BeanMapUtil {
     private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     private BeanMapUtil() {
-    }
-
-    /**
-     * 将Map对象转换成Bean对象
-     *
-     * @param map 待转换的Map对象
-     * @param obj 转换后的Bean对象
-     */
-    // Map --> Bean 1: 利用Introspector,PropertyDescriptor实现 Map --> Bean
-    @Deprecated
-    public static void convertMapToBean(Map<String, Object> map, Object obj) {
-
-        try {
-            BeanInfo beanInfo = Introspector.getBeanInfo(obj.getClass());
-            PropertyDescriptor[] propertyDescriptors = beanInfo.getPropertyDescriptors();
-
-            for (PropertyDescriptor property : propertyDescriptors) {
-                String key = property.getName();
-                Class type = property.getPropertyType();
-
-                if (map.containsKey(key)) {
-                    Object value = map.get(key);
-                    if (Objects.nonNull(value)) {   //首先判断是不是空，如果不为空的话设置值
-                        if (type == Date.class) {
-                            value = new ISO8601DateFormat().parse(value.toString());
-                        }
-                        Method setter = property.getWriteMethod();// 得到property对应的setter方法
-                        setter.invoke(obj, value);
-                    }
-                }
-            }
-
-        } catch (Exception e) {
-            LOGGER.error("transMap2Bean Error " + e);
-            ExceptionUtil.throwException(e);
-        }
     }
 
     /**

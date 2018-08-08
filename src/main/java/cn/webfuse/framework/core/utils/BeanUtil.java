@@ -8,6 +8,7 @@ import java.beans.PropertyDescriptor;
  * Bean的工具类
  */
 public class BeanUtil {
+
     private BeanUtil() {
 
     }

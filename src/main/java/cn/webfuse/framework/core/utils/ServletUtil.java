@@ -13,8 +13,6 @@ import java.util.*;
  */
 public class ServletUtil {
 
-    // -- 常用数值定义 --//
-    public static final long ONE_YEAR_SECONDS = 60 * 60 * 24 * 365;
 
     /**
      * 设置客户端缓存过期时间 的Header.
