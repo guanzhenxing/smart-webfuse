@@ -11,7 +11,7 @@ import java.util.*;
 /**
  * Servlet工具类
  */
-public class ServletTools {
+public class WebTools {
 
 
     /**
