@@ -1,8 +1,6 @@
 package cn.webfuse.security.service.impl;
 
-import cn.webfuse.framework.core.tool.AssertTools;
-import cn.webfuse.framework.core.tool.JsonTools;
-import cn.webfuse.framework.core.tool.StringTools;
+import cn.webfuse.framework.tool.AssertTools;
 import cn.webfuse.security.AuthenticationTokenException;
 import cn.webfuse.security.authentication.mac.MacAuthenticationToken;
 import cn.webfuse.security.entity.uaa.AuthToken;
@@ -10,6 +8,8 @@ import cn.webfuse.security.service.AuthenticationTokenCheckService;
 import cn.webfuse.security.service.UserService;
 import cn.webfuse.security.service.cache.NonceCache;
 import cn.webfuse.security.util.AuthTokenUtil;
+import com.vip.vjtools.vjkit.mapper.JsonMapper;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,7 +63,7 @@ public class MacAuthenticationTokenCheckService implements AuthenticationTokenCh
             throw new AuthenticationTokenException(403, "AUTH_TOKEN_EXPIRED", "The token does not exist or has expired");
         }
 
-        LOGGER.debug(JsonTools.toJsonString(authToken));
+        LOGGER.debug(JsonMapper.defaultMapper().toJson(authToken));
 
         return authToken;
     }
@@ -78,7 +78,7 @@ public class MacAuthenticationTokenCheckService implements AuthenticationTokenCh
     private void checkMac(MacAuthenticationToken macAuthenticationToken, String secret) {
         Map macRequestParam = toMacRequestParam(macAuthenticationToken);
         if (!AuthTokenUtil.checkMacToken(secret, macRequestParam)) {    //检查是否是正确的mac
-            throw new AuthenticationTokenException(403,"MAC_SIGN_INVALID", "The mac sign is invalid");
+            throw new AuthenticationTokenException(403, "MAC_SIGN_INVALID", "The mac sign is invalid");
         }
     }
 
@@ -90,28 +90,27 @@ public class MacAuthenticationTokenCheckService implements AuthenticationTokenCh
      */
     private void checkNonce(String nonce) {
 
-        if (StringTools.isEmpty(nonce)) {
-            throw new AuthenticationTokenException(403,"NONCE_INVALID", "Nonce must not be null or empty.");
+        if (StringUtils.isEmpty(nonce)) {
+            throw new AuthenticationTokenException(403, "NONCE_INVALID", "Nonce must not be null or empty.");
         }
 
         String[] strs = nonce.split(":");
-        if (strs.length != 2 || StringTools.isEmpty(strs[0]) || !Pattern.compile("[0-9]*").matcher(strs[0]).matches()) {
-            throw new AuthenticationTokenException(403,"NONCE_INVALID", "The Nonce format is not correct.");
+        if (strs.length != 2 || StringUtils.isEmpty(strs[0]) || !Pattern.compile("[0-9]*").matcher(strs[0]).matches()) {
+            throw new AuthenticationTokenException(403, "NONCE_INVALID", "The Nonce format is not correct.");
         }
 
         long diff = new Date().getTime() - Long.parseLong(strs[0]);
         if (diff > nonceExpire || diff < -nonceExpire) {
-            throw new AuthenticationTokenException(403,"NONCE_INVALID",
+            throw new AuthenticationTokenException(403, "NONCE_INVALID",
                     "The Nonce string is invalid. The difference between the time and the system time is greater than 5 minutes");
         }
 
         boolean exist = nonceCache.existNonce(nonce);
         if (exist) {
-            throw new AuthenticationTokenException(403,"NONCE_INVALID", "Nonce cannot be reused");//说明nonce串使用过了，抛出异常
+            throw new AuthenticationTokenException(403, "NONCE_INVALID", "Nonce cannot be reused");//说明nonce串使用过了，抛出异常
         }
 
     }
-
 
 
     /**
@@ -120,19 +119,18 @@ public class MacAuthenticationTokenCheckService implements AuthenticationTokenCh
      * @param macAuthenticationToken
      * @return
      */
-    private Map<String,Object> toMacRequestParam(MacAuthenticationToken macAuthenticationToken) {
+    private Map<String, Object> toMacRequestParam(MacAuthenticationToken macAuthenticationToken) {
 
         Map macRequestParam = new HashMap();
-        macRequestParam.put("Host",macAuthenticationToken.getHost());
-        macRequestParam.put("httpMethod",macAuthenticationToken.getHttpMethod());
-        macRequestParam.put("id",macAuthenticationToken.getId());
-        macRequestParam.put("mac",macAuthenticationToken.getMac());
-        macRequestParam.put("nonce",macAuthenticationToken.getNonce());
-        macRequestParam.put("requestUri",macAuthenticationToken.getRequestUri());
+        macRequestParam.put("Host", macAuthenticationToken.getHost());
+        macRequestParam.put("httpMethod", macAuthenticationToken.getHttpMethod());
+        macRequestParam.put("id", macAuthenticationToken.getId());
+        macRequestParam.put("mac", macAuthenticationToken.getMac());
+        macRequestParam.put("nonce", macAuthenticationToken.getNonce());
+        macRequestParam.put("requestUri", macAuthenticationToken.getRequestUri());
 
         return macRequestParam;
     }
-
 
 
     private AuthToken getAuthToken(String token) {

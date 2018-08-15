@@ -1,8 +1,8 @@
 package cn.webfuse.security.authentication;
 
-import cn.webfuse.framework.core.tool.StringTools;
 import com.google.common.base.Splitter;
 import org.apache.commons.collections.map.CaseInsensitiveMap;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.Map;
 
@@ -31,7 +31,7 @@ public abstract class AbstractAuthenticationExtractor implements AuthenticationE
     protected String getValue(Map<String, String> dataMap, String name) {
         String value = dataMap.get(name);
         if (value != null) {
-            value = StringTools.strip(value, "\"");
+            value = StringUtils.strip(value, "\"");
         }
         return value;
     }

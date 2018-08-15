@@ -1,6 +1,6 @@
 package cn.webfuse.security.authentication.debug;
 
-import cn.webfuse.framework.core.tool.AssertTools;
+import cn.webfuse.framework.tool.AssertTools;
 import cn.webfuse.framework.support.GlobalContext;
 import cn.webfuse.security.AuthenticationTokenException;
 import cn.webfuse.security.authentication.AbstractAuthenticationExtractor;

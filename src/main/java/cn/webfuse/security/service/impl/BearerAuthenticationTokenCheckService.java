@@ -1,12 +1,12 @@
 package cn.webfuse.security.service.impl;
 
-import cn.webfuse.framework.core.tool.AssertTools;
-import cn.webfuse.framework.core.tool.JsonTools;
+import cn.webfuse.framework.tool.AssertTools;
 import cn.webfuse.security.AuthenticationTokenException;
 import cn.webfuse.security.authentication.bearer.BearerAuthenticationToken;
 import cn.webfuse.security.entity.uaa.AuthToken;
 import cn.webfuse.security.service.AuthenticationTokenCheckService;
 import cn.webfuse.security.service.UserService;
+import com.vip.vjtools.vjkit.mapper.JsonMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +40,7 @@ public class BearerAuthenticationTokenCheckService implements AuthenticationToke
             throw new AuthenticationTokenException(403, "AUTH_TOKEN_EXPIRED", "The token has expired");
         }
 
-        LOGGER.debug(JsonTools.toJsonString(authToken));
+        LOGGER.debug(JsonMapper.defaultMapper().toJson(authToken));
 
         return authToken;
     }

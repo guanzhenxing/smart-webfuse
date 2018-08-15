@@ -1,6 +1,8 @@
-package cn.webfuse.framework.core.tool;
+package cn.webfuse.framework.tool;
 
-import org.apache.commons.collections.CollectionUtils;
+
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.helpers.MessageFormatter;
 
 import java.util.Collection;
@@ -8,8 +10,11 @@ import java.util.regex.Pattern;
 
 /**
  * 断言工具
+ *
+ * TODO 参考spring的Asset
  */
 public class AssertTools {
+
     public static final String DEFAULT_ASSERT_NULL_MESSAGE = "The validated object is not null";
     public static final String DEFAULT_ASSERT_NOT_NULL_MESSAGE = "The validated object is null";
     public static final String DEFAULT_ASSERT_TRUE_MESSAGE = "The validated expression is false";
@@ -17,7 +22,7 @@ public class AssertTools {
     public static final String DEFAULT_ASSERT_HAS_TEXT_MESSAGE = "The validated string is empty";
     public static final String DEFAULT_ASSERT_MATCHES_MESSAGE = "The validated string '{}' does not match the pattern '{}'";
 
-    private AssertTools(){
+    private AssertTools() {
 
     }
 
@@ -76,7 +81,7 @@ public class AssertTools {
     }
 
     public static void assertHasText(String target, String message, Object... params) {
-        if (!StringTools.hasText(target)) {
+        if (StringUtils.isBlank(target)) {
             throwAssertionException(message, params);
         }
     }
@@ -97,9 +102,7 @@ public class AssertTools {
     }
 
     public static class AssertionException extends RuntimeException {
-
         private static final long serialVersionUID = -1023297548643274521L;
-
         public AssertionException(String message) {
             super(message);
         }

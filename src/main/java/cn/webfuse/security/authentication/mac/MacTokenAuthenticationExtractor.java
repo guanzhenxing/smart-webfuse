@@ -1,8 +1,8 @@
 package cn.webfuse.security.authentication.mac;
 
-import cn.webfuse.framework.core.tool.AssertTools;
-import cn.webfuse.framework.core.tool.StringTools;
+import cn.webfuse.framework.tool.AssertTools;
 import cn.webfuse.security.authentication.AbstractAuthenticationExtractor;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.Order;
@@ -62,7 +62,7 @@ public class MacTokenAuthenticationExtractor extends AbstractAuthenticationExtra
         String reqString = request.getRequestURL().toString();
         String queryStr = request.getQueryString();
         // 判断请求参数是否为空
-        if (!StringTools.isEmpty(queryStr)) {
+        if (!StringUtils.isEmpty(queryStr)) {
             reqString = reqString + "?" + queryStr;
         }
 
