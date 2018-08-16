@@ -243,16 +243,14 @@ public class DefaultRestfulErrorResolver implements RestfulErrorResolver, Messag
         String developerMessage = restfulError.getDeveloperMessage();
 
         if (ex instanceof AbstractBizException) {   //如果异常继承于AbstractBizException时的处理
-            Map<String, Object> map = BeanMapper.map(ex, Map.class);
-            // 获得对应的code和HttpStatus
-            code = MapUtils.getString(map, "errorCode");
-            if (MapUtils.getInteger(map, "status") != 0) {
-                httpStatus = HttpStatus.valueOf(Integer.valueOf(MapUtils.getInteger(map, "statusCode")));
+            code = ((AbstractBizException) ex).getCode();
+            if (((AbstractBizException) ex).getStatus() != 0) {
+                httpStatus = HttpStatus.valueOf(((AbstractBizException) ex).getStatus());
             } else {
                 httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
             }
-            message = MapUtils.getString(map, "message");
-            developerMessage = MapUtils.getString(map, "developerMessage");
+            message = ex.getMessage();
+            developerMessage = ((AbstractBizException) ex).getDeveloperMessage();
             if (StringUtils.isEmpty(developerMessage)) {
                 developerMessage = StringUtils.join(ex.getStackTrace(), "\n");
             }
