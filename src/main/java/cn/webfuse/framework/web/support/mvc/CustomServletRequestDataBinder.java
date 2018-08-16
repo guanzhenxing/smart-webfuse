@@ -1,7 +1,7 @@
 package cn.webfuse.framework.web.support.mvc;
 
-import cn.webfuse.framework.core.tool.StringTools;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.common.base.CaseFormat;
 import org.springframework.beans.MutablePropertyValues;
 import org.springframework.beans.PropertyValue;
 import org.springframework.web.servlet.mvc.method.annotation.ExtendedServletRequestDataBinder;
@@ -32,7 +32,9 @@ public class CustomServletRequestDataBinder extends ExtendedServletRequestDataBi
         List<PropertyValue> covertValues = new ArrayList<>();
         for (PropertyValue propertyValue : mpv.getPropertyValueList()) {
             if (propertyValue.getName().contains("_")) {
-                String camelName = StringTools.convertSnakeCaseToCamel(propertyValue.getName());
+
+                String camelName = CaseFormat.LOWER_UNDERSCORE.converterTo(CaseFormat.LOWER_CAMEL)
+                        .convert(propertyValue.getName());
                 if (!mpv.contains(camelName)) {
                     covertValues.add(new PropertyValue(camelName, propertyValue.getValue()));
                 }
@@ -54,4 +56,5 @@ public class CustomServletRequestDataBinder extends ExtendedServletRequestDataBi
             }
         }
     }
+
 }

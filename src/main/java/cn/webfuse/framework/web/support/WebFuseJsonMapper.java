@@ -23,12 +23,11 @@ public class WebFuseJsonMapper {
     static {
         mapper = new ObjectMapper();
         mapper.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);    //驼峰式的输出
-        mapper.setPropertyInclusion(JsonInclude.Value.construct(JsonInclude.Include.ALWAYS, JsonInclude.Include.ALWAYS));
+        mapper.setDefaultPropertyInclusion(JsonInclude.Value.construct(JsonInclude.Include.ALWAYS, JsonInclude.Include.ALWAYS));
 
         mapper.setTimeZone(TimeZone.getDefault());    //设置时区
         mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);// 设置时间格式为ISO-8601
         mapper.configure(SerializationFeature.WRITE_ENUMS_USING_TO_STRING, true);
-        mapper.configure(SerializationFeature.WRITE_NULL_MAP_VALUES, true);
 
         // 序列化BigDecimal时之间输出原始数字还是科学计数，默认false，即是否以toPlainString()科学计数方式来输出
         mapper.configure(JsonGenerator.Feature.WRITE_BIGDECIMAL_AS_PLAIN, false);

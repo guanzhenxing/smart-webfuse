@@ -32,6 +32,13 @@ public abstract class AbstractBizException extends RuntimeException {
         this.message = message;
     }
 
+    public AbstractBizException() {
+    }
+
+    public AbstractBizException(String message) {
+        super(message);
+    }
+
     public int getStatus() {
         return status;
     }
