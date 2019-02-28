@@ -19,8 +19,6 @@
     <description>WebFuse - Fuse some thing for JavaWeb develop.</description>
 
     <properties>
-
-
         <java.version>1.8</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
@@ -28,15 +26,9 @@
 
         <!--for spring-->
         <spring-cloud.version>Greenwich.RELEASE</spring-cloud.version>
-
         <webfuse.version>1.0-SNAPSHOT</webfuse.version>
-
         <docker-image-prefix>webfuse</docker-image-prefix>
-
     </properties>
-
-   
-
 
     <profiles>
         <profile>
@@ -153,7 +145,6 @@
                     <artifactId>maven-project-info-reports-plugin</artifactId>
                     <version>3.0.0</version>
                 </plugin>
-
                 <!-- source attach plugin -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -168,7 +159,6 @@
                         </execution>
                     </executions>
                 </plugin>
-
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-dependency-plugin</artifactId>
@@ -192,10 +182,7 @@
                         </execution>
                     </executions>
                 </plugin>
-
-
             </plugins>
-
         </pluginManagement>
     </build>
 

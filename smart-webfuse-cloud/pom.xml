@@ -23,17 +23,6 @@
         <module>smart-webfuse-cloud-service-zipkin-server</module>
     </modules>
 
-    <repositories>
-        <repository>
-            <id>github-maven-repo-snap</id>
-            <url>https://raw.githubusercontent.com/guanzhenxing/maven-repository/snapshot/repository</url>
-        </repository>
-        <repository>
-            <id>github-maven-repo-release</id>
-            <url>https://raw.githubusercontent.com/guanzhenxing/maven-repository/release/repository</url>
-        </repository>
-    </repositories>
-
     <build>
         <pluginManagement>
             <plugins>
