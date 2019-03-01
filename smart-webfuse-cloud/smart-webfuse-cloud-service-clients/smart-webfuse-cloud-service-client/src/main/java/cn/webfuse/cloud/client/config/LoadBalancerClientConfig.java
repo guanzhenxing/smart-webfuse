@@ -10,7 +10,7 @@ import org.springframework.web.client.RestTemplate;
  * 客户端配置。配置Ribbon，Feign等
  */
 @Configuration
-public class ClientSideConfig {
+public class LoadBalancerClientConfig {
     /**
      * 负载均衡的RestTemplate。使用方法为：
      * <p>
