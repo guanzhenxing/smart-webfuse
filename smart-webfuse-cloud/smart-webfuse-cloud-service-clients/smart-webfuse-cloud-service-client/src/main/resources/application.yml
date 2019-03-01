@@ -78,38 +78,42 @@ hystrix:
 ##########################
 ## 业务配置
 ##########################
+
+
+########################################################################################################
 ---
 spring:
   profiles: dev
 
 webfuse:
   eureka-server:
-    urls: http://eureka-admin:eureka-admin-pwd@localhost:2000/eureka/
+    urls: http://eureka-admin:eureka-admin-pwd@localhost:2000/eureka/ #这里可以配置eureka的地址列表
 
-
-
+########################################################################################################
 ---
 spring:
   profiles: test
 
 webfuse:
   eureka-server:
-    urls: http://eureka-admin:eureka-admin-pwd@localhost:2000/eureka/
+    urls: http://eureka-admin:eureka-admin-pwd@localhost:2000/eureka/ #这里可以配置eureka的地址列表
 
-
+########################################################################################################
 ---
 spring:
   profiles: beta
 
 webfuse:
   eureka-server:
-    urls: http://eureka-admin:eureka-admin-pwd@localhost:2000/eureka/
+    urls: http://eureka-admin:eureka-admin-pwd@localhost:2000/eureka/ #这里可以配置eureka的地址列表
 
-
+########################################################################################################
 ---
 spring:
   profiles: prod
 
 webfuse:
   eureka-server:
-    urls: http://eureka-admin:eureka-admin-pwd@localhost:2000/eureka/
+    urls: http://eureka-admin:eureka-admin-pwd@localhost:2000/eureka/ #这里可以配置eureka的地址列表
+
+########################################################################################################

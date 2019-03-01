@@ -192,11 +192,6 @@
 
     <repositories>
         <repository>
-            <id>spring-milestones</id>
-            <name>Spring Milestones</name>
-            <url>https://repo.spring.io/milestone</url>
-        </repository>
-        <repository>
             <id>github-maven-repo-snap</id>
             <url>https://raw.githubusercontent.com/guanzhenxing/maven-repository/snapshot/repository</url>
         </repository>
