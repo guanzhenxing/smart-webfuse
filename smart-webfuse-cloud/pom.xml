@@ -206,6 +206,7 @@
         <module>smart-webfuse-cloud-service-configuration</module>
         <module>smart-webfuse-cloud-service-gateway</module>
         <module>smart-webfuse-cloud-service-clients</module>
+        <module>smart-webfuse-cloud-service-uaa</module>
     </modules>
 
 </project>
