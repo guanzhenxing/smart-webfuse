@@ -13,6 +13,7 @@
 
     <modules>
         <module>smart-webfuse-cloud</module>
+        <module>smart-webfuse-admin</module>
     </modules>
 
 
