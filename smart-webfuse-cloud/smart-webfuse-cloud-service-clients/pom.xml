@@ -12,7 +12,7 @@
     <artifactId>smart-webfuse-cloud-service-clients</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>smart-webfuse-cloud-service-starter</module>
+        <module>test-producer-service</module>
     </modules>
 
 

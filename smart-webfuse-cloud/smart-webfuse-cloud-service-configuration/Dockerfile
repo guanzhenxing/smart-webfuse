@@ -5,7 +5,7 @@ FROM openjdk:8-jdk-alpine
 VOLUME /tmp
 
 # 拷贝文件到容器
-ADD ./target/smart-webfuse-cloud-service-config-1.0-SNAPSHOT.jar app.jar
+ADD ./target/smart-webfuse-cloud-service-configuration-1.0-SNAPSHOT.jar app.jar
 #RUN bash -c 'touch /app.jar'
 
 # 开放2100端口
