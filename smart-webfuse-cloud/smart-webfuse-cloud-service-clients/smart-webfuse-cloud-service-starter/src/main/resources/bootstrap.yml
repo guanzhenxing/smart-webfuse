@@ -1,0 +1,47 @@
+spring:
+  application:
+    name: smart-webfuse-cloud-service-starter
+  cloud:
+    config:
+      fail-fast: true
+
+---
+spring:
+  profiles: dev
+  cloud:
+    config:
+      uri: http://localhost:2100/
+      username: config-admin
+      password: config-admin-pwd
+      profile: ${spring.profiles.active}
+      label: master
+---
+spring:
+  profiles: test
+  cloud:
+    config:
+      uri: http://localhost:2100/
+      username: config-admin
+      password: config-admin-pwd
+      profile: ${spring.profiles.active}
+      label: master
+---
+spring:
+  profiles: pre
+  cloud:
+    config:
+      uri: http://localhost:2100/
+      username: config-admin
+      password: config-admin-pwd
+      profile: ${spring.profiles.active}
+      label: master
+---
+spring:
+  profiles: prod
+  cloud:
+    config:
+      uri: http://localhost:2100/
+      username: config-admin
+      password: config-admin-pwd
+      profile: ${spring.profiles.active}
+      label: master

@@ -9,9 +9,9 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>smart-webfuse-cloud-service-client</artifactId>
+    <artifactId>smart-webfuse-cloud-service-starter</artifactId>
 
-    <name>smart-webfuse-cloud-service-client</name>
+    <name>smart-webfuse-cloud-service-starter</name>
     <description></description>
 
     <dependencies>

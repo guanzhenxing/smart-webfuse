@@ -66,7 +66,18 @@
  
 #### 配置管理
 
- * 现有的配置使用的是SpringCloudConfig，可以使用的有apollo等
+ * 此项目配置使用的是Spring Cloud Config，配置在smart-webfuse-cloud-service-configuration的数据库中
+ * bootstrap.yml中配置了项目名称和配置中心的地址
+ * application.yml中配置了项目的端口号
+ 
+
+**配置原则：**
+- 敏感配置放在application.yml中，加密保存
+- 固定不变的配置放application.yml，进行明文存储
+- 会增加其他部门沟通成本或者有变动需求的非敏感配置放配置中心
+
+
+ 
  
  
 参考文章：

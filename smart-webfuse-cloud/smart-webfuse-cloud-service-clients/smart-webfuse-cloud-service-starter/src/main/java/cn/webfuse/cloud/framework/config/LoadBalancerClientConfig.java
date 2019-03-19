@@ -1,4 +1,4 @@
-package cn.webfuse.cloud.client.config;
+package cn.webfuse.cloud.framework.config;
 
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;

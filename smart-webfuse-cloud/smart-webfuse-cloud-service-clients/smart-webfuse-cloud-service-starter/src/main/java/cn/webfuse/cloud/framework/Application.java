@@ -1,4 +1,4 @@
-package cn.webfuse.cloud.client;
+package cn.webfuse.cloud.framework;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.cloud.client.SpringCloudApplication;
