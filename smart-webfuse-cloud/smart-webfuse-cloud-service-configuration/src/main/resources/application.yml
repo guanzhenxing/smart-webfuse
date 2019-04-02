@@ -30,7 +30,7 @@ spring:
       enabled: true
       force: true
   application:
-    name: smart-webfuse-cloud-service-config
+    name: smart-webfuse-cloud-service-configuration
   security:
     user:
       name: config-admin

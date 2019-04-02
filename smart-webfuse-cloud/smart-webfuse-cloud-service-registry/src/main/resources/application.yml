@@ -17,9 +17,6 @@ management:
 ##########################
 ## 基本配置
 ##########################
-spring:
-  application:
-    name: smart-webfuse-cloud-service-registry
   security:
     user:
       name: eureka-admin
