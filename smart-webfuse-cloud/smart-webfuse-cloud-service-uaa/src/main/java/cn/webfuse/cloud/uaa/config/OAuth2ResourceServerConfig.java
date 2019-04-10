@@ -15,16 +15,14 @@ public class OAuth2ResourceServerConfig extends ResourceServerConfigurerAdapter 
 
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
-        resources.resourceId("uaa");
+        super.configure(resources);
     }
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .anyRequest()
-                .authenticated()
+                .anyRequest().authenticated()
                 .and()
-                .requestMatchers()
-                .antMatchers("/api/**");
+                .requestMatchers().antMatchers("/api/**");
     }
 }

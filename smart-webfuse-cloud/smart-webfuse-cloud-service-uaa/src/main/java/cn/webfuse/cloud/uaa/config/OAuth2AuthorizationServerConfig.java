@@ -13,6 +13,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.A
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
+import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenEnhancer;
 import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
@@ -36,6 +37,7 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
         security
@@ -47,32 +49,13 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         clients.inMemory()
-
-                .withClient("authorization_code_client-app")
-                .secret(passwordEncoder.encode("pwd"))
-                .authorizedGrantTypes("authorization_code", "refresh_token")
-                .redirectUris("http://localhost:9001/callback")
-                .scopes("read", "write", "foo", "bar")
-
-                .and()
-                .withClient("client_credentials_client-app")
-                .secret(passwordEncoder.encode("pwd"))
-                .authorizedGrantTypes("client_credentials", "refresh_token")
-                .scopes("foo")
-
-                .and()
-                .withClient("implicit_client-app")
-                .secret(passwordEncoder.encode("pwd"))
-                .authorizedGrantTypes("implicit", "refresh_token")
-                .redirectUris("http://localhost:9001/callback")
-                .scopes("bar")
-
-                .and()
-                .withClient("password_client-app")
-                .secret(passwordEncoder.encode("pwd"))
-                .authorizedGrantTypes("password", "refresh_token")
-                .scopes("read", "write")
-        ;
+                .withClient("tonr")
+                    .resourceIds("uaa")
+                    .authorizedGrantTypes("authorization_code", "implicit")
+                    .authorities("ROLE_CLIENT")
+                    .scopes("read", "write")
+                    .secret(passwordEncoder.encode("secret"))
+                    .redirectUris("http://localhost:8080/tonr2/sparklr/photos");
     }
 
     @Override
