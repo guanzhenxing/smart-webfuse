@@ -1,12 +1,22 @@
 ## TODO LIST
 
-
-## READ LIST
-
-- [Re：从零开始的Spring Security Oauth2](https://www.cnkirito.moe/categories/Spring-Security-OAuth2/)
-- [社区 Spring Security 从入门到进阶系列教程](http://www.spring4all.com/article/428)
-- [理解OAuth 2.0](http://www.ruanyifeng.com/blog/2014/05/oauth_2_0.html)
-- [Security](http://blueskykong.com/categories/Security/)
-- [【转】微服务架构下的安全认证与鉴权](https://www.jianshu.com/p/15d0a1c366b3)
-- [微服务API级权限的技术架构](https://mp.weixin.qq.com/s/EF5KQc5ZleDCYUx7jkEM-g)
-- [Spring Security 架构](http://www.spring4all.com/article/433)
+- [Lab01]
+    - ~~支持刷新令牌Refresh Token~~
+    - 使用关系数据库存储令牌和客户信息
+    - 使用缓存Cache存储令牌提升性能
+    - Revoke端点
+    - 授权服务器和资源服务器拆分 Introspection端点
+- [Lab02]
+    - 使用Spring Security OAuth2 客户端支持授权码模式
+    - 客户端支持简化/密码/客户端模式
+    - 客户端支持refresh token
+- [Lab03]
+    - 在JWT令牌中增加定制claims
+    - JWT令牌的非对称签名和校验
+    -  使用JWE加密/解密JWT令牌
+- [Lab04]
+    - 支持用户名密码模式
+    - 使用PKCE(RFC7636)增强无线 客户使用授权码模式的安全性
+- [Lab06]
+    - 新浪微博/微信/QQ
+    - Spring Social
