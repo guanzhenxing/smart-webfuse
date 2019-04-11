@@ -2,10 +2,8 @@ package cn.webfuse.cloud.uaa.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -39,28 +37,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        super.configure(auth);
+
+        auth.inMemoryAuthentication()
+                .withUser("john").password("123").roles("USER");
+
     }
 
 
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/resources/**", "/webjars/**");
+        web.ignoring().antMatchers("/swagger-ui.html", "/swagger-resources/**", "/v2/api-docs");
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-
-        //异常处理
-        http.exceptionHandling().accessDeniedPage("/login.html?authorization_error=true");
-
-        http
-                .logout().permitAll()
-                .and()
-                .formLogin().permitAll();
-
         http.authorizeRequests().anyRequest().authenticated();
-
     }
 
 
