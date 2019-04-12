@@ -1,11 +1,9 @@
-package cn.webfuse.cloud.uaa.authorization.provider;
+package cn.webfuse.cloud.uaa.provider;
 
 import org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl;
-import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
 
-@Component
 public class CustomUserDetailsService extends JdbcDaoImpl {
 
 

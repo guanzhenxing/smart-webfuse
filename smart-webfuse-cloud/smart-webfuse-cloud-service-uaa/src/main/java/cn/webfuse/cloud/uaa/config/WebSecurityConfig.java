@@ -1,6 +1,6 @@
 package cn.webfuse.cloud.uaa.config;
 
-import net.bytebuddy.dynamic.loading.PackageDefinitionStrategy;
+import cn.webfuse.cloud.uaa.provider.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,8 +10,9 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
+import javax.sql.DataSource;
 
 /**
  * UAA服务的Security配置
@@ -26,9 +27,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Autowired
-    private UserDetailsService customUserDetailsService;
+    private DataSource dataSource;
 
+    @Bean
+    public UserDetailsService userDetailsService() {
+        return new CustomUserDetailsService(dataSource);
+    }
 
+    /**
+     * 不定义没有password grant_type
+     *
+     * @return
+     * @throws Exception
+     */
     @Override
     @Bean
     public AuthenticationManager authenticationManagerBean() throws Exception {
@@ -37,14 +48,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-
-        auth.userDetailsService(customUserDetailsService).passwordEncoder(passwordEncoder());
-
+        auth
+                .userDetailsService(userDetailsService())
+                .passwordEncoder(passwordEncoder());
     }
 
+    /**
+     * 配置的是UAA服务的HttpSecurity
+     *
+     * @param http
+     * @throws Exception
+     */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-
         http.authorizeRequests()
                 .antMatchers("/h2-console/**").permitAll()
                 .antMatchers("/login").permitAll()

@@ -1,6 +1,6 @@
-package cn.webfuse.cloud.uaa.authorization.config;
+package cn.webfuse.cloud.uaa.config;
 
-import cn.webfuse.cloud.uaa.authorization.provider.CustomTokenEnhancer;
+import cn.webfuse.cloud.uaa.provider.CustomTokenEnhancer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -45,7 +45,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     private RedisConnectionFactory redisConnectionFactory;
 
     @Autowired
-    private UserDetailsService customUserDetailsService;
+    private UserDetailsService userDetailsService;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -56,6 +56,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         oauthServer
                 .tokenKeyAccess("permitAll()")
                 .checkTokenAccess("isAuthenticated()");
+
     }
 
     @Override
@@ -74,7 +75,8 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 .tokenStore(tokenStore())
                 .tokenEnhancer(tokenEnhancerChain)
                 .authenticationManager(authenticationManager)
-                .userDetailsService(customUserDetailsService);
+                //若无，refresh_token会有UserDetailsService is required错误
+                .userDetailsService(userDetailsService);
     }
 
     /**
