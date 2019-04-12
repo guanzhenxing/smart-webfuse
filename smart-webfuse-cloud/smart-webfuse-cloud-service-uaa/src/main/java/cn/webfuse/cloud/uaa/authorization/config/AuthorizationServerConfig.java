@@ -31,6 +31,9 @@ import java.util.Arrays;
 @EnableAuthorizationServer
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
 
+    /**
+     * 注入认证管理器
+     */
     @Autowired
     @Qualifier("authenticationManagerBean")
     private AuthenticationManager authenticationManager;
@@ -58,6 +61,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Override
     public void configure(ClientDetailsServiceConfigurer clients)
             throws Exception {
+        // 使用jdbc存储客户端信息
         clients.jdbc(dataSource).passwordEncoder(passwordEncoder);
     }
 
@@ -66,7 +70,8 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
         tokenEnhancerChain.setTokenEnhancers(Arrays.asList(tokenEnhancer()));
 
-        endpoints.tokenStore(tokenStore())
+        endpoints
+                .tokenStore(tokenStore())
                 .tokenEnhancer(tokenEnhancerChain)
                 .authenticationManager(authenticationManager)
                 .userDetailsService(customUserDetailsService);

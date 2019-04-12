@@ -34,15 +34,20 @@ INSERT INTO oauth_client_details (
      'http://localhost:9001/callback', null, 36000, 36000, null, true);
 
 
-insert into user(id, name, login, password) values (1,'admin','admin','$2a$10$ZCoYzZYVgOrdGG/Tn9Ts2eltuV/DsyIPvJIKW8IoZginOcBIe9M7u');
-insert into user(id, name, login, password) values (2,'jesen','jesen','$2a$10$ZCoYzZYVgOrdGG/Tn9Ts2eltuV/DsyIPvJIKW8IoZginOcBIe9M7u');
-insert into user(id, name, login, password) values (3,'hing','hing','$2a$10$ZCoYzZYVgOrdGG/Tn9Ts2eltuV/DsyIPvJIKW8IoZginOcBIe9M7u');
 
-insert into role(id, name) values (1,'ROLE_ADMIN');
-insert into role(id, name) values (2,'ROLE_USER');
-insert into role(id, name) values (3,'ROLE_GUEST');
+insert into users (username,password,enabled) values ('admin','$2a$10$ZCoYzZYVgOrdGG/Tn9Ts2eltuV/DsyIPvJIKW8IoZginOcBIe9M7u',true);
+insert into users (username,password,enabled) values ('jesen','$2a$10$ZCoYzZYVgOrdGG/Tn9Ts2eltuV/DsyIPvJIKW8IoZginOcBIe9M7u',true);
+insert into users (username,password,enabled) values ('hing','$2a$10$ZCoYzZYVgOrdGG/Tn9Ts2eltuV/DsyIPvJIKW8IoZginOcBIe9M7u',true);
 
-insert into user_role(user_id, role_id) values (1,1);
-insert into user_role(user_id, role_id) values (1,2);
-insert into user_role(user_id, role_id) values (2,3);
-insert into user_role(user_id, role_id) values (3,3);
+insert into authorities (username,authority) values ('admin','ROLE_ADMIN');
+insert into authorities (username,authority) values ('jesen','ROLE_USER_ADMIN');
+insert into authorities (username,authority) values ('hing','ROLE_API_ADMIN');
+
+insert into groups (id,group_name) values (1,'webfuse');
+
+insert into group_authorities (group_id,authority) values (1,'ROLE_MONITOR_ADMIN');
+insert into group_authorities (group_id,authority) values (1,'ROLE_USER');
+
+insert into group_members (username,group_id) values ('admin',1);
+insert into group_members (username,group_id) values ('jesen',1);
+insert into group_members (username,group_id) values ('hing',1);
