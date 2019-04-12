@@ -1,4 +1,4 @@
-package cn.webfuse.cloud.uaa.resource.config;
+package cn.webfuse.cloud.uaa.resources.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.access.expression.method.MethodSecurityExpressionHandler;

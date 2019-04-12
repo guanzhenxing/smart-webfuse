@@ -1,13 +1,15 @@
-package cn.webfuse.cloud.uaa.authentication.config;
+package cn.webfuse.cloud.uaa.authorization.config;
 
-import cn.webfuse.cloud.uaa.authentication.provider.CustomTokenEnhancer;
-import cn.webfuse.cloud.uaa.resource.provider.CustomAccessTokenConverter;
+import cn.webfuse.cloud.uaa.authorization.provider.CustomTokenEnhancer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
@@ -17,12 +19,14 @@ import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenEnhancer;
 import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.TokenStore;
-import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
-import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
+import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 
 import javax.sql.DataSource;
 import java.util.Arrays;
 
+/**
+ * OAuth2认证服务器的配置
+ */
 @Configuration
 @EnableAuthorizationServer
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
@@ -34,37 +38,38 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Autowired
     private DataSource dataSource;
 
-    /**
-     * 配置授权endpoint权限
-     *
-     * @param security
-     * @throws Exception
-     */
+    @Autowired
+    private RedisConnectionFactory redisConnectionFactory;
+
+    @Autowired
+    private UserDetailsService customUserDetailsService;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+
     @Override
-    public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
-        security
+    public void configure(AuthorizationServerSecurityConfigurer oauthServer) throws Exception {
+        oauthServer
                 .tokenKeyAccess("permitAll()")
                 .checkTokenAccess("isAuthenticated()");
     }
 
     @Override
-    public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-        clients.jdbc(dataSource);
+    public void configure(ClientDetailsServiceConfigurer clients)
+            throws Exception {
+        clients.jdbc(dataSource).passwordEncoder(passwordEncoder);
     }
 
-    /**
-     * 配置授权端点
-     */
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-
         TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
-        tokenEnhancerChain.setTokenEnhancers(Arrays.asList(tokenEnhancer(), accessTokenConverter()));
+        tokenEnhancerChain.setTokenEnhancers(Arrays.asList(tokenEnhancer()));
 
         endpoints.tokenStore(tokenStore())
                 .tokenEnhancer(tokenEnhancerChain)
-                .authenticationManager(authenticationManager);
-
+                .authenticationManager(authenticationManager)
+                .userDetailsService(customUserDetailsService);
     }
 
     /**
@@ -77,27 +82,15 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         return new CustomTokenEnhancer();
     }
 
-
     //////////////////////////// 以下这些也需要在resource中进行配置。 ////////////////////////////
     //////////////////////////// 由于本项目是在一起的，所以就只在此处配置 ////////////////////////////
 
 
-
     @Bean
     public TokenStore tokenStore() {
-        return new JwtTokenStore(accessTokenConverter());
+        return new RedisTokenStore(redisConnectionFactory);
     }
 
-    @Autowired
-    private CustomAccessTokenConverter customAccessTokenConverter;
-
-    @Bean
-    public JwtAccessTokenConverter accessTokenConverter() {
-        JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
-        converter.setSigningKey("123");
-        converter.setAccessTokenConverter(customAccessTokenConverter);
-        return converter;
-    }
 
     @Bean
     @Primary

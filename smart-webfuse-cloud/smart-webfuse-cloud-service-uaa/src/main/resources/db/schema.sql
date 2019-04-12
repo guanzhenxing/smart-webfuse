@@ -1,5 +1,4 @@
 -- from https://github.com/spring-projects/spring-security-oauth/blob/master/spring-security-oauth2/src/test/resources/schema.sql
-
 create table oauth_client_details (
   client_id VARCHAR(256) PRIMARY KEY,
   resource_ids VARCHAR(256),
@@ -52,4 +51,24 @@ create table oauth_approvals (
 	status VARCHAR(10),
 	expiresAt TIMESTAMP,
 	lastModifiedAt TIMESTAMP
+);
+
+
+create table `user` (
+  id int not null auto_increment,
+  name VARCHAR(256),
+  password varchar(256),
+  login  varchar(256),
+  PRIMARY KEY(id)
+);
+
+create table role (
+  id int not null auto_increment,
+  name VARCHAR(256),
+  PRIMARY KEY(id)
+);
+
+create table user_role(
+  user_id int,
+  role_id int
 );
