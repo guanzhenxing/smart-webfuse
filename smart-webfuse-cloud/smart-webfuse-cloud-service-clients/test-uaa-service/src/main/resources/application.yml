@@ -1,0 +1,42 @@
+server:
+  port: 8081
+management:
+  endpoint:
+    env:
+      enabled: true
+    health:
+      show-details: always
+    shutdown:
+      enabled: true
+  endpoints:
+    enabled-by-default: true
+    web:
+      exposure:
+        include: '*'
+spring:
+  http:
+    converters:
+      preferred-json-mapper: jackson
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+  mvc:
+    favicon:
+      enabled: false
+  jpa:
+    properties:
+webfuse:
+  mvc:
+    restful-exception-handle:
+      enabled: true
+      show-developer-message: true
+##########################
+##
+##########################
+security:
+  oauth2:
+    resource:
+      id: test-uaa-service
+      user-info-uri: http://localhost:8080/uaa/user
+      prefer-token-info: false
