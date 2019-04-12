@@ -33,6 +33,8 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     /**
      * 注入认证管理器
+     * <p>
+     * AuthenticationManager（接口）是认证相关的核心接口，也是发起认证的出发点
      */
     @Autowired
     @Qualifier("authenticationManagerBean")

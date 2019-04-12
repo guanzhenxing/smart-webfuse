@@ -4,7 +4,7 @@
     - ~~支持刷新令牌Refresh Token~~
     - ~~使用关系数据库存储令牌和客户信息~~
     - ~~使用缓存Cache存储令牌提升性能~~
-    - Revoke端点
+    - ~~Revoke端点~~
     - 授权服务器和资源服务器拆分 Introspection端点
 - [Lab02]
     - 使用Spring Security OAuth2 客户端支持授权码模式
@@ -20,3 +20,8 @@
 - [Lab06]
     - 新浪微博/微信/QQ
     - Spring Social
+
+
+需要验证：
+
+1- 基于https://www.jianshu.com/p/1a0a5c92185e，是否两个的securityHttp有冲突

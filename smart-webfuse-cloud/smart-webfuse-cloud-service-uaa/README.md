@@ -17,3 +17,17 @@ UAA是一个用于管理账户、用户鉴权等的服务。
 
 
 ## 重要的参考资料
+
+
+## 踩过的坑
+
+**AuthorizationServerConfig 、 WebSecurityConfig 和 ResourceServerConfig 的顺序**
+
+- WebSecurityConfigurerAdapter 是默认情况下 spring security 的 http 配置
+- ResourceServerConfigurerAdapter 是默认情况下 spring security oauth2 的 http 配置
+
+AuthorizationServerConfig 的 order 为 0， ResourceServerConfig 的 order 为 1， WebSecurityConfig 默认为 100。 
+所以，ResourceServerConfig 的优先级是高于 WebSecurityConfig 的，优先级高的 http 配置是可以覆盖优先级低的配置的。具体要怎么配置就看代码结构了。
+不正确的位置配置会引起 "User must be authenticated with Spring Security before authorization can be completed." 和 "Full authentication is required to access this resource oauth2."
+
+
