@@ -1,6 +1,6 @@
 spring:
   application:
-    name: test-producer-service
+    name: client-service
   cloud:
     config:
       fail-fast: true
