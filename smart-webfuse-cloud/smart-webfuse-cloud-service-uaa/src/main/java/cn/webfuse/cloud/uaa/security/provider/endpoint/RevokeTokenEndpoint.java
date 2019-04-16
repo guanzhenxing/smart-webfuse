@@ -1,4 +1,4 @@
-package cn.webfuse.cloud.uaa.provider.endpoint;
+package cn.webfuse.cloud.uaa.security.provider.endpoint;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

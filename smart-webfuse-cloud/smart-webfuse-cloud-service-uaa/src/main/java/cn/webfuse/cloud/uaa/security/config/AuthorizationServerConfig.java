@@ -1,6 +1,6 @@
-package cn.webfuse.cloud.uaa.config;
+package cn.webfuse.cloud.uaa.security.config;
 
-import cn.webfuse.cloud.uaa.provider.CustomTokenEnhancer;
+import cn.webfuse.cloud.uaa.security.provider.CustomTokenEnhancer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -57,7 +57,8 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     public void configure(AuthorizationServerSecurityConfigurer oauthServer) throws Exception {
         oauthServer
                 .tokenKeyAccess("permitAll()")
-                .checkTokenAccess("isAuthenticated()");
+                .checkTokenAccess("isAuthenticated()")
+                .passwordEncoder(passwordEncoder);
 
     }
 
@@ -65,6 +66,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     public void configure(ClientDetailsServiceConfigurer clients)
             throws Exception {
         // 使用jdbc存储客户端信息
+        // 这边使用的是spring-security-oauth2自带的sql，如果不想要它的sql，可以使用自定义。只要实现ClientDetailsService接口
         clients.jdbc(dataSource).passwordEncoder(passwordEncoder);
     }
 

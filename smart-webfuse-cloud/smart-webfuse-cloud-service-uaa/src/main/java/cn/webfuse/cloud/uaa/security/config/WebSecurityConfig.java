@@ -1,6 +1,6 @@
-package cn.webfuse.cloud.uaa.config;
+package cn.webfuse.cloud.uaa.security.config;
 
-import cn.webfuse.cloud.uaa.provider.CustomUserDetailsService;
+import cn.webfuse.cloud.uaa.security.provider.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,13 +23,13 @@ import javax.sql.DataSource;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
+    @Autowired
+    private DataSource dataSource;
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
-    @Autowired
-    private DataSource dataSource;
 
     @Bean
     @Override

@@ -1,7 +1,8 @@
 -- OAuth2相关表
 -- from https://github.com/spring-projects/spring-security-oauth/blob/master/spring-security-oauth2/src/test/resources/schema.sql
+-- 数据库说明：http://andaily.com/spring-oauth-server/db_table_description.html
 create table oauth_client_details (
-  client_id VARCHAR(256) PRIMARY KEY,
+  client_id VARCHAR(256) PRIMARY KEY ,
   resource_ids VARCHAR(256),
   client_secret VARCHAR(256),
   scope VARCHAR(256),

@@ -30,4 +30,30 @@ AuthorizationServerConfig 的 order 为 0， ResourceServerConfig 的 order 为 
 所以，ResourceServerConfig 的优先级是高于 WebSecurityConfig 的，优先级高的 http 配置是可以覆盖优先级低的配置的。具体要怎么配置就看代码结构了。
 不正确的位置配置会引起 "User must be authenticated with Spring Security before authorization can be completed." 和 "Full authentication is required to access this resource oauth2."
 
+**Authorize Requests**
+
+关于`void configure(HttpSecurity http)`这个方法踩了很多次坑。具体见[6.4 Authorize Requests](https://docs.spring.io/spring-security/site/docs/current/reference/htmlsingle/#jc-authorize-requests)
+
+```
+protected void configure(HttpSecurity http) throws Exception {
+    http
+        .authorizeRequests()                                                                ①
+            .antMatchers("/resources/**", "/signup", "/about").permitAll()                  ②
+            .antMatchers("/admin/**").hasRole("ADMIN")                                      ③
+            .antMatchers("/db/**").access("hasRole('ADMIN') and hasRole('DBA')")            ④
+            .anyRequest().authenticated()                                                   ⑤
+            .and()
+        // ...
+        .formLogin();
+}
+```
+- ① 对请求进行授权，这个方法下面的都是授权的配置
+- ② 添加匹配器，允许匹配的请求不需要进行认证（permitAll()）
+- ③ 添加匹配器，只有具有“ADMIN”角色的认证用户才能访问“/admin”接口
+- ④ 添加匹配器，只有同时拥有“ADMIN”角色和“DBA”角色的认证用户才能访问“/db”接口
+- ⑤ 对其他的所有请求都需要身份认证。
+
+所有的匹配器`antMatchers`必须要放在`.anyRequest().authenticated()`之前配置。因为会存在覆盖关系，故AuthorizeConfigProvider的定义需要指定先后顺序，使用@Order。
+
+
 

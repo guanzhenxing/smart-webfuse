@@ -5,7 +5,7 @@
     - ~~使用关系数据库存储令牌和客户信息~~
     - ~~使用缓存Cache存储令牌提升性能~~
     - ~~Revoke端点~~
-    - 授权服务器和资源服务器拆分 Introspection端点
+    - ~~授权服务器和资源服务器拆分 Introspection端点~~
 - [Lab02]
     - 使用Spring Security OAuth2 客户端支持授权码模式
     - 客户端支持简化/密码/客户端模式
@@ -20,6 +20,8 @@
 - [Lab06]
     - 新浪微博/微信/QQ
     - Spring Social
+    
+- confirm_access的自定义实现
 
 
 需要验证：
