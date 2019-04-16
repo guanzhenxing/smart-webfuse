@@ -20,7 +20,7 @@
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        
+
         <spring-boot.version>2.1.4.RELEASE</spring-boot.version>
         <spring-cloud.version>Greenwich.RELEASE</spring-cloud.version>
 
@@ -236,11 +236,10 @@
     </repositories>
 
     <modules>
-        <module>smart-webfuse-cloud-service-registry</module>
-        <module>smart-webfuse-cloud-service-configuration</module>
-        <module>smart-webfuse-cloud-service-gateway</module>
-        <module>smart-webfuse-cloud-service-clients</module>
-        <module>smart-webfuse-cloud-service-uaa</module>
+        <module>registry</module>
+        <module>configuration</module>
+        <module>gateway</module>
+        <module>auth-service</module>
     </modules>
 
 </project>
