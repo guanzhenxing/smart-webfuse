@@ -20,6 +20,7 @@ import org.springframework.security.oauth2.provider.token.TokenEnhancer;
 import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;
+import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 
 import javax.sql.DataSource;
 import java.util.Arrays;
@@ -49,6 +50,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Autowired
     private UserDetailsService userDetailsService;
 
+    /**
+     * 加密方式
+     */
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -69,6 +73,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         // 这边使用的是spring-security-oauth2自带的sql，如果不想要它的sql，可以使用自定义。只要实现ClientDetailsService接口
         clients.jdbc(dataSource).passwordEncoder(passwordEncoder);
     }
+
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
@@ -99,8 +104,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     @Bean
     public TokenStore tokenStore() {
-//        return new RedisTokenStore(redisConnectionFactory);
-        return new InMemoryTokenStore();
+        return new RedisTokenStore(redisConnectionFactory);
     }
 
 

@@ -21,11 +21,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private DataSource dataSource;
 
+    /**
+     * 加密方式
+     */
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
+    /**
+     * 获得用户信息
+     */
     @Bean
     @Override
     public UserDetailsService userDetailsService() {
